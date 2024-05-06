@@ -1,0 +1,13 @@
+minishell
+bin
+*.o
+*.d
+*.a
+log
+a.out
+
+test
+
+.vscode
+
+.DS_Store
