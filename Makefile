@@ -6,7 +6,7 @@
 #    By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 20:11:57 by arcanava          #+#    #+#              #
-#    Updated: 2024/05/06 20:19:22 by arcanava         ###   ########.fr        #
+#    Updated: 2024/05/07 14:09:56 by arcanava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra #-O3 #-g #-fsanitize=thread #-fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra #-fsanitize=thread #-fsanitize=address
 
 #----DIRS----#
 BIN_DIR = bin/
@@ -75,12 +75,12 @@ all:
 ifndef BONUS
 $(NAME): $(LIBFT_LIB) $(OBJS) $(MOBJS)
 	@printf "$(BLUE)Linking objects and creating program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(OBJS) $(MOBJS) $(LIBFT_LIB) $(DARWIN_FLAGS) -o $(NAME)
+	$(CC) $(CCFLAGS) $(OBJS) $(MOBJS) $(LIBFT_LIB) -lreadline -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME)$(GREEN) created!!!$(DEF_COLOR)"
 else
 $(NAME): $(LIBFT_LIB) $(OBJS) $(BOBJS)
 	@printf "$(BLUE)Linking objects and creating bonus program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(OBJS) $(BOBJS) $(LIBFT_LIB) $(DARWIN_FLAGS) -o $(NAME)
+	$(CC) $(CCFLAGS) $(OBJS) $(BOBJS) $(LIBFT_LIB) -lreadline -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME) Bonus$(GREEN) created!!!$(DEF_COLOR)"
 endif
 
