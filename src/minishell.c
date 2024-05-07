@@ -5,7 +5,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*curr_line;
+	char	*line;
 
 	(void) argv;
 	(void) envp;
@@ -14,8 +14,10 @@ int	main(int argc, char **argv, char **envp)
 	ft_printf("\n");
 	while (42)
 	{
-		curr_line = readline(PROMPT);
-		free(curr_line);
+		line = readline(PROMPT);
+		if (line && *line)
+			add_history(line);
+		free(line);
 	}
 	return (EXIT_SUCCESS);
 }
