@@ -10,5 +10,6 @@ la*
 test
 
 .vscode
+lib/readline
 
 .DS_Store

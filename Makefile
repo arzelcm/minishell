@@ -26,13 +26,20 @@ LIBFT_DIR = lib/libft/
 LIBFT_LIB = $(LIBFT_DIR)libft.a
 INCLUDES += -I$(LIBFT_DIR)
 
+#----READLINE----#
+READLINE_DIR = lib/readline
+READLINE_LIB = $(READLINE_DIR)/libreadline.a
+LIBS += -L$(READLINE_DIR) -lreadline -lhistory -ltermcap
+INCLUDES += -Ilib -I$(READLINE_DIR)
+
 #----SHARED----#
 SRCS =	
 OBJS = $(SRCS:%.c=$(BIN_DIR)%.o)
 DEPS = $(OBJS:%.o=%.d)
 
 #----MANDATORY----#
-MSRCS = minishell.c
+MSRCS = minishell.c \
+		custom_utils.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
@@ -53,7 +60,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR)
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils
 
 #----RULES----#
 all:
@@ -61,14 +68,14 @@ all:
 	@$(MAKE) --no-print-directory $(NAME)
 
 ifndef BONUS
-$(NAME): $(LIBFT_LIB) $(OBJS) $(MOBJS)
+$(NAME): $(READLINE_LIB) $(LIBFT_LIB) $(OBJS) $(MOBJS)
 	@printf "$(BLUE)Linking objects and creating program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(OBJS) $(MOBJS) $(LIBFT_LIB) -lreadline -o $(NAME)
+	$(CC) $(CCFLAGS) $(OBJS) $(MOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME)$(GREEN) created!!!$(DEF_COLOR)"
 else
 $(NAME): $(LIBFT_LIB) $(OBJS) $(BOBJS)
 	@printf "$(BLUE)Linking objects and creating bonus program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(OBJS) $(BOBJS) $(LIBFT_LIB) -lreadline -o $(NAME)
+	$(CC) $(CCFLAGS) $(OBJS) $(BOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME) Bonus$(GREEN) created!!!$(DEF_COLOR)"
 endif
 
@@ -80,9 +87,10 @@ $(BIN_DIR)%.o: %.c Makefile
 clean: libft_clean
 	@rm -rf $(BIN_DIR)
 	@echo "$(RED)bin/ deleted$(DEF_COLOR)"
+	$(MAKE) --no-print-directory -C $(READLINE_DIR) clean 1>> log
 
 fclean: libft_fclean clean
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(READLINE_DIR)
 	@echo "$(RED)Executable deleted$(DEF_COLOR)\n"
 
 re: fclean all
@@ -104,6 +112,18 @@ libft_clean:
 libft_fclean:
 	@echo "$(RED)Cleaning $(PINK)Libft$(RED)...$(DEF_COLOR)"
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
+
+$(READLINE_LIB): $(READLINE_DIR)
+	$(MAKE) --silent --no-print-directory -C $(READLINE_DIR) 1>> log
+
+$(READLINE_DIR):
+	curl -s -O http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz
+	mv readline-master.tar.gz lib
+	rm -rf $(READLINE_DIR)
+	mkdir -p $(READLINE_DIR)
+	tar -xpf lib/readline-master.tar.gz -C $(READLINE_DIR) --strip-components 1
+	rm -rf lib/readline-master.tar.gz
+	cd $(READLINE_DIR); bash ./configure 1>> log
 
 .PHONY: all \
 		clean \
