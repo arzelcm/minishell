@@ -1,20 +1,8 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/06 20:11:57 by arcanava          #+#    #+#              #
-#    Updated: 2024/05/07 14:09:56 by arcanava         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
 #----COLORS----#
-DEF_COLOR = \033[1;39m
-WHITE_BOLD = \033[1m
+DEF_COLOR = \033[0m
+WHITE_BOLD = \033[1;39m
 BLACK = \033[1;30m
 RED = \033[1;31m
 GREEN = \033[1;32m
@@ -129,5 +117,6 @@ libft_fclean:
 		b \
 
 -include $(DEPS)
+-include $(MDEPS)
 -include $(BDEPS)
 .SILENT:

@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 20:08:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/05/07 14:29:43 by arcanava         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
+#include "minishell.h"
 #include <readline/readline.h>
- #include <readline/history.h>
+#include <readline/history.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -22,9 +11,10 @@ int	main(int argc, char **argv, char **envp)
 	(void) envp;
 	if (argc > 1)
 		return (EXIT_FAILURE);
+	ft_printf("\n");
 	while (42)
 	{
-		curr_line = readline("Amatist> ");
+		curr_line = readline(PROMPT);
 		free(curr_line);
 	}
 	return (EXIT_SUCCESS);
