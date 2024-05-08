@@ -3,6 +3,6 @@
 
 void	custom_exit(int exit_code)
 {
-	ft_printff(STDERR_FILENO, "%sexit\n", PROMPT);
+	ft_printff(STDERR_FILENO, "\033[1A%sexit\n", PROMPT);
 	exit(exit_code);
 }
