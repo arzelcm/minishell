@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (EXIT_FAILURE);
 	listen_signals();
-	ft_printf("\n");
+	ft_printf(CREDITS);
 	while (42)
 	{
 		line = readline(PROMPT);
