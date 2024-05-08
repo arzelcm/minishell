@@ -2,21 +2,21 @@
 #include "minishell.h"
 #include "custom_utils.h"
 #include <stdlib.h>
+#include <termios.h>
+#include <signal.h>
 #include "readline.h"
 #include "history.h"
 
-void	new_line(int key)
+void	catch_sigint(int signal)
 {
-	(void) key;
-	ft_printf("\n");
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	rl_redisplay();
-}
+	struct termios	termios;
 
-void	prevent(int key)
-{
-	(void) key;
+	if (signal != SIGINT)
+		return ;
+	tcgetattr(STDIN_FILENO, &termios);
+	termios.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+	ft_printf("\n");
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
@@ -24,8 +24,14 @@ void	prevent(int key)
 
 void	listen_signals(void)
 {
-	signal(SIGINT, new_line);
-	signal(SIGQUIT, prevent);
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sa.__sigaction_u.__sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
+	sa.__sigaction_u.__sa_handler = catch_sigint;
+	sigaction(SIGINT, &sa, NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
