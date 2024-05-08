@@ -1,10 +1,10 @@
 NAME = libft.a
 
 #----COLORS----#
-DEF_COLOR = \033[1;39m
+DEF_COLOR = \033[0m
 GREEN = \033[1;32m
 PINK = \033[1;35m
-CIAN = \033[1;36m
+CYAN = \033[1;36m
 BLUE = \033[1;34m
 YELLOW = \033[1;33m
 RED = \033[1;91m
@@ -96,23 +96,20 @@ BDEPS = $(BSRCS:%.c=%.d)
 all: $(NAME)
 
 ifndef BONUS
-$(NAME):: $(OBJS)
+$(NAME): $(OBJS)
 	@printf "$(BLUE)\r\033[2KLinking objects and creating static library...$(DEF_COLOR)"
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-	@echo "\n$(GREEN)[✓] $(PINK)Libft$(GREEN) created!!!$(DEF_COLOR)"
+	@echo "\n$(GREEN)[✓] $(PINK)Libft$(GREEN) created!!!$(DEF_COLOR)\n"
 else
-$(NAME):: $(OBJS) $(BOBJS)
+$(NAME): $(OBJS) $(BOBJS)
 	@printf "$(BLUE)\r\033[2KLinking objects and creating static library...$(DEF_COLOR)"
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJS) $(BOBJS)
-	@echo "\n$(GREEN)[✓] $(PINK)Libft bonus$(GREEN) created!!!$(DEF_COLOR)"
+	@echo "\n$(GREEN)[✓] $(PINK)Libft bonus$(GREEN) created!!!$(DEF_COLOR)\n"
 endif
-
-$(NAME)::
-	@echo "$(YELLOW)Nothing to be done for $(PINK)libft$(DEF_COLOR)"
 
 $(BINDIR)/%.o: %.c Makefile
 	@mkdir -p $(BINDIR)
-	@printf "$(CIAN)\r\033[2KCompiling: $(PINK)$(notdir $<)...$(DEF_COLOR)"
+	@printf "$(CYAN)\r\033[2KCompiling: $(PINK)$(notdir $<)...$(DEF_COLOR)"
 
 	@$(CC) $(CFLAGS) -MMD -c $< -o $@
 
@@ -134,3 +131,5 @@ bonus:
 -include $(DEPS)
 
 -include $(BDEPS)
+
+.SILENT:

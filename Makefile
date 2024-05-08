@@ -62,6 +62,9 @@ export GNL_BUFFER_SIZE := 50000
 #----VPATH----#
 vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils
 
+#----LOG----#
+LOG = log
+
 #----RULES----#
 all:
 	@$(MAKE) --no-print-directory make_libft
@@ -87,10 +90,10 @@ $(BIN_DIR)%.o: %.c Makefile
 clean: libft_clean
 	@rm -rf $(BIN_DIR)
 	@echo "$(RED)bin/ deleted$(DEF_COLOR)"
-	$(MAKE) --no-print-directory -C $(READLINE_DIR) clean 1>> log
+	-$(MAKE) --no-print-directory -C $(READLINE_DIR) clean >>$(LOG) 2>&1
 
 fclean: libft_fclean clean
-	@rm -rf $(NAME) $(READLINE_DIR)
+	@rm -rf $(NAME) $(READLINE_DIR) log
 	@echo "$(RED)Executable deleted$(DEF_COLOR)\n"
 
 re: fclean all
@@ -104,7 +107,6 @@ bonusre: fclean bonus
 
 make_libft:
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) bonus
-	@echo ""
 
 libft_clean:
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
@@ -114,16 +116,19 @@ libft_fclean:
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 
 $(READLINE_LIB): $(READLINE_DIR)
-	$(MAKE) --silent --no-print-directory -C $(READLINE_DIR) 1>> log
+	printf "$(BLUE)Compiling and linking library...$(DEF_COLOR)\n"
+	$(MAKE) -s --no-print-directory -C $(READLINE_DIR) >>$(LOG) 2>&1
+	printf "$(GREEN)\r\033[2K[✓] $(PINK)readline$(GREEN) created!!!$(DEF_COLOR)\n\n"
 
 $(READLINE_DIR):
-	curl -s -O http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz
-	mv readline-master.tar.gz lib
+	printf "$(CYAN)Downloading: $(PINK)readline...$(DEF_COLOR)\n"
+	cd lib; curl -s -O http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz
 	rm -rf $(READLINE_DIR)
 	mkdir -p $(READLINE_DIR)
 	tar -xpf lib/readline-master.tar.gz -C $(READLINE_DIR) --strip-components 1
 	rm -rf lib/readline-master.tar.gz
-	cd $(READLINE_DIR); bash ./configure 1>> log
+	printf "$(CYAN)Configuring: $(PINK)readline...$(DEF_COLOR)\n"
+	cd $(READLINE_DIR); bash ./configure >>$(LOG) 2>&1
 
 .PHONY: all \
 		clean \
