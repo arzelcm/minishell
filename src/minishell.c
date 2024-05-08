@@ -41,10 +41,12 @@ static void	config_terminal(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
+	t_context	*context;
+	char		*line;
 
 	(void) argv;
 	(void) envp;
+	(void) context;
 	if (argc > 1)
 		return (EXIT_FAILURE);
 	config_terminal();
@@ -53,10 +55,16 @@ int	main(int argc, char **argv, char **envp)
 	while (42)
 	{
 		line = readline(PROMPT);
-		if (line && *line)
-			add_history(line);
-		else if (line == NULL)
+		if (line == NULL)
 			custom_exit(EXIT_SUCCESS);
+		else if (*line)
+		{
+			// check_syntax(line);
+			add_history(line);
+			// expanse(&line);
+			// tokenize(line, context);
+			// execute(line, context);
+		}
 		free(line);
 	}
 	return (EXIT_SUCCESS);
