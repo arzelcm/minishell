@@ -1,4 +1,5 @@
 #include "libft.h"
+#include "context.h"
 #include "minishell.h"
 #include "custom_utils.h"
 #include <stdlib.h>
@@ -7,22 +8,17 @@
 #include "readline.h"
 #include "history.h"
 
-void	catch_sigint(int signal)
+static void	catch_sigint(int signal)
 {
-	struct termios	termios;
-
 	if (signal != SIGINT)
 		return ;
-	tcgetattr(STDIN_FILENO, &termios);
-	termios.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
 	ft_printf("\n");
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-void	listen_signals(void)
+static void	listen_signals(void)
 {
 	struct sigaction	sa;
 
@@ -34,6 +30,15 @@ void	listen_signals(void)
 	sigaction(SIGINT, &sa, NULL);
 }
 
+static void	config_terminal(void)
+{
+	struct termios	termios;
+
+	tcgetattr(STDIN_FILENO, &termios);
+	termios.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -42,6 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) envp;
 	if (argc > 1)
 		return (EXIT_FAILURE);
+	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);
 	while (42)
