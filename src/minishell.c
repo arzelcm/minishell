@@ -2,6 +2,7 @@
 #include "context.h"
 #include "minishell.h"
 #include "custom_utils.h"
+#include "lexer.h"
 #include <stdlib.h>
 #include <termios.h>
 #include <signal.h>
@@ -41,12 +42,11 @@ static void	config_terminal(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_context	*context;
+	t_context	context;
 	char		*line;
 
 	(void) argv;
 	(void) envp;
-	(void) context;
 	if (argc > 1)
 		return (EXIT_FAILURE);
 	config_terminal();
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 			custom_exit(EXIT_SUCCESS);
 		else if (*line)
 		{
-			// check_syntax(line);
+			check_syntax(&context, line);
 			add_history(line);
 			// expanse(&line);
 			// tokenize(line, context);
