@@ -7,6 +7,7 @@
 #include <signal.h>
 #include "readline.h"
 #include "history.h"
+#include "expansor.h"
 
 static void	catch_sigint(int signal)
 {
@@ -61,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			// check_syntax(line);
 			add_history(line);
-			// expanse(&line);
+			expanse(&line);
 			// tokenize(line, context);
 			// execute(line, context);
 		}
