@@ -2,19 +2,12 @@
 #include "lexer.h"
 #include "lexer_utils.h"
 
-static int	check_quotes(t_meta_flags *flags, char c)
+static void	check_quotes(t_meta_flags *flags, char c)
 {
 	if (c == D_QUOTE[0] && !flags->single_quote)
-	{
 		flags->double_quote = !flags->double_quote;
-		return (1);
-	}
 	else if (c == S_QUOTE[0] && !flags->double_quote)
-	{
 		flags->single_quote = !flags->single_quote;
-		return (1);
-	}
-	return (0);
 }
 
 int	check_syntax(t_context *context, char *line)
