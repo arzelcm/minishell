@@ -4,10 +4,10 @@
 
 static void	check_quotes(t_meta_flags *flags, char c)
 {
-	if (c == D_QUOTE[0] && !flags->single_quote)
-		flags->double_quote = !flags->double_quote;
-	else if (c == S_QUOTE[0] && !flags->double_quote)
-		flags->single_quote = !flags->single_quote;
+	if (c == D_QUOTE[0] && !flags->s_quote)
+		flags->d_quote = !flags->d_quote;
+	else if (c == S_QUOTE[0] && !flags->d_quote)
+		flags->s_quote = !flags->s_quote;
 }
 
 int	check_syntax(t_context *context, char *line)
@@ -22,9 +22,9 @@ int	check_syntax(t_context *context, char *line)
 		check_quotes(&flags, line[i]);
 		i++;
 	}
-	if (flags.double_quote)
+	if (flags.d_quote)
 		return (throw_syntax_error(context, D_QUOTE), 0);
-	else if (flags.single_quote)
+	else if (flags.s_quote)
 		return (throw_syntax_error(context, S_QUOTE), 0);
 	return (1);
 }

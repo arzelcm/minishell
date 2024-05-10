@@ -6,8 +6,8 @@
 
 typedef struct s_meta_flags
 {
-	int	double_quote;
-	int	single_quote;
+	int	d_quote;
+	int	s_quote;
 }	t_meta_flags;
 
 int	check_syntax(t_context *context, char *line);
