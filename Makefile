@@ -62,7 +62,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/lexer:src/lexer_utils
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/lexer
 
 #----LOG----#
 LOG = log

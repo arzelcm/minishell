@@ -51,16 +51,8 @@ static int	check_redirection(t_context *context, char *line, int index)
 		i++;
 	while (line[i])
 	{
-		if (line[i] == PIPE[0])
-			return (throw_syntax_error(context, PIPE), 0);
-		else if (line[i] == INPUT_RD[0] && line[i + 1] == INPUT_RD[0])
-			return (throw_syntax_error(context, HERE_DOC_RD), 0);
-		else if (line[i] == OUTPUT_RD[0] && line[i + 1] == OUTPUT_RD[0])
-			return (throw_syntax_error(context, APPEND_RD), 0);
-		else if (line[i] == INPUT_RD[0])
-			return (throw_syntax_error(context, INPUT_RD), 0);
-		else if (line[i] == OUTPUT_RD[0])
-			return (throw_syntax_error(context, OUTPUT_RD), 0);
+		if (!check_metachar(context, line, i))
+			return (0);
 		else if (line[i] != ' ')
 			break ;
 		i++;
