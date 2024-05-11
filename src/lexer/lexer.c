@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "lexer.h"
 #include "lexer_utils.h"
+#include "stdio.h"
 
 static void	check_quotes(t_meta_flags *flags, char c)
 {
@@ -8,6 +9,35 @@ static void	check_quotes(t_meta_flags *flags, char c)
 		flags->d_quote = !flags->d_quote;
 	else if (c == S_QUOTE[0] && !flags->d_quote)
 		flags->s_quote = !flags->s_quote;
+}
+
+static int	check_pipe(t_context *context, char *line, int index)
+{
+	int	i;
+
+	if (line[index] != PIPE[0])
+		return (1);
+	i = index - 1;
+	while (i >= 0)
+	{
+		if (line[i] != ' ')
+			break ;
+		i--;
+	}
+	if (i < 0)
+		return (throw_syntax_error(context, PIPE), 0);
+	i = index + 1;
+	while (line[i])
+	{
+		if (line[i] == PIPE[0])
+			return (throw_syntax_error(context, PIPE), 0);
+		else if (line[i] != ' ')
+			break ;
+		i++;
+	}
+	if (line[i] == '\0')
+		return (throw_syntax_error(context, "newline"), 0);
+	return (1);
 }
 
 int	check_syntax(t_context *context, char *line)
@@ -20,6 +50,8 @@ int	check_syntax(t_context *context, char *line)
 	while (line[i])
 	{
 		check_quotes(&flags, line[i]);
+		if (!flags.d_quote && !flags.s_quote && !check_pipe(context, line, i))
+			return (0);
 		i++;
 	}
 	if (flags.d_quote)

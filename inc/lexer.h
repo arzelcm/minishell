@@ -2,6 +2,7 @@
 # define LEXER_H
 # define D_QUOTE "\""
 # define S_QUOTE "\'"
+# define PIPE "|"
 # include "context.h"
 
 typedef struct s_meta_flags
