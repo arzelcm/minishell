@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "lexer.h"
 #include "lexer_utils.h"
-#include "stdio.h"
 
 static void	check_quotes(t_meta_flags *flags, char c)
 {
@@ -40,6 +39,37 @@ static int	check_pipe(t_context *context, char *line, int index)
 	return (1);
 }
 
+static int	check_redirection(t_context *context, char *line, int index)
+{
+	int	i;
+
+	if (!is_redirection(line, index))
+		return (1);
+	i = index + 1;
+	if ((line[index] == INPUT_RD[0] && line[index + 1] == INPUT_RD[0]) 
+		|| (line[index] == OUTPUT_RD[0] && line[index + 1] == OUTPUT_RD[0]))
+		i++;
+	while (line[i])
+	{
+		if (line[i] == PIPE[0])
+			return (throw_syntax_error(context, PIPE), 0);
+		else if (line[i] == INPUT_RD[0] && line[i + 1] == INPUT_RD[0])
+			return (throw_syntax_error(context, HERE_DOC_RD), 0);
+		else if (line[i] == OUTPUT_RD[0] && line[i + 1] == OUTPUT_RD[0])
+			return (throw_syntax_error(context, APPEND_RD), 0);
+		else if (line[i] == INPUT_RD[0])
+			return (throw_syntax_error(context, INPUT_RD), 0);
+		else if (line[i] == OUTPUT_RD[0])
+			return (throw_syntax_error(context, OUTPUT_RD), 0);
+		else if (line[i] != ' ')
+			break ;
+		i++;
+	}
+	if (line[i] == '\0')
+		return (throw_syntax_error(context, "newline"), 0);
+	return (1);
+}
+
 int	check_syntax(t_context *context, char *line)
 {
 	t_meta_flags	flags;
@@ -51,6 +81,9 @@ int	check_syntax(t_context *context, char *line)
 	{
 		check_quotes(&flags, line[i]);
 		if (!flags.d_quote && !flags.s_quote && !check_pipe(context, line, i))
+			return (0);
+		if (!flags.d_quote && !flags.s_quote
+			&& !check_redirection(context, line, i))
 			return (0);
 		i++;
 	}
