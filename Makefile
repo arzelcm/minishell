@@ -41,7 +41,8 @@ DEPS = $(OBJS:%.o=%.d)
 MSRCS = minishell.c \
 		custom_utils.c \
 		expansor.c \
-		safe_utils.c
+		safe_utils.c \
+		expansor_vars.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
@@ -62,7 +63,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor
 
 #----LOG----#
 LOG = log

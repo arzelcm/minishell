@@ -1,7 +1,9 @@
+#include "expansor_vars.h"
 #include "libft.h"
-#include "expansor.h"
 #include "safe_utils.h"
-#include <stdlib.h>
+#include "expansor.h"
+#include "quotes_flag.h"
+#include "custom_utils.h"
 
 char	*get_var_value(char *key)
 {
@@ -48,30 +50,33 @@ t_var	*get_var(char *key, t_vars *vars)
 
 void	fill_needed_vars(t_vars *vars, char *line)
 {
-	int		i;
-	int		start;
-	t_var	*var;
+	int				i;
+	int				start;
+	t_var			*var;
+	t_quotes_flag	quotes;
 
+	ft_bzero(&quotes, sizeof(t_quotes_flag));
 	i = 0;
 	start = 0;
 	while (line[i])
 	{
-		if (line[i] == '$')
+		check_quotes(&quotes, line[i]);
+		if ((!quotes.simple || quotes.double_) && line[i] == '$')
 		{
 			start = i;
-			while (!(line[i] == '\0' || line[i] == ' '
-					|| (i > start && line[i] == '$')))
+			while (!variable_finished(line[i], i > start))
 				i++;
 			var = get_var(ft_substr(line, start, i - start), vars);
 			vars->keys_length += ft_strlen(var->key);
 			vars->values_length += ft_strlen(var->value);
-			continue ;
 		}
-		i++;
+		else
+			i++;
 	}
 }
 
-void free_vars_list(t_var *var) {
+void	free_expansor_vars(t_var *var)
+{
 	t_var	*aux;
 
 	while (var)
@@ -82,19 +87,4 @@ void free_vars_list(t_var *var) {
 		free(aux->value);
 		free(aux);
 	}
-}
-
-void	expanse(char **line)
-{
-	t_vars	vars;
-	char	*new_line;
-
-	ft_bzero(&vars, sizeof(t_vars));
-	fill_needed_vars(&vars, *line);
-	new_line = safe_calloc(sizeof(char)
-			* (ft_strlen(*line) - vars.keys_length + vars.values_length));
-	// TODO: Replace keys for values
-	free(*line);
-	*line = new_line;
-	free_vars_list(vars.list);
 }

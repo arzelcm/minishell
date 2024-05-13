@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			// check_syntax(line);
 			add_history(line);
-			expanse(&line);
+			expand(&line);
 			// tokenize(line, context);
 			// execute(line, context);
 		}

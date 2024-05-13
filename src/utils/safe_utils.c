@@ -2,7 +2,7 @@
 #include "minishell.h"
 #include <errno.h>
 
-void *safe_calloc(size_t size)
+void	*safe_calloc(size_t size)
 {
 	void	*allocation;
 
