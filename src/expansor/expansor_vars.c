@@ -61,7 +61,7 @@ void	fill_needed_vars(t_vars *vars, char *line)
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if ((!quotes.simple || quotes.double_) && line[i] == '$')
+		if (line[i] == '$' && (!quotes.simple || quotes.double_))
 		{
 			start = i;
 			while (!variable_finished(line[i], i > start))

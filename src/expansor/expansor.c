@@ -26,7 +26,7 @@ void	expand_values(char *line, char *new_line, t_vars *vars)
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if ((!quotes.simple || quotes.double_) && line[i] == '$')
+		if (line[i] == '$' && (!quotes.simple || quotes.double_))
 		{
 			start = i;
 			while (!variable_finished(line[i], i > start))

@@ -10,8 +10,8 @@ void	custom_exit(int exit_code)
 
 void	check_quotes(t_quotes_flag *quotes, char c)
 {
-	if (c == '\'')
+	if (c == '\'' && !quotes->double_)
 		quotes->simple = !quotes->simple;
-	else if (c == '\"')
+	else if (c == '\"' && !quotes->simple)
 		quotes->double_ = !quotes->double_;
 }
