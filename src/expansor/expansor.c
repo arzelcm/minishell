@@ -5,8 +5,6 @@
 #include "custom_utils.h"
 #include <stdlib.h>
 
-// TODO: Refactor from lists to array of key length and variables, array should contain pointers to lists values!!
-
 int	variable_finished(char c, int not_first)
 {
 	return (c == '\0' || c == ' ' || c == '\"' || c == '\''
@@ -26,7 +24,7 @@ void	expand_values(char *line, char *new_line, t_vars *vars)
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if (line[i] == '$' && (!quotes.simple || quotes.double_))
+		if (line[i] == '$' && !quotes.simple)
 		{
 			start = i;
 			while (!variable_finished(line[i], i > start))
