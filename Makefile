@@ -41,7 +41,7 @@ DEPS = $(OBJS:%.o=%.d)
 MSRCS = minishell.c \
 		lexer.c \
 		lexer_utils.c \
-		custom_utils.c \
+		utils.c \
 		expansor.c \
 		safe_utils.c \
 		expansor_vars.c

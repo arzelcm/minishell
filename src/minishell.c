@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "context.h"
 #include "minishell.h"
-#include "custom_utils.h"
+#include "utils.h"
 #include "lexer.h"
 #include <stdlib.h>
 #include <termios.h>

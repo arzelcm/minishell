@@ -3,7 +3,7 @@
 #include "safe_utils.h"
 #include "expansor.h"
 #include "quotes_flag.h"
-#include "custom_utils.h"
+#include "utils.h"
 
 char	*get_var_value(char *key, t_context *context)
 {

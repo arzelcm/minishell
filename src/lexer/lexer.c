@@ -2,14 +2,8 @@
 #include "lexer.h"
 #include "lexer_utils.h"
 #include "meta_chars.h"
-
-static void	check_quotes(t_meta_flags *flags, char c)
-{
-	if (c == D_QUOTE[0] && !flags->s_quote)
-		flags->d_quote = !flags->d_quote;
-	else if (c == S_QUOTE[0] && !flags->d_quote)
-		flags->s_quote = !flags->s_quote;
-}
+#include "quotes_flag.h"
+#include "utils.h"
 
 static int	check_pipe(t_context *context, char *line, int index)
 {
@@ -65,24 +59,24 @@ static int	check_redirection(t_context *context, char *line, int index)
 
 int	check_syntax(t_context *context, char *line)
 {
-	t_meta_flags	flags;
+	t_quotes_flag	quotes;
 	int				i;
 
-	ft_bzero(&flags, sizeof(t_meta_flags));
+	ft_bzero(&quotes, sizeof(t_quotes_flag));
 	i = 0;	
 	while (line[i])
 	{
-		check_quotes(&flags, line[i]);
-		if (!flags.d_quote && !flags.s_quote && !check_pipe(context, line, i))
+		check_quotes(&quotes, line[i]);
+		if (!quotes.double_ && !quotes.simple && !check_pipe(context, line, i))
 			return (0);
-		if (!flags.d_quote && !flags.s_quote
+		if (!quotes.double_ && !quotes.simple
 			&& !check_redirection(context, line, i))
 			return (0);
 		i++;
 	}
-	if (flags.d_quote)
+	if (quotes.double_)
 		return (throw_syntax_error(context, D_QUOTE), 0);
-	else if (flags.s_quote)
+	else if (quotes.simple)
 		return (throw_syntax_error(context, S_QUOTE), 0);
 	return (1);
 }
