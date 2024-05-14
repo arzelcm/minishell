@@ -1,7 +1,6 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-typedef union u_redirection_arg	t_redirection_arg;
 typedef enum e_token_types		t_token_types;
 typedef enum e_redirection_mode	t_redirection_mode;
 typedef struct s_tokens			t_tokens;
