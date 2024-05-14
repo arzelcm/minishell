@@ -60,11 +60,13 @@ int	main(int argc, char **argv, char **envp)
 			custom_exit(EXIT_SUCCESS);
 		else if (*line)
 		{
-			check_syntax(&context, line);
 			add_history(line);
-			expand(&line);
-			// tokenize(line, context);
-			// execute(line, context);
+			if (check_syntax(&context, line))
+			{
+				expand(&line);
+				// tokenize(line, context);
+				// execute(line, context);
+			}
 		}
 		free(line);
 	}
