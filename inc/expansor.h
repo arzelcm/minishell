@@ -3,6 +3,6 @@
 
 void	expand(char **line);
 
-int		variable_finished(char c, int is_first_char);
+int		variable_finished(char c, int not_first);
 
 #endif
