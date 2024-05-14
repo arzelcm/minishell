@@ -39,6 +39,8 @@ DEPS = $(OBJS:%.o=%.d)
 
 #----MANDATORY----#
 MSRCS = minishell.c \
+		lexer.c \
+		lexer_utils.c \
 		custom_utils.c \
 		expansor.c \
 		safe_utils.c \
@@ -63,7 +65,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer
 
 #----LOG----#
 LOG = log
