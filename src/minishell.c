@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) envp;
 	if (argc > 1)
 		return (EXIT_FAILURE);
+	ft_bzero(&context, sizeof(context));
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);
@@ -63,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			if (check_syntax(&context, line))
 			{
-				expand(&line);
+				expand(&line, &context);
 				// tokenize(line, context);
 				// execute(line, context);
 			}

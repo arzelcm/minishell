@@ -1,5 +1,6 @@
 #ifndef EXPANSOR_VARS_H
 # define EXPANSOR_VARS_H
+# include "context.h" 
 
 typedef struct s_var
 {
@@ -16,10 +17,10 @@ typedef struct s_vars
 	t_var	*list;
 }	t_vars;
 
-void	fill_needed_vars(t_vars *vars, char *line);
+void	fill_needed_vars(t_vars *vars, char *line, t_context *context);
 
 void	free_expansor_vars(t_var *var);
 
-t_var	*get_var(char *key, t_vars *vars);
+t_var	*get_var(char *key, t_vars *vars, t_context *context);
 
 #endif

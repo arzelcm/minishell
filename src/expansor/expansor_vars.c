@@ -5,15 +5,17 @@
 #include "quotes_flag.h"
 #include "custom_utils.h"
 
-char	*get_var_value(char *key)
+char	*get_var_value(char *key, t_context *context)
 {
 	char	*value;
 
 	value = getenv(key + 1);
 	if (!value)
 	{
-		if (ft_strlen(key) == 1)
+		if (ft_strcmp(key,  "$") == EQUAL_STRINGS)
 			value = ft_strdup(key);
+		else if (ft_strcmp(key, "$?") == EQUAL_STRINGS)
+			value = ft_itoa(context->err_code);
 		// TODO: Search for local vars
 	}
 	else
@@ -21,20 +23,20 @@ char	*get_var_value(char *key)
 	return (value);
 }
 
-t_var	*push_var(char *key, t_vars *vars)
+t_var	*push_var(char *key, t_vars *vars, t_context *context)
 {
 	t_var	*var;
 
 	var = safe_calloc(sizeof(t_var));
 	var->key = key;
-	var->value = get_var_value(key);
+	var->value = get_var_value(key, context);
 	var->next = vars->list;
 	vars->list = var;
 	vars->size++;
 	return (vars->list);
 }
 
-t_var	*get_var(char *key, t_vars *vars)
+t_var	*get_var(char *key, t_vars *vars, t_context *context)
 {
 	t_var	*var;
 
@@ -42,13 +44,13 @@ t_var	*get_var(char *key, t_vars *vars)
 	while (var && ft_strcmp(var->key, key) != 0)
 		var = var->next;
 	if (!var)
-		var = push_var(key, vars);
+		var = push_var(key, vars, context);
 	else
 		free(key);
 	return (var);
 }
 
-void	fill_needed_vars(t_vars *vars, char *line)
+void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 {
 	int				i;
 	int				start;
@@ -66,7 +68,7 @@ void	fill_needed_vars(t_vars *vars, char *line)
 			start = i;
 			while (!variable_finished(line[i], i > start))
 				i++;
-			var = get_var(ft_substr(line, start, i - start), vars);
+			var = get_var(ft_substr(line, start, i - start), vars, context);
 			vars->keys_length += ft_strlen(var->key);
 			vars->values_length += ft_strlen(var->value);
 		}

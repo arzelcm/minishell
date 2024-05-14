@@ -11,12 +11,14 @@ int	variable_finished(char c, int not_first)
 		|| (not_first && c == '$'));
 }
 
-void	expand_values(char *line, char *new_line, t_vars *vars)
+void
+	expand_values(char *line, char *new_line, t_vars *vars, t_context *context)
 {
 	int				i;
 	int				j;
 	int				start;
 	t_quotes_flag	quotes;
+	t_var			*var;
 
 	ft_bzero(&quotes, sizeof(t_quotes_flag));
 	i = 0;
@@ -29,24 +31,24 @@ void	expand_values(char *line, char *new_line, t_vars *vars)
 			start = i;
 			while (!variable_finished(line[i], i > start))
 				i++;
-			j += ft_strlcpy(&new_line[j], get_var(
-						ft_substr(line, start, i - start), vars)->value, -1);
+			var = get_var(ft_substr(line, start, i - start), vars, context);
+			j += ft_strlcpy(&new_line[j], var->value, -1);
 		}
 		else
 			new_line[j++] = line[i++];
 	}
 }
 
-void	expand(char **line)
+void	expand(char **line, t_context *context)
 {
 	t_vars	vars;
 	char	*new_line;
 
 	ft_bzero(&vars, sizeof(t_vars));
-	fill_needed_vars(&vars, *line);
+	fill_needed_vars(&vars, *line, context);
 	new_line = safe_calloc(sizeof(char)
 			* (ft_strlen(*line) - vars.keys_length + vars.values_length));
-	expand_values(*line, new_line, &vars);
+	expand_values(*line, new_line, &vars, context);
 	free(*line);
 	*line = new_line;
 	ft_printf("New line: %s\n", *line);
