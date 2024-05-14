@@ -1,5 +1,7 @@
 #ifndef EXPANSOR_VARS_H
 # define EXPANSOR_VARS_H
+# define VAR_LIMIT "\"'|<><<>> "
+
 # include "context.h" 
 
 typedef struct s_var
