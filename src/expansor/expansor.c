@@ -7,7 +7,7 @@
 
 int	variable_finished(char c, int not_first)
 {
-	return (c == '\0' || c == ' ' || c == '\"' || c == '\''
+	return (c == '\0' || ft_stroccurrences(VAR_LIMIT, c)
 		|| (not_first && c == '$'));
 }
 

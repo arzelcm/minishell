@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "lexer.h"
 #include "lexer_utils.h"
+#include "meta_chars.h"
 
 static void	check_quotes(t_meta_flags *flags, char c)
 {

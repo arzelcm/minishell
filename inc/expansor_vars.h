@@ -1,5 +1,6 @@
 #ifndef EXPANSOR_VARS_H
 # define EXPANSOR_VARS_H
+# define VAR_LIMIT "\"'|<><<>> "
 
 typedef struct s_var
 {

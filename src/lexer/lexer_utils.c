@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "lexer.h"
+#include "meta_chars.h"
 
 int	is_redirection(char *line, int index)
 {
