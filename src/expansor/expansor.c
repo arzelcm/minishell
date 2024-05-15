@@ -51,6 +51,5 @@ void	expand(char **line, t_context *context)
 	expand_values(*line, new_line, &vars, context);
 	free(*line);
 	*line = new_line;
-	ft_printf("New line: %s\n", *line);
 	free_expansor_vars(vars.list);
 }

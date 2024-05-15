@@ -43,6 +43,7 @@ MSRCS = minishell.c \
 		lexer_utils.c \
 		utils.c \
 		expansor.c \
+		executor.c \
 		safe_utils.c \
 		expansor_vars.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
@@ -65,7 +66,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/executor
 
 #----LOG----#
 LOG = log
