@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) envp;
 	if (argc > 1)
 		return (EXIT_FAILURE);
-	ft_bzero(&context, sizeof(context));
+	ft_bzero(&context, sizeof(t_context));
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);
