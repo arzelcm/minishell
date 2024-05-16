@@ -3,4 +3,6 @@
 
 void	*safe_calloc(size_t size);
 
+void	safe_close(int *fd);
+
 #endif

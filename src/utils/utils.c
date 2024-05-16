@@ -15,3 +15,9 @@ void	check_quotes(t_quotes_flag *quotes, char c)
 	else if (c == '\"' && !quotes->simple)
 		quotes->double_ = !quotes->double_;
 }
+
+void	handle_syserror(int errnum)
+{
+	perror(PROGRAM_NAME);
+	exit(errnum);
+}

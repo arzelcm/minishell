@@ -7,4 +7,6 @@ void	custom_exit(int exit_code);
 
 void	check_quotes(t_quotes_flag *quotes, char c);
 
+void	handle_syserror(int errnum);
+
 #endif
