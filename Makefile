@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra #-fsanitize=thread #-fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
 #----DIRS----#
 BIN_DIR = bin/
@@ -44,7 +44,10 @@ MSRCS = minishell.c \
 		utils.c \
 		expansor.c \
 		safe_utils.c \
-		expansor_vars.c
+		expansor_vars.c \
+		tokenizer.c \
+		quotes_utils.c \
+		tokenizer_utils.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
@@ -65,7 +68,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer
 
 #----LOG----#
 LOG = log

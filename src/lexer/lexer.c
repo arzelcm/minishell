@@ -3,7 +3,7 @@
 #include "lexer_utils.h"
 #include "meta_chars.h"
 #include "quotes_flag.h"
-#include "utils.h"
+#include "quotes_utils.h"
 
 static int	check_pipe(t_context *context, char *line, int index)
 {

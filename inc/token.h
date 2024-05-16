@@ -9,10 +9,10 @@ typedef enum e_token_type
 
 typedef enum e_redirection_mode
 {
+	HERE_DOC,
 	INPUT,
 	OUTPUT,
-	HERE_DOC,
-	APPEND
+	OUTPUT_APPEND
 }	t_redirection_mode;
 
 typedef struct s_redirection
@@ -40,7 +40,7 @@ typedef struct s_token
 	char			**args;
 	t_redirection	*infiles;
 	t_redirection	*outfiles;
-	t_redirection	*here_docs;
+	int				here_docs;
 	t_tokens		*tokens;
 }	t_token;
 

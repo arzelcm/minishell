@@ -9,6 +9,7 @@
 #include "readline.h"
 #include "history.h"
 #include "expansor.h"
+#include "tokenizer.h"
 
 static void	catch_sigint(int signal)
 {
@@ -43,6 +44,7 @@ static void	config_terminal(void)
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_token		*token;
 	t_context	context;
 	char		*line;
 
@@ -64,9 +66,10 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			if (check_syntax(&context, line))
 			{
-				expand(&line, &context);
-				// tokenize(line, context);
+				token = tokenize(line);
+				// expand(&line, &context);
 				// execute(line, context);
+				free_token(token);
 			}
 		}
 		free(line);

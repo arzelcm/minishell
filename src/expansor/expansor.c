@@ -2,7 +2,7 @@
 #include "safe_utils.h"
 #include "expansor_vars.h"
 #include "quotes_flag.h"
-#include "utils.h"
+#include "quotes_utils.h"
 #include <stdlib.h>
 
 int	variable_finished(char c, int not_first)
