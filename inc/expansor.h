@@ -2,7 +2,7 @@
 # define EXPANSOR_H
 # include "context.h"
 
-void	expand(char **line, t_context *context);
+int	expand(char **line, t_context *context);
 
 int		variable_finished(char c, int not_first);
 

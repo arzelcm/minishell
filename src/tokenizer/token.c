@@ -66,7 +66,7 @@ void	print_token(t_token *token)
 	i = 0;
 	while (aux_tok)
 	{
-		ft_printf("\nChild token %i\n", i);
+		ft_printf("\nChild %i\n", i);
 		print_token(aux_tok);
 		i++;
 		aux_tok = aux_tok->next;

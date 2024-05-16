@@ -8,7 +8,7 @@ void	check_quotes(t_quotes_flag *quotes, char c)
 		quotes->double_ = !quotes->double_;
 }
 
-void	avoid_quotes(char *str, int *i)
+int	avoid_quotes(char *str, int *i)
 {
 	char	quote;
 
@@ -17,9 +17,10 @@ void	avoid_quotes(char *str, int *i)
 	else if (str[*i] == '\'')
 		quote = '\'';
 	else
-		return ;
+		return (0);
 	(*i)++;
 	while (str[*i] != quote)
 		(*i)++;
 	(*i)++;
+	return (1);
 }

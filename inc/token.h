@@ -12,7 +12,7 @@ typedef enum e_redirection_mode
 	HERE_DOC,
 	INPUT,
 	OUTPUT,
-	OUTPUT_APPEND
+	APPEND
 }	t_redirection_mode;
 
 typedef struct s_redirection

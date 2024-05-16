@@ -47,7 +47,7 @@ void
 	current->next = new_redirection(mode, path);
 }
 
-int	set_redirection(char *line, int *i, t_token *token)
+int	set_redirection(char *line, int *i, t_token *token, t_context *context)
 {
 	int	start_i;
 
@@ -55,23 +55,23 @@ int	set_redirection(char *line, int *i, t_token *token)
 	if (line[*i] == '<' && line[*i + 1] == '<')
 	{
 		(*i) += 2;
-		push_redirection(HERE_DOC, get_word(line, i), &token->infiles);
+		push_redirection(HERE_DOC, get_word(line, i, context), &token->infiles);
 		token->here_docs++;
 	}
 	else if (line[*i] == '<')
 	{
 		(*i)++;
-		push_redirection(INPUT, get_word(line, i), &token->infiles);
+		push_redirection(INPUT, get_word(line, i, context), &token->infiles);
 	}
 	else if (line[*i] == '>' && line[*i + 1] == '>')
 	{
 		(*i) += 2;
-		push_redirection(OUTPUT_APPEND, get_word(line, i), &token->outfiles);
+		push_redirection(APPEND, get_word(line, i, context), &token->outfiles);
 	}
 	else if (line[*i] == '>')
 	{
 		(*i)++;
-		push_redirection(OUTPUT, get_word(line, i), &token->outfiles);
+		push_redirection(OUTPUT, get_word(line, i, context), &token->outfiles);
 	}
 	return (*i > start_i);
 }

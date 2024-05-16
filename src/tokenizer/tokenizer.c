@@ -53,7 +53,7 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	return (1);
 }
 
-t_token	*tokenize(char *line)
+t_token	*tokenize(char *line, t_context *context)
 {
 	t_token			*token;
 	t_token			*actual;
@@ -65,11 +65,11 @@ t_token	*tokenize(char *line)
 	while (line[i])
 	{
 		avoid_spaces(line, &i);
-		if (set_redirection(line, &i, actual))
+		if (set_redirection(line, &i, actual, context))
 			continue ;
 		if (set_pipe(line, &i, &token, &actual))
 			continue ;
-		push_arg(&actual->args, get_word(line, &i));
+		push_arg(&actual->args, get_word(line, &i, context));
 	}
 	print_token(token);
 	return (token);

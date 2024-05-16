@@ -5,6 +5,6 @@
 
 void	check_quotes(t_quotes_flag *quotes, char c);
 
-void	avoid_quotes(char *str, int *i);
+int	avoid_quotes(char *str, int *i);
 
 #endif

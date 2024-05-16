@@ -39,18 +39,20 @@ void
 	}
 }
 
-void	expand(char **line, t_context *context)
+int	expand(char **line, t_context *context)
 {
 	t_vars	vars;
 	char	*new_line;
+	int		new_len;
 
 	ft_bzero(&vars, sizeof(t_vars));
 	fill_needed_vars(&vars, *line, context);
-	new_line = safe_calloc(sizeof(char)
-			* (ft_strlen(*line) - vars.keys_length + vars.values_length));
+	new_len = ft_strlen(*line) - vars.keys_length + vars.values_length;
+	new_line = safe_calloc(sizeof(char) * (new_len + 1));
 	expand_values(*line, new_line, &vars, context);
 	free(*line);
 	*line = new_line;
 	ft_printf("New line: %s\n", *line);
 	free_expansor_vars(vars.list);
+	return (new_len);
 }
