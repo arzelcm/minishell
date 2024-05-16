@@ -6,7 +6,7 @@
 
 void	fill_needed_vars(char *line, t_context *context);
 
-void	free_expansor_vars(t_vars *vars);
+void	free_expansor_vars(t_vars **vars);
 
 t_var	*get_var(char *key, t_context *context);
 

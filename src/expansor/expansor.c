@@ -7,7 +7,7 @@
 
 void	init_expansor_vars(t_context *context)
 {
-	free_expansor_vars(context->vars);
+	free_expansor_vars(&context->vars);
 	context->vars = safe_calloc(sizeof(t_vars));
 }
 

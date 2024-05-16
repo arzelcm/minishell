@@ -77,14 +77,14 @@ void	fill_needed_vars(char *line, t_context *context)
 	}
 }
 
-void	free_expansor_vars(t_vars *vars)
+void	free_expansor_vars(t_vars **vars)
 {
 	t_var	*var;
 	t_var	*aux;
 
-	if (!vars)
+	if (!*vars)
 		return ;
-	var = vars->list;
+	var = (*vars)->list;
 	while (var)
 	{
 		aux = var;
@@ -93,5 +93,6 @@ void	free_expansor_vars(t_vars *vars)
 		free(aux->value);
 		free(aux);
 	}
-	free(vars);
+	free(*vars);
+	*vars = NULL;
 }
