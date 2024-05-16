@@ -5,7 +5,9 @@
 #include "quotes_utils.h"
 #include "tokenizer_utils.h"
 #include "tokenizer_redirections.h"
-#include "token.h"
+#include "tokenizer.h"
+#include "expansor_vars.h"
+#include "expansor.h"
 
 void	free_args(char **args)
 {
@@ -59,6 +61,7 @@ t_token	*tokenize(char *line, t_context *context)
 	t_token			*actual;
 	int				i;
 
+	init_expansor_vars(context);
 	token = new_token(CMD);
 	actual = token;
 	i = 0;
@@ -71,6 +74,7 @@ t_token	*tokenize(char *line, t_context *context)
 			continue ;
 		push_arg(&actual->args, get_word(line, &i, context));
 	}
+	free_expansor_vars(context->vars);
 	print_token(token);
 	return (token);
 }

@@ -5,6 +5,12 @@
 #include "quotes_utils.h"
 #include <stdlib.h>
 
+void	init_expansor_vars(t_context *context)
+{
+	free_expansor_vars(context->vars);
+	context->vars = safe_calloc(sizeof(t_vars));
+}
+
 int	variable_finished(char c, int not_first)
 {
 	return (c == '\0' || ft_stroccurrences(VAR_LIMIT, c)
@@ -12,7 +18,7 @@ int	variable_finished(char c, int not_first)
 }
 
 void
-	expand_values(char *line, char *new_line, t_vars *vars, t_context *context)
+	expand_values(char *line, char *new_line, t_context *context)
 {
 	int				i;
 	int				j;
@@ -31,7 +37,7 @@ void
 			start = i;
 			while (!variable_finished(line[i], i > start))
 				i++;
-			var = get_var(ft_substr(line, start, i - start), vars, context);
+			var = get_var(ft_substr(line, start, i - start), context);
 			j += ft_strlcpy(&new_line[j], var->value, -1);
 		}
 		else
@@ -41,18 +47,15 @@ void
 
 int	expand(char **line, t_context *context)
 {
-	t_vars	vars;
 	char	*new_line;
 	int		new_len;
 
-	ft_bzero(&vars, sizeof(t_vars));
-	fill_needed_vars(&vars, *line, context);
-	new_len = ft_strlen(*line) - vars.keys_length + vars.values_length;
+	fill_needed_vars(*line, context);
+	new_len = ft_strlen(*line) - context->vars->keys_length + context->vars->values_length;
 	new_line = safe_calloc(sizeof(char) * (new_len + 1));
-	expand_values(*line, new_line, &vars, context);
+	expand_values(*line, new_line, context);
 	free(*line);
 	*line = new_line;
 	ft_printf("New line: %s\n", *line);
-	free_expansor_vars(vars.list);
 	return (new_len);
 }

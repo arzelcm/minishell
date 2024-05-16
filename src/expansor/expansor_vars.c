@@ -23,34 +23,34 @@ char	*get_var_value(char *key, t_context *context)
 	return (value);
 }
 
-t_var	*push_var(char *key, t_vars *vars, t_context *context)
+t_var	*push_var(char *key, t_context *context)
 {
 	t_var	*var;
 
 	var = safe_calloc(sizeof(t_var));
 	var->key = key;
 	var->value = get_var_value(key, context);
-	var->next = vars->list;
-	vars->list = var;
-	vars->size++;
-	return (vars->list);
+	var->next = context->vars->list;
+	context->vars->list = var;
+	context->vars->size++;
+	return (context->vars->list);
 }
 
-t_var	*get_var(char *key, t_vars *vars, t_context *context)
+t_var	*get_var(char *key, t_context *context)
 {
 	t_var	*var;
 
-	var = vars->list;
+	var = context->vars->list;
 	while (var && ft_strcmp(var->key, key) != 0)
 		var = var->next;
 	if (!var)
-		var = push_var(key, vars, context);
+		var = push_var(key, context);
 	else
 		free(key);
 	return (var);
 }
 
-void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
+void	fill_needed_vars(char *line, t_context *context)
 {
 	int				i;
 	int				start;
@@ -68,19 +68,23 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 			start = i;
 			while (!variable_finished(line[i], i > start))
 				i++;
-			var = get_var(ft_substr(line, start, i - start), vars, context);
-			vars->keys_length += ft_strlen(var->key);
-			vars->values_length += ft_strlen(var->value);
+			var = get_var(ft_substr(line, start, i - start), context);
+			context->vars->keys_length += ft_strlen(var->key);
+			context->vars->values_length += ft_strlen(var->value);
 		}
 		else
 			i++;
 	}
 }
 
-void	free_expansor_vars(t_var *var)
+void	free_expansor_vars(t_vars *vars)
 {
+	t_var	*var;
 	t_var	*aux;
 
+	if (!vars)
+		return ;
+	var = vars->list;
 	while (var)
 	{
 		aux = var;
@@ -89,4 +93,5 @@ void	free_expansor_vars(t_var *var)
 		free(aux->value);
 		free(aux);
 	}
+	free(vars);
 }
