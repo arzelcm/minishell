@@ -3,5 +3,7 @@
 
 void	custom_exit(int exit_code);
 
+void	push_char(char	**str, char c);
+
 
 #endif

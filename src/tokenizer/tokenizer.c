@@ -4,24 +4,7 @@
 #include "quotes_flag.h"
 #include "quotes_utils.h"
 #include "tokenizer_utils.h"
-
-void	free_redirection(t_redirection *redirection)
-{
-	free(redirection->path);
-	free(redirection);
-}
-
-void	free_redirections(t_redirection *list)
-{
-	t_redirection	*aux;
-
-	while (list)
-	{
-		aux = list;
-		list = list->next;
-		free_redirection(aux);
-	}
-}
+#include "tokenizer_redirections.h"
 
 void	free_args(char **args)
 {
@@ -29,17 +12,29 @@ void	free_args(char **args)
 
 	i = 0;
 	while (args && args[i])
-	{
-		free(args[i]);
-		i++;
-	}
+		free(args[i++]);
 	free(args);
+}
+
+void	free_token(t_token *token);
+
+void	free_tokens(t_tokens *tokens)
+{
+	t_token	*aux;
+
+	while (tokens->token)
+	{
+		aux = tokens->token;
+		tokens->token = tokens->token->next;
+		free_token(aux);
+	}
 }
 
 void	free_token(t_token *token)
 {
 	free_redirections(token->infiles);
 	free_redirections(token->outfiles);
+	free_tokens(&token->tokens);
 	free_args(token->args);
 	free(token);
 }
@@ -57,10 +52,10 @@ void	print_token(t_token *token)
 {
 	t_redirection	*aux;
 	int				i;
-	ft_printf("token: %p (%i)\n", token, token->type);
+	ft_printf("token %p (%i)\n", token, token->type);
 	ft_printf("args: ", token, token->type);
 	i = 0;
-	while (token->args[i])
+	while (token->args && token->args[i])
 	{
 		ft_printf("%s, ", token->args[i]);
 		i++;
@@ -69,112 +64,27 @@ void	print_token(t_token *token)
 	aux = token->infiles;
 	while (aux)
 	{
-		ft_printf("%s, ", aux->path);
+		ft_printf("%s(%i), ", aux->path, aux->mode);
 		aux = aux->next;
 	}
 	ft_printf("\noutfiles: ");
 	aux = token->outfiles;
 	while (aux)
 	{
-		ft_printf("%s, ", aux->path);
+		ft_printf("%s(%i), ", aux->path, aux->mode);
 		aux = aux->next;
 	}
 	ft_printf("\nhere_docs: %i\n", token->here_docs);
-}
-
-void	push_char(char	**str, char c)
-{
-	char	*new_word;
-	int		len;
-
-	len = ft_strlen(*str);
-	new_word = safe_calloc(sizeof(char) * (len + 2));
-	ft_strlcpy(new_word, *str, -1);
-	new_word[len] = c;
-	new_word[len + 1] = '\0';
-	free(*str);
-	*str = new_word;
-}
-
-char	*get_word(char	*str, int *i)
-{
-	char	*word;
-	char	quote;
-
-	word = safe_calloc(sizeof(char));
-	avoid_spaces(str, i);
-	while (str[*i] != '\0' && !ft_stroccurrences("| <>&", str[*i]))
+	ft_printf("tokens: %i\n", token->tokens.amount);
+	t_token *aux_tok = token->tokens.token;
+	i = 0;
+	while (aux_tok)
 	{
-		quote = '\0';
-		if (str[*i] == '\'')
-			quote = '\'';
-		else if (str[*i] == '\"')
-			quote = '\"';
-		if (quote)
-		{
-			(*i)++;
-			while (quote && str[*i] != quote)
-				push_char(&word, str[(*i)++]);
-			(*i)++;
-		}
-		else
-			push_char(&word, str[(*i)++]);
+		ft_printf("\nChild token %i\n", i);
+		print_token(aux_tok);
+		i++;
+		aux_tok = aux_tok->next;
 	}
-	return (word);
-}
-
-t_redirection	*new_redirection(t_redirection_mode mode, char *path)
-{
-	t_redirection	*redirection;
-
-	redirection = safe_calloc(sizeof(t_redirection));
-	redirection->mode = mode;
-	redirection->path = path;
-	return (redirection);
-}
-
-void	push_redirection(t_redirection_mode mode, char *path, t_redirection **list)
-{
-	t_redirection	*current;
-
-	current = *list;
-	if (!current)
-	{
-		*list = new_redirection(mode, path);
-		return ;
-	}
-	while (current->next)
-		current = current->next;
-	current->next = new_redirection(mode, path);
-}
-
-int	set_redirection(char *line, int *i, t_token *token)
-{
-	int	start_i;
-
-	start_i = *i;
-	if (line[*i] == '<' && line[*i + 1] == '<')
-	{
-		(*i) += 2;
-		push_redirection(HERE_DOC, get_word(line, i), &token->infiles);
-		token->here_docs++;
-	}
-	else if (line[*i] == '<')
-	{
-		(*i)++;
-		push_redirection(INPUT, get_word(line, i), &token->infiles);
-	}
-	else if (line[*i] == '>' && line[*i + 1] == '>')
-	{
-		(*i) += 2;
-		push_redirection(OUTPUT_APPEND, get_word(line, i), &token->outfiles);
-	}
-	else if (line[*i] == '>')
-	{
-		(*i)++;
-		push_redirection(OUTPUT, get_word(line, i), &token->outfiles);
-	}
-	return (*i > start_i);
 }
 
 void	push_arg(char ***args, char *new_arg)
@@ -198,25 +108,57 @@ void	push_arg(char ***args, char *new_arg)
 	*args = new;
 }
 
-int	set_pipe()
+void	push_token(t_tokens *tokens, t_token *token)
 {
-	return (0);
+	t_token	*aux;
+
+	aux = tokens->token;
+	if (!aux)
+	{
+		tokens->token = token;
+		tokens->amount = 1;
+	}
+	else
+	{
+		while (aux->next)
+			aux = aux->next;
+		aux->next = token;
+		tokens->amount++;
+	}
+}
+
+int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
+{
+	if (line[*i] != '|')
+		return (0);
+	(*i)++;
+	if (*token == *actual)
+	{
+		*token = new_token(PIPE);
+		push_token(&(*token)->tokens, *actual);
+	}
+	*actual = new_token(CMD);
+	push_token(&(*token)->tokens, *actual);
+	return (1);
 }
 
 t_token	*tokenize(char *line)
 {
 	t_token			*token;
+	t_token			*actual;
 	int				i;
 
 	token = new_token(CMD);
+	actual = token;
 	i = 0;
 	while (line[i])
 	{
-		if (set_redirection(line, &i, token))
+		avoid_spaces(line, &i);
+		if (set_redirection(line, &i, actual))
 			continue ;
-		if (set_pipe(line, &i, token))
+		if (set_pipe(line, &i, &token, &actual))
 			continue ;
-		push_arg(&token->args, get_word(line, &i));
+		push_arg(&actual->args, get_word(line, &i));
 	}
 	print_token(token);
 	return (token);

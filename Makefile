@@ -47,7 +47,8 @@ MSRCS = minishell.c \
 		expansor_vars.c \
 		tokenizer.c \
 		quotes_utils.c \
-		tokenizer_utils.c
+		tokenizer_utils.c \
+		tokenizer_redirections.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 

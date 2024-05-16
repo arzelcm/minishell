@@ -3,4 +3,6 @@
 
 void	avoid_spaces(char *str, int *i);
 
+char	*get_word(char	*str, int *i);
+
 #endif

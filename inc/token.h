@@ -41,7 +41,8 @@ typedef struct s_token
 	t_redirection	*infiles;
 	t_redirection	*outfiles;
 	int				here_docs;
-	t_tokens		*tokens;
+	t_token			*next;
+	t_tokens		tokens;
 }	t_token;
 
 #endif
