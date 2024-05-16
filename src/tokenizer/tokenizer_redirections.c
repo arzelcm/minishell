@@ -30,7 +30,9 @@ t_redirection	*new_redirection(t_redirection_mode mode, char *path)
 	redirection->path = path;
 	return (redirection);
 }
-void	push_redirection(t_redirection_mode mode, char *path, t_redirection **list)
+
+void
+	push_redirection(t_redirection_mode mode, char *path, t_redirection **list)
 {
 	t_redirection	*current;
 

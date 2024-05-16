@@ -45,4 +45,12 @@ typedef struct s_token
 	t_tokens		tokens;
 }	t_token;
 
+void	free_token(t_token *token);
+
+t_token	*new_token(t_token_type type);
+
+void	print_token(t_token *token);
+
+void	push_token(t_tokens *tokens, t_token *token);
+
 #endif

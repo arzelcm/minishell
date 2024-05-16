@@ -4,6 +4,7 @@
 # include "token.h"
 
 t_token	*tokenize(char *line);
-void	free_token(t_token *token);
+
+void	free_args(char **args);
 
 #endif
