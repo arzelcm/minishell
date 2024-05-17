@@ -32,6 +32,21 @@ static void	check_bin(char *bin)
 	}
 }
 
+static char	*join_full_path(char *path, char *cmd)
+{
+	char	*full_cmd_path;
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	if (!tmp)
+		handle_syserror(ENOMEM);
+	full_cmd_path = ft_strjoin(tmp, cmd);
+	free(tmp);
+	if (!full_cmd_path)
+		handle_syserror(ENOMEM);
+	return (full_cmd_path);
+}
+
 static char	*get_full_cmd_path(char *cmd, char **paths)
 {
 	int		i;
@@ -43,7 +58,7 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 	while (paths[i])
 	{
 		tmp = full_cmd_path;
-		full_cmd_path = ft_strjoin(paths[i], cmd);
+		full_cmd_path = join_full_path(paths[i], cmd);
 		if (tmp)
 			free(tmp);
 		if (!full_cmd_path)
