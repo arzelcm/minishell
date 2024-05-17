@@ -4,10 +4,13 @@
 #include "expansor.h"
 #include "quotes_utils.h"
 
-void	avoid_spaces(char *str, int *i)
+int	avoid_spaces(char *str, int *i)
 {
+	if (str[*i] != ' ')
+		return (0);
 	while (str[*i] == ' ')
 		(*i)++;
+	return (1);
 }
 
 int	get_word_len(char *str, int i)

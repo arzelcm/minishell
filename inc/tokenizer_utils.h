@@ -3,7 +3,7 @@
 
 # include "context.h"
 
-void	avoid_spaces(char *str, int *i);
+int		avoid_spaces(char *str, int *i);
 
 char	*get_word(char	*str, int *i, t_context *context);
 
