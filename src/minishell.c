@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token));
+	context.envp = envp;
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);
@@ -70,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 			{
 				expand(&line, &context);
 				// tokenize(line, context);
-				execute(line, &token, &context);
+				execute(&token, &context);
 			}
 		}
 		free(line);

@@ -44,6 +44,9 @@ MSRCS = minishell.c \
 		utils.c \
 		expansor.c \
 		executor.c \
+		open.c \
+		parser.c \
+		executor_utils.c \
 		safe_utils.c \
 		expansor_vars.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)

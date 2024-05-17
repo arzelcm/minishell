@@ -15,7 +15,9 @@ void	*safe_calloc(size_t size)
 
 void	safe_close(int *fd)
 {
-	if (*fd != -1)
-		close(*fd);
+	if (*fd == -1)
+		return ;
+	if (close(*fd) == -1)
+		exit(ENOENT);
 	*fd = -1;
 }

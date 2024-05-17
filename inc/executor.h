@@ -4,6 +4,6 @@
 # include "context.h"
 # include "token.h"
 
-void	execute(char *line, t_token *token, t_context *context);
+void	execute(t_token *token, t_context *context);
 
 #endif
