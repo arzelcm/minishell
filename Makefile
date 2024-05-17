@@ -43,6 +43,10 @@ MSRCS = minishell.c \
 		lexer_utils.c \
 		utils.c \
 		expansor.c \
+		executor.c \
+		open.c \
+		parser.c \
+		executor_utils.c \
 		safe_utils.c \
 		expansor_vars.c \
 		tokenizer.c \
@@ -70,7 +74,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor
 
 #----LOG----#
 LOG = log

@@ -3,6 +3,8 @@
 #include "minishell.h"
 #include "utils.h"
 #include "lexer.h"
+#include "token.h"
+#include "executor.h"
 #include <stdlib.h>
 #include <termios.h>
 #include <signal.h>
@@ -53,6 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (EXIT_FAILURE);
 	ft_bzero(&context, sizeof(t_context));
+	ft_bzero(&token, sizeof(t_token));
+	context.envp = envp;
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);
@@ -68,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 			{
 				token = tokenize(line, &context);
 				// expand(&line, &context);
-				// execute(line, context);
+				execute(token, &context);
 				free_token(token);
 			}
 		}
