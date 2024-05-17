@@ -117,4 +117,3 @@ int	open_outfiles(int write_fd, t_redirection *outfiles)
 		safe_close(&fd);
 	return (fd);
 }
-
