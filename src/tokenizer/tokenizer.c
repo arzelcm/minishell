@@ -72,6 +72,6 @@ t_token	*tokenize(char *line, t_context *context)
 			continue ;
 		push_arg(&actual->args, get_word(line, &i, context));
 	}
-	print_token(token);
+	// print_token(token);
 	return (token);
 }

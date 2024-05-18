@@ -4,6 +4,26 @@
 #include "utils.h"
 #include "open.h"
 #include <fcntl.h>
+#include <errno.h>
+
+int	wait_child_processes(pid_t last_pid, int cmds_amount)
+{
+	pid_t	pid;
+	int		tmp;
+	int		status;
+
+	status = 1;
+	while (cmds_amount > 0)
+	{
+		pid = waitpid(-1, &tmp, 0);
+		if (pid < 0)
+			handle_syserror(ECHILD);
+		if (pid == last_pid && WIFEXITED(tmp))
+			status = WEXITSTATUS(tmp);
+		cmds_amount--;
+	}
+	return (status);
+}
 
 int	is_a_builtin(char *command)
 {

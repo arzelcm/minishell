@@ -46,6 +46,7 @@ MSRCS = minishell.c \
 		executor.c \
 		open.c \
 		parser.c \
+		parser_utils.c \
 		executor_utils.c \
 		safe_utils.c \
 		expansor_vars.c \

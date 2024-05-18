@@ -7,7 +7,9 @@
 # define CMDNOTFND "command not found"
 # define NOFILEDIR "No such file or directory"
 # define PERMDENIED "Permission denied"
-# define PERMBITS 0666
+# define ISDIRECTORY "is a directory"
+# define PERMBITS 0644
+
 typedef struct s_context
 {
 	int		err_code;

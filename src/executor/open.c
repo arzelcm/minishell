@@ -38,6 +38,7 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 	t_redirection	*file;
 
 	i = 0;
+	fd = -1;
 	file = infiles;
 	while (file && i < here_docs_amount)
 	{
@@ -53,48 +54,66 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 	return (fd);
 }
 
+static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs)
+{
+	int	fd;
+	int	failed;
+
+	failed = 0;
+	fd = open_infile(file->path);
+	if (fd == -1)
+		failed = 1;
+	if (i >= hdocs)
+	{
+		safe_close(read_fd);
+		*read_fd = fd;
+	}
+	else
+		safe_close(&fd);
+	return (failed);
+}
+
 int	open_infiles(int read_fd, t_redirection *infiles, int here_docs_amount)
 {
 	int				i;
-	int				fd;
+	int				failed;
 	t_redirection	*file;
 
 	i = 0;
-	fd = read_fd;
+	failed = 0;
 	file = infiles;
 	while (file)
 	{
 		if (file->mode != HERE_DOC)
-		{
-			fd = open_infile(file->path);
-			if (i >= here_docs_amount)
-			{
-				safe_close(&read_fd);
-				read_fd = fd;
-			}
-			else
-				safe_close(&fd);
-		}
+			failed += open_next_infile(file, i, &read_fd, here_docs_amount);
 		else
 			i++;
 		file = file->next;
 	}
+	if (failed)
+		safe_close(&read_fd);
 	return (read_fd);
 }
 
 int	open_outfiles(int write_fd, t_redirection *outfiles)
 {
 	int				fd;
+	int				failed;
 	t_redirection	*file;
 
 	fd = write_fd;
 	file = outfiles;
+	failed = 0;
 	while (file)
 	{
 		fd = open_outfile(file->path, file->mode);
+		if (fd == -1)
+			failed++;
 		if (file->next)
 			safe_close(&fd);
 		file = file->next;
 	}
+	if (failed)
+		safe_close(&fd);
 	return (fd);
 }
