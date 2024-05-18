@@ -41,7 +41,7 @@ static int	check_redirection(t_context *context, char *line, int index)
 	if (!is_redirection(line, index))
 		return (1);
 	i = index + 1;
-	if ((line[index] == INPUT_RD[0] && line[index + 1] == INPUT_RD[0]) 
+	if ((line[index] == INPUT_RD[0] && line[index + 1] == INPUT_RD[0])
 		|| (line[index] == OUTPUT_RD[0] && line[index + 1] == OUTPUT_RD[0]))
 		i++;
 	while (line[i])
@@ -63,7 +63,7 @@ int	check_syntax(t_context *context, char *line)
 	int				i;
 
 	ft_bzero(&quotes, sizeof(t_quotes_flag));
-	i = 0;	
+	i = 0;
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);

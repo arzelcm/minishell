@@ -12,7 +12,7 @@ char	*get_var_value(char *key, t_context *context)
 	value = getenv(key + 1);
 	if (!value)
 	{
-		if (ft_strcmp(key,  "$") == EQUAL_STRINGS)
+		if (ft_strcmp(key, "$") == EQUAL_STRINGS)
 			value = ft_strdup(key);
 		else if (ft_strcmp(key, "$?") == EQUAL_STRINGS)
 			value = ft_itoa(context->err_code);

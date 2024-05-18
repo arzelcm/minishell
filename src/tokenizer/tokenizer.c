@@ -65,7 +65,7 @@ t_token	*tokenize(char *line, t_context *context)
 	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
-			continue;
+			continue ;
 		if (set_redirection(line, &i, actual, context))
 			continue ;
 		if (set_pipe(line, &i, &token, &actual))
