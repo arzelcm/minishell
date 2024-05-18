@@ -51,11 +51,10 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 
 	(void) argv;
-	(void) envp;
 	if (argc > 1)
 		return (EXIT_FAILURE);
 	ft_bzero(&context, sizeof(t_context));
-	ft_bzero(&token, sizeof(t_token));
+	ft_bzero(&token, sizeof(t_token*));
 	context.envp = envp;
 	config_terminal();
 	listen_signals();
