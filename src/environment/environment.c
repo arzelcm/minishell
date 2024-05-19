@@ -81,6 +81,7 @@ void	ft_putenv(char *key, char *value, t_env *env)
 	envp = safe_calloc(sizeof(char *) * (env->global_size + 2));
 	copy_envp(envp, env->global);
 	free(env->global);
+	free(complete_key);
 	env->global = envp;
 	env->global[env->global_size] = ft_strjoin(complete_key, value);
 	env->global[env->global_size + 1] = NULL;

@@ -13,6 +13,7 @@
 #include "expansor.h"
 #include "tokenizer.h"
 #include "environment.h"
+#include "environment_helper.h"
 
 static void	catch_sigint(int signal)
 {
@@ -77,5 +78,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 	}
+	free_enviroment(&context.env);
 	return (EXIT_SUCCESS);
 }

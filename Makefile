@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
 #----DIRS----#
 BIN_DIR = bin/

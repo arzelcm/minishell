@@ -7,4 +7,6 @@ void	increase_var(char *key, t_env *env);
 
 void	print_env(t_env *env);
 
+void	free_enviroment(t_env *env);
+
 #endif
