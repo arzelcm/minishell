@@ -8,7 +8,7 @@
 #include "safe_utils.h"
 #include "executor_utils.h"
 
-static void	execute_command(int fds[2], char **envp, t_token *token)
+static void	execute_command(int fds[2], char **envp, t_token *token, t_context *context)
 {
 	fds[READ_FD] = open_infiles(fds[READ_FD], token->infiles, token->here_docs);
 	if (token->infiles && fds[READ_FD] == -1)
@@ -25,7 +25,7 @@ static void	execute_command(int fds[2], char **envp, t_token *token)
 		handle_syserror(EBUSY);
 	close_pipe(fds);
 	// TODO: Add builtins
-	if (is_a_builtin(token->args[0]))
+	if (is_a_builtin(token->args[0], token, context))
 		exit(EXIT_SUCCESS);
 	else if (!is_directory(token->args[0]))
 		execute_by_path(token->args, envp);
@@ -46,7 +46,7 @@ static void	execute_cmd_token(t_token *token, t_context *context)
 	if (pid < 0)
 		handle_syserror(ENOMEM);
 	else if (pid == 0)
-		execute_command(fds, context->env.global, token);
+		execute_command(fds, context->env.global, token, context);
 	if (token->here_docs)
 		safe_close(&fds[READ_FD]);
 	context->err_code = wait_child_processes(pid, 1);

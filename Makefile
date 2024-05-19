@@ -56,7 +56,9 @@ MSRCS = minishell.c \
 		tokenizer_redirections.c \
 		token.c \
 		environment.c \
-		environment_helper.c
+		environment_helper.c \
+		pwd.c \
+		env.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
@@ -77,7 +79,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor:src/environment
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor:src/executor/builtins:src/environment
 
 #----LOG----#
 LOG = log

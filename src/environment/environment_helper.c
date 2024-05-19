@@ -13,7 +13,6 @@ void	print_env(t_env *env)
 {
 	int	i;
 
-	ft_printf("Enviroment %p\n", env);
 	i = 0;
 	while (env->global[i])
 		ft_printf("%s\n", env->global[i++]);
