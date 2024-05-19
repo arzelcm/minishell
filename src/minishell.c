@@ -12,6 +12,7 @@
 #include "history.h"
 #include "expansor.h"
 #include "tokenizer.h"
+#include "environment.h"
 
 static void	catch_sigint(int signal)
 {
@@ -55,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token*));
-	context.envp = envp;
+	init_env(&context.env, envp);
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);

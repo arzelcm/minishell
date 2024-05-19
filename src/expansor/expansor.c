@@ -26,9 +26,10 @@ void
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if (line[i] == '$' && line[i + 1] != '\"' && !quotes.simple)
+		start = i;
+		// TODO: Calibrate on calc function
+		if (line[i] == '$' && (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
 		{
-			start = i;
 			while (!variable_finished(line[i], i > start))
 				i++;
 			var = get_var(ft_substr(line, start, i - start), vars, context);

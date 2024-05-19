@@ -36,6 +36,7 @@ void	execute_by_path(char **args, char **envp)
 	char	*path;
 	char	**paths;
 
+	// path = ft_getenv("PATH", envp);
 	path = getenv("PATH");
 	if (!path)
 		path = DEF_PATH;

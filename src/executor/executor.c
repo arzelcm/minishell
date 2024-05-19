@@ -46,7 +46,7 @@ static void	execute_cmd_token(t_token *token, t_context *context)
 	if (pid < 0)
 		handle_syserror(ENOMEM);
 	else if (pid == 0)
-		execute_command(fds, context->envp, token);
+		execute_command(fds, context->env.global, token);
 	if (token->here_docs)
 		safe_close(&fds[READ_FD]);
 	context->err_code = wait_child_processes(pid, 1);
@@ -54,6 +54,8 @@ static void	execute_cmd_token(t_token *token, t_context *context)
 
 void	execute(t_token *token, t_context *context)
 {
-	if (token->type == CMD)
+	if (!token)
+		return ;
+	else if (token->type == CMD)
 		execute_cmd_token(token, context);
 }

@@ -4,12 +4,15 @@
 #include "expansor.h"
 #include "quotes_flag.h"
 #include "quotes_utils.h"
+#include "environment.h"
 
 char	*get_var_value(char *key, t_context *context)
 {
 	char	*value;
 
 	value = getenv(key + 1);
+	// value = ft_getenv(key + 1, context->env.global);
+	ft_printf("ft_env: %s\n", ft_getenv(key + 1, context->env.global));
 	if (!value)
 	{
 		if (ft_strcmp(key, "$") == EQUAL_STRINGS)
