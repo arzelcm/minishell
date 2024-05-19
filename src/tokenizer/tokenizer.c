@@ -17,7 +17,7 @@ void	free_args(char **args)
 	free(args);
 }
 
-void	push_arg(char ***args, char *new_arg)
+void	push_arg(char ***args, char *new_arg, int *argc)
 {
 	char	**new;
 	int		len;
@@ -36,6 +36,7 @@ void	push_arg(char ***args, char *new_arg)
 	new[len + 1] = NULL;
 	free(*args);
 	*args = new;
+	(*argc)++;
 }
 
 int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
@@ -95,7 +96,7 @@ t_token	*tokenize(char *line, t_context *context)
 			continue ;
 		if (set_pipe(line, &i, &token, &actual))
 			continue ;
-		push_arg(&actual->args, get_word(line, &i, context));
+		push_arg(&actual->args, get_word(line, &i, context), &token->argc);
 	}
 	// print_token(token);
 	return (token);

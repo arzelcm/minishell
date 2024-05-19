@@ -38,6 +38,7 @@ typedef struct s_token
 	t_token_type	type;
 	char			*raw_token;
 	char			**args;
+	int				argc;
 	t_redirection	*infiles;
 	t_redirection	*outfiles;
 	int				here_docs;
