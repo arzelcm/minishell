@@ -59,7 +59,8 @@ MSRCS = minishell.c \
 		environment_helper.c \
 		pwd.c \
 		env.c \
-		echo.c
+		echo.c \
+		exit.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 

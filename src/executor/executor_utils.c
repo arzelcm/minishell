@@ -38,6 +38,8 @@ int	is_a_builtin(char *command, t_token *token, t_context *context)
 		return (ft_env(1, token->args, context));
 	else if (ft_strcmp(command, ECHO) == EQUAL_STRINGS)
 		return (ft_echo(token->argc, token->args, context));
+	else if (ft_strcmp(command, EXIT) == EQUAL_STRINGS)
+		return (ft_exit(token->argc, token->args, context));
 	return (0);
 }
 
