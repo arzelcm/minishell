@@ -1,4 +1,5 @@
 minishell
+lib/readline
 bin
 *.o
 *.d
@@ -6,10 +7,12 @@ bin
 log
 a.out
 
-la*
-test
 
 .vscode
-lib/readline
-
 .DS_Store
+
+la*
+lim
+test
+minishell_tester/
+.gitmodules

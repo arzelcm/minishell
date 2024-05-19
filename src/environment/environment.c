@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "safe_utils.h"
 #include "environment.h"
+#include "environment_helper.h"
 
 // TODO: INCREASE $SHLVL & SET \?\ ENV VARIABLE TO CONTROL ERR_CODE
 // TODO: FREE environment
@@ -62,19 +63,9 @@ void	copy_envp(char **dst, char **src)
 	}
 }
 
-void	print_env(t_env *env)
-{
-	int	i;
-
-	ft_printf("Enviroment %p\n", env);
-	i = 0;
-	while (env->global[i])
-		ft_printf("%s\n", env->global[i++]);
-}
-
 void	ft_putenv(char *key, char *value, t_env *env)
 {
-	char *complete_key;
+	char	*complete_key;
 	char	**envp;
 	char	**line;
 
@@ -96,21 +87,12 @@ void	ft_putenv(char *key, char *value, t_env *env)
 	env->global_size++;
 }
 
-void	increase_var(char *key, t_env *env)
-{
-	char	*value;
-	
-	value = ft_getenv(key, env->global);
-	ft_putenv(key, ft_itoa(ft_atoi(value) + 1), env);
-}
-
 void	init_env(t_env *env, char **envp)
 {
 	int	i;
 
 	ft_bzero(env, sizeof(t_env));
 	i = 0;
-	
 	while (envp[i])
 		i++;
 	env->global_size = i;

@@ -54,7 +54,8 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 	return (fd);
 }
 
-static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs)
+static int
+	open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs)
 {
 	int	fd;
 	int	failed;

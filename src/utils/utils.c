@@ -47,5 +47,5 @@ char	*quote_str(char *str)
 	if (!quoted_str)
 		handle_syserror(ENOMEM);
 	free(tmp);
-	return (quoted_str);	
+	return (quoted_str);
 }

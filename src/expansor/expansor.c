@@ -27,8 +27,8 @@ void
 	{
 		check_quotes(&quotes, line[i]);
 		start = i;
-		// TODO: Calibrate on calc function
-		if (line[i] == '$' && (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
+		if (line[i] == '$'
+			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
 		{
 			while (!variable_finished(line[i], i > start))
 				i++;
