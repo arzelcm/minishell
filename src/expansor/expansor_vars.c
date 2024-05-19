@@ -10,16 +10,13 @@ char	*get_var_value(char *key, t_context *context)
 {
 	char	*value;
 
-	value = getenv(key + 1);
-	// value = ft_getenv(key + 1, context->env.global);
-	ft_printf("ft_env: %s\n", ft_getenv(key + 1, context->env.global));
+	value = ft_getenv(key + 1, context->env.global);
 	if (!value)
 	{
 		if (ft_strcmp(key, "$") == EQUAL_STRINGS)
 			value = ft_strdup(key);
 		else if (ft_strcmp(key, "$?") == EQUAL_STRINGS)
 			value = ft_itoa(context->err_code);
-		// TODO: Search for local vars
 	}
 	else
 		value = ft_strdup(value);

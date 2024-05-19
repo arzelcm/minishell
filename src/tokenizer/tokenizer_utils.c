@@ -60,7 +60,6 @@ char	*get_word(char	*str, int *i, t_context *context)
 	avoid_spaces(str, i);
 	len = get_word_len(str, *i);
 	str = ft_substr(str, *i, len);
-	// ft_printf("Future word: %s\n", str);
 	*i += len;
 	len = expand(&str, context);
 	fill_word(len, str, &word);

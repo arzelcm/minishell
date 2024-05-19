@@ -71,7 +71,6 @@ int	main(int argc, char **argv, char **envp)
 			if (check_syntax(&context, line))
 			{
 				token = tokenize(line, &context);
-				// expand(&line, &context);
 				execute(token, &context);
 				free_token(token);
 			}

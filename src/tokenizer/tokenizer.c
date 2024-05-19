@@ -55,19 +55,21 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 
 int	set_definitions(char *line, int *i, t_context *context, t_token **token)
 {
-	// char	*word;
-	// int		word_i;
+	char	*key;
+	char	*value;
+	char	*aux;
+	int		aux_i;
 
+	aux_i = 0;
 	if (line[*i] != '=')
 		return (0);
-	// word_i = i;
-	// word = get_word(line, &word_i, context);
-	ft_printf("%s, %s\n", ft_substr(line, 0, *i), ft_substr(line, *i, -1));
-	ft_putenv(
-		ft_substr(line, 0, *i),
-		ft_substr(line, *i + 1, -1),
-		&context->env
-	);
+	key = ft_substr(line, 0, *i);
+	aux = ft_substr(line, *i + 1, -1);
+	value = get_word(aux, &aux_i, context);
+	free(aux);
+	ft_putenv(key, value, &context->env);
+	free(key);
+	free(value);
 	free_token(*token);
 	*token = NULL;
 	return (1);
@@ -95,6 +97,6 @@ t_token	*tokenize(char *line, t_context *context)
 			continue ;
 		push_arg(&actual->args, get_word(line, &i, context));
 	}
-	print_token(token);
+	// print_token(token);
 	return (token);
 }
