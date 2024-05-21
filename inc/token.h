@@ -4,7 +4,8 @@
 typedef enum e_token_type
 {
 	CMD,
-	PIPE
+	PIPE,
+	DEFINITION
 }	t_token_type;
 
 typedef enum e_redirection_mode

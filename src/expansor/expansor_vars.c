@@ -10,7 +10,7 @@ char	*get_var_value(char *key, t_context *context)
 {
 	char	*value;
 
-	value = ft_getenv(key + 1, context->env.global);
+	value = ft_getenv(key + 1, context->global_env.envp);
 	if (!value)
 	{
 		if (ft_strcmp(key, "$") == EQUAL_STRINGS)

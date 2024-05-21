@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "safe_utils.h"
 #include "executor_utils.h"
+#include "builtins.h"
 
 static void	execute_command(int fds[2], char **envp, t_token *token, t_context *context)
 {
@@ -24,7 +25,6 @@ static void	execute_command(int fds[2], char **envp, t_token *token, t_context *
 	if (fds[WRITE_FD] != -1 && dup2(fds[WRITE_FD], STDOUT_FILENO) == -1)
 		handle_syserror(EBUSY);
 	close_pipe(fds);
-	// TODO: Add builtins
 	if (is_a_builtin(token->args[0], token, context))
 		exit(EXIT_SUCCESS);
 	else if (!is_directory(token->args[0]))
@@ -46,7 +46,7 @@ static void	execute_cmd_token(t_token *token, t_context *context)
 	if (pid < 0)
 		handle_syserror(ENOMEM);
 	else if (pid == 0)
-		execute_command(fds, context->env.global, token, context);
+		execute_command(fds, context->global_env.envp, token, context);
 	if (token->here_docs)
 		safe_close(&fds[READ_FD]);
 	context->err_code = wait_child_processes(pid, 1);
@@ -54,8 +54,11 @@ static void	execute_cmd_token(t_token *token, t_context *context)
 
 void	execute(t_token *token, t_context *context)
 {
+	context->err_code = EXIT_SUCCESS;
 	if (!token)
 		return ;
+	else if (token->type == DEFINITION)
+		ft_export(token->argc, token->args, context);
 	else if (token->type == CMD)
 		execute_cmd_token(token, context);
 }

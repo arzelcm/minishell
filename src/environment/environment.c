@@ -2,10 +2,12 @@
 #include "safe_utils.h"
 #include "environment.h"
 #include "environment_helper.h"
+#include "limits.h"
 
-// TODO: INCREASE $SHLVL & SET \?\ ENV VARIABLE TO CONTROL ERR_CODE
 // TODO: FREE environment
 // REVIEW!!!
+// TODO: Implement local vars
+
 char	**ft_getenvline(char *key, char **envp)
 {
 	int		i;
@@ -17,7 +19,7 @@ char	**ft_getenvline(char *key, char **envp)
 	key_len = ft_strlen(complete_key);
 	found = 0;
 	i = 0;
-	while (envp[i] && !found)
+	while (envp && envp[i] && !found)
 	{
 		found = ft_strncmp(complete_key, envp[i], key_len) == EQUAL_STRINGS;
 		if (!found)
@@ -47,7 +49,7 @@ char	*ft_getenv(char *key, char **envp)
 		else
 			val = NULL;
 	}
-	// ft_printf("got env_var\nkey -> %s\nval-> %s\nenv[i]: -> %s\ni -> %i\n", key, val, envp[i], i);
+	// ft_printf("got env_var\nkey -> %s\nval-> %s\n", key, val);
 	return (val);
 }
 
@@ -56,7 +58,7 @@ void	copy_envp(char **dst, char **src)
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src && src[i])
 	{
 		dst[i] = ft_strdup(src[i]);
 		i++;
@@ -65,39 +67,46 @@ void	copy_envp(char **dst, char **src)
 
 void	ft_putenv(char *key, char *value, t_env *env)
 {
-	char	*complete_key;
-	char	**envp;
+	char	*complete_val;
+	char	**curr_envp;
 	char	**line;
 
-	key = ft_strtrim(key, " ");
-	complete_key = ft_strjoin(key, "=");
-	line = ft_getenvline(key, env->global);
-	free(key);
+	if (!value)
+		complete_val = ft_strdup("");
+	else
+		complete_val = ft_strjoin("=", value);
+	line = ft_getenvline(key, env->envp);
 	if (line)
 	{
-		*line = ft_strjoin(complete_key, value);
-		return ;
+		free(*line);
+		*line = ft_strjoin(key, complete_val);
 	}
-	envp = safe_calloc(sizeof(char *) * (env->global_size + 2));
-	copy_envp(envp, env->global);
-	free(env->global);
-	free(complete_key);
-	env->global = envp;
-	env->global[env->global_size] = ft_strjoin(complete_key, value);
-	env->global[env->global_size + 1] = NULL;
-	env->global_size++;
+	else
+	{
+		curr_envp = safe_calloc(sizeof(char *) * ((env->size) + 2));
+		copy_envp(curr_envp, env->envp);
+		curr_envp[env->size] = ft_strjoin(key, complete_val);
+		curr_envp[env->size + 1] = NULL;
+		(env->size)++;
+		free(env->envp);
+		env->envp = curr_envp;
+	}
+	free(complete_val);
 }
 
-void	init_env(t_env *env, char **envp)
+void	init_env(t_env *global, t_env *local,  char **envp)
 {
 	int	i;
 
-	ft_bzero(env, sizeof(t_env));
+	ft_bzero(global, sizeof(t_env));
+	ft_bzero(local, sizeof(t_env));
 	i = 0;
 	while (envp[i])
 		i++;
-	env->global_size = i;
-	env->global = safe_calloc(sizeof(char *) * (env->global_size + 2));
-	copy_envp(env->global, envp);
-	increase_var("SHLVL", env);
+	global->size = i;
+	global->envp = safe_calloc(sizeof(char *) * (global->size + 2));
+	copy_envp(global->envp, envp);
+	local->size = 0;
+	local->envp = safe_calloc(sizeof(char *) * 2);
+	increase_var("SHLVL", global);
 }

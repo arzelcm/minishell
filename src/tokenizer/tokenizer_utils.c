@@ -18,7 +18,7 @@ int	get_word_len(char *str, int i)
 	int	start_i;
 
 	start_i = i;
-	while (str[i] != '\0' && !ft_stroccurrences("| <>&=", str[i]))
+	while (str[i] != '\0' && !ft_stroccurrences("| <>&", str[i]))
 	{
 		if (!avoid_quotes(str, &i))
 			i++;
@@ -61,7 +61,8 @@ char	*get_word(char	*str, int *i, t_context *context)
 	len = get_word_len(str, *i);
 	str = ft_substr(str, *i, len);
 	*i += len;
-	len = expand(&str, context);
+	if (context)
+		len = expand(&str, context);
 	fill_word(len, str, &word);
 	free(str);
 	return (word);

@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
 #----DIRS----#
 BIN_DIR = bin/
@@ -60,7 +60,8 @@ MSRCS = minishell.c \
 		pwd.c \
 		env.c \
 		echo.c \
-		exit.c
+		exit.c \
+		export.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 

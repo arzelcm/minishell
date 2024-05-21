@@ -6,6 +6,7 @@
 #include "tokenizer_utils.h"
 #include "tokenizer_redirections.h"
 #include "token.h"
+#include "builtins.h"
 
 void	free_args(char **args)
 {
@@ -54,26 +55,18 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	return (1);
 }
 
-int	set_definitions(char *line, int *i, t_context *context, t_token **token)
+int	set_definitions(char *line, int i, t_token **token)
 {
-	char	*key;
-	char	*value;
-	char	*aux;
-	int		aux_i;
+	char *word;
 
-	aux_i = 0;
-	if (line[*i] != '=')
-		return (0);
-	key = ft_substr(line, 0, *i);
-	aux = ft_substr(line, *i + 1, -1);
-	value = get_word(aux, &aux_i, context);
-	free(aux);
-	ft_putenv(key, value, &context->env);
-	free(key);
-	free(value);
-	free_token(*token);
-	*token = NULL;
-	return (1);
+	word = get_word(line, &i, NULL);
+	if (word[0] != '='
+		&& (*token)->type != DEFINITION
+		&& (ft_stroccurrences(word, '=')
+			|| (!(*token)->argc && ft_strcmp(word, EXPORT) == EQUAL_STRINGS)))
+		(*token)->type = DEFINITION;
+	free(word);
+	return (0);
 }
 
 t_token	*tokenize(char *line, t_context *context)
@@ -87,17 +80,15 @@ t_token	*tokenize(char *line, t_context *context)
 	i = 0;
 	while (line[i] && token)
 	{
-		// TODO: Get word?
 		if (avoid_spaces(line, &i))
-			continue ;
-		if (set_definitions(line, &i, context, &token))
 			continue ;
 		if (set_redirection(line, &i, actual, context))
 			continue ;
 		if (set_pipe(line, &i, &token, &actual))
 			continue ;
+		if (set_definitions(line, i, &token))
+			continue ;
 		push_arg(&actual->args, get_word(line, &i, context), &token->argc);
 	}
-	// print_token(token);
 	return (token);
 }

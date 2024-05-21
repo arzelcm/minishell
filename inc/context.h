@@ -15,7 +15,8 @@
 typedef struct s_context
 {
 	int		err_code;
-	t_env	env;
+	t_env	local_env;
+	t_env	global_env;
 }	t_context;
 
 #endif
