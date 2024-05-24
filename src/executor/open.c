@@ -1,35 +1,8 @@
-#include <errno.h>
-#include "open.h"
 #include "safe_utils.h"
 #include "utils.h"
 #include "libft.h"
-#include "readline.h"
 #include "executor_utils.h"
-
-static int	open_here_doc(t_redirection *here_doc)
-{
-	int		fds[2];
-	char	*line;
-
-	if (pipe(fds) == -1)
-		handle_syserror(EXIT_FAILURE);
-	line = readline(HERE_DOC_PREFIX);
-	while (line && ft_strcmp(line, here_doc->delimiter))
-	{
-		if (ft_printff(fds[WRITE_FD], "%s\n", line) == -1)
-		{
-			free(line);
-			safe_close(&fds[READ_FD]);
-			safe_close(&fds[WRITE_FD]);
-			exit(ENOENT);
-		}
-		free(line);
-		line = readline(HERE_DOC_PREFIX);
-	}
-	free(line);
-	safe_close(&fds[WRITE_FD]);
-	return (fds[READ_FD]);
-}
+#include "open_utils.h"
 
 int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 {
@@ -52,25 +25,6 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 		file = file->next;
 	}
 	return (fd);
-}
-
-static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs)
-{
-	int	fd;
-	int	failed;
-
-	failed = 0;
-	fd = open_infile(file->path);
-	if (fd == -1)
-		failed = 1;
-	if (i >= hdocs)
-	{
-		safe_close(read_fd);
-		*read_fd = fd;
-	}
-	else
-		safe_close(&fd);
-	return (failed);
 }
 
 int	open_infiles(int read_fd, t_redirection *infiles, int here_docs_amount)

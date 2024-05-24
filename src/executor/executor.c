@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "safe_utils.h"
 #include "executor_utils.h"
+#include "open_utils.h"
 
 static void	execute_command(int fds[2], char **envp, t_token *token)
 {
@@ -33,27 +34,29 @@ static void	execute_command(int fds[2], char **envp, t_token *token)
 	exit(PERM_ERR);
 }
 
-static void	execute_cmd_token(t_token *token, t_context *context)
+static void	\
+	execute_cmd_token(int i, t_pdata *pdata, t_token *token, t_context *context)
 {
-	int		fds[2];
-	pid_t	pid;
-
-	fds[READ_FD] = -1;
-	fds[WRITE_FD] = -1;
-	if (token->here_docs)
-		fds[READ_FD] = open_here_docs(token->infiles, token->here_docs);
-	pid = fork();
-	if (pid < 0)
+	pdata->fds[READ_FD] = pdata->hd_fds[i];
+	pdata->pids[i] = fork();
+	if (pdata->pids[i] < 0)
 		handle_syserror(ENOMEM);
-	else if (pid == 0)
-		execute_command(fds, context->envp, token);
+	else if (pdata->pids[i] == 0)
+		execute_command(pdata->fds, context->envp, token);
 	if (token->here_docs)
-		safe_close(&fds[READ_FD]);
-	context->err_code = wait_child_processes(pid, 1);
+		safe_close(&pdata->fds[READ_FD]);
 }
 
 void	execute(t_token *token, t_context *context)
 {
+	t_pdata	p_data;
+	int		last_cmd_index;
+
+	initialize_pdata(&p_data, token);
+	last_cmd_index = token->tokens.amount - 1;
 	if (token->type == CMD)
-		execute_cmd_token(token, context);
+		execute_cmd_token(last_cmd_index, &p_data, token, context);
+	context->err_code = \
+		wait_child_processes(p_data.pids[last_cmd_index], token->tokens.amount);
+	free_pdata(&p_data);
 }
