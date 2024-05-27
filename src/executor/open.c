@@ -60,11 +60,10 @@ int	open_outfiles(int write_fd, t_redirection *outfiles)
 	failed = 0;
 	while (file)
 	{
+		safe_close(&fd);
 		fd = open_outfile(file->path, file->mode);
 		if (fd == -1)
 			failed++;
-		if (file->next)
-			safe_close(&fd);
 		file = file->next;
 	}
 	if (failed)

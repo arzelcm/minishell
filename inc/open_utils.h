@@ -6,6 +6,8 @@
 
 void	free_pdata(t_pdata *p_data);
 
+void	close_pdata_fds(t_pdata *pdata);
+
 void	initialize_pdata(t_pdata *p_data, t_token *token);
 
 int		open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs);

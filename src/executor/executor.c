@@ -9,22 +9,25 @@
 #include "executor_utils.h"
 #include "open_utils.h"
 
-static void	execute_command(int fds[2], char **envp, t_token *token)
+static void	execute_command(char **envp, t_pdata *pdata, t_token *token)
 {
-	fds[READ_FD] = open_infiles(fds[READ_FD], token->infiles, token->here_docs);
-	if (token->infiles && fds[READ_FD] == -1)
+	pdata->fds[READ_FD] = \
+		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
+	if (token->infiles && pdata->fds[READ_FD] == -1)
 		exit(EXIT_FAILURE);
-	fds[WRITE_FD] = open_outfiles(fds[WRITE_FD], token->outfiles);
-	if (token->outfiles && fds[WRITE_FD] == -1)
+	pdata->fds[WRITE_FD] = open_outfiles(pdata->fds[WRITE_FD], token->outfiles);
+	if (token->outfiles && pdata->fds[WRITE_FD] == -1)
 	{
-		safe_close(&fds[READ_FD]);
+		safe_close(&pdata->fds[READ_FD]);
 		exit(EXIT_FAILURE);
 	}
-	if (fds[READ_FD] != -1 && dup2(fds[READ_FD], STDIN_FILENO) == -1)
+	if (pdata->fds[READ_FD] != -1
+		&& dup2(pdata->fds[READ_FD], STDIN_FILENO) == -1)
 		handle_syserror(EBUSY);
-	if (fds[WRITE_FD] != -1 && dup2(fds[WRITE_FD], STDOUT_FILENO) == -1)
+	if (pdata->fds[WRITE_FD] != -1
+		&& dup2(pdata->fds[WRITE_FD], STDOUT_FILENO) == -1)
 		handle_syserror(EBUSY);
-	close_pipe(fds);
+	close_pdata_fds(pdata);
 	// TODO: Add builtins
 	if (is_a_builtin(token->args[0]))
 		exit(EXIT_SUCCESS);
@@ -34,17 +37,50 @@ static void	execute_command(int fds[2], char **envp, t_token *token)
 	exit(PERM_ERR);
 }
 
-static void	\
-	execute_cmd_token(int i, t_pdata *pdata, t_token *token, t_context *context)
+static void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
 {
-	pdata->fds[READ_FD] = pdata->hd_fds[i];
-	pdata->pids[i] = fork();
-	if (pdata->pids[i] < 0)
-		handle_syserror(ENOMEM);
-	else if (pdata->pids[i] == 0)
-		execute_command(pdata->fds, context->envp, token);
-	if (token->here_docs)
+	int	tmp;
+
+	tmp = pdata->last_pipe;
+	pdata->last_pipe = pdata->pipe_fds[READ_FD];
+	pdata->fds[READ_FD] = tmp;
+	pdata->fds[WRITE_FD] = pdata->pipe_fds[WRITE_FD];
+	pdata->pipe_fds[READ_FD] = -1;
+	pdata->pipe_fds[WRITE_FD] = -1;
+	if (token->infiles)
+	{
 		safe_close(&pdata->fds[READ_FD]);
+		pdata->fds[READ_FD] = pdata->hd_fds[i];
+	}
+	if (token->outfiles || i == cmd_amount - 1)
+		safe_close(&pdata->fds[WRITE_FD]);
+	pdata->hd_fds[i] = -1;
+}
+
+static void	\
+	execute_pipe_token(t_pdata *pdata, t_token *token, t_context *context)
+{
+	t_token	*cmd_token;
+	int		i;
+
+	i = 0;
+	cmd_token = token;
+	if (token->type != CMD)
+		cmd_token = token->tokens.token;
+	while (i < token->tokens.amount && cmd_token)
+	{
+		if (i < token->tokens.amount - 1 && pipe(pdata->pipe_fds) == -1)
+			handle_syserror(ENOMEM);
+		parse_fds(i, token->tokens.amount, pdata, cmd_token);
+		pdata->pids[i] = fork();
+		if (pdata->pids[i] == -1)
+			handle_syserror(ENOMEM);
+		else if (pdata->pids[i] == 0)
+			execute_command(context->envp, pdata, cmd_token);
+		close_pipe(pdata->fds);
+		cmd_token = cmd_token->next;
+		i++;
+	}
 }
 
 void	execute(t_token *token, t_context *context)
@@ -52,10 +88,12 @@ void	execute(t_token *token, t_context *context)
 	t_pdata	p_data;
 	int		last_cmd_index;
 
+	if (token->tokens.amount == 0)
+		token->tokens.amount++;
 	initialize_pdata(&p_data, token);
 	last_cmd_index = token->tokens.amount - 1;
-	if (token->type == CMD)
-		execute_cmd_token(last_cmd_index, &p_data, token, context);
+	if (token->type == CMD || token->type == PIPE)
+		execute_pipe_token(&p_data, token, context);
 	context->err_code = \
 		wait_child_processes(p_data.pids[last_cmd_index], token->tokens.amount);
 	free_pdata(&p_data);
