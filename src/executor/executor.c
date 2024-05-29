@@ -25,7 +25,6 @@ static void	execute_command(int fds[2], char **envp, t_token *token, t_context *
 	if (fds[WRITE_FD] != -1 && dup2(fds[WRITE_FD], STDOUT_FILENO) == -1)
 		handle_syserror(EBUSY);
 	close_pipe(fds);
-	ft_printf("tokeeeen: %p\n", token->args);
 	if (is_a_builtin(token->args[0], token, context))
 		exit(EXIT_SUCCESS);
 	else if (!is_directory(token->args[0]))

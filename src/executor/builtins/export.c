@@ -6,11 +6,10 @@
 #include "tokenizer_utils.h"
 #include "safe_utils.h"
 
-// TODO: Enviroment local getters
-// TODO: export sorted list
+// TODO: Environment local getters
 // TODO: Leaks
 
-static void	fill_declarations(char **declarations, int *i, char **envp)
+static void	fill_definitions(char **definitions, int *i, char **envp, int size)
 {
 	char	*key;
 	char	*value;
@@ -20,7 +19,7 @@ static void	fill_declarations(char **declarations, int *i, char **envp)
 	int		j;
 
 	j = 0;
-	while (envp[j])
+	while (j < size && envp[j])
 	{
 		if (ft_stroccurrences(envp[j], '='))
 		{
@@ -47,24 +46,51 @@ static void	fill_declarations(char **declarations, int *i, char **envp)
 			key_value = ft_strdup(envp[j]);
 		j++;
 		ft_printf("%.2i: %s\n", *i, key_value);
-		declarations[(*i)++] = ft_strjoin("declare -x ", key_value);
+		definitions[(*i)++] = ft_strjoin("declare -x ", key_value);
 		free(key_value);
 	}
-	declarations[*i] = NULL;
+	definitions[*i] = NULL;
 }
 
-static void	print_declarations(t_context *context)
+static void	sort_definitions(char **definitions, int size)
 {
-	char	**declarations;
+	int		i;
+	int		j;
+	char	*aux;
+
+	(void) size;
+	i = 0;
+	while (definitions[i])
+	{
+		j = 0;
+		while (definitions[j])
+		{
+			if (ft_strcmp(definitions[i], definitions[j]) < 0)
+			{
+				ft_printf("changed something\n");
+				aux = definitions[j];
+				definitions[j] = definitions[i];
+				definitions[i] = aux;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	print_definitions(t_context *context)
+{
+	char	**definitions;
 	int		i;
 
-	declarations = safe_calloc(sizeof(char *) * (context->global_env.size + context->local_env.size + 1));
+	definitions = safe_calloc(sizeof(char *) * (context->global_env.size + context->local_env.size + 1));
 	i = 0;
-	fill_declarations(declarations, &i, context->global_env.envp);
-	fill_declarations(declarations, &i, context->local_env.envp);
+	fill_definitions(definitions, &i, context->global_env.envp, context->global_env.size);
+	fill_definitions(definitions, &i, context->local_env.envp, context->local_env.size);
+	sort_definitions(definitions, context->global_env.size + context->local_env.size);
 	// TODO: SORT
-	print_env(declarations);
-	free_matrix(declarations);
+	print_env(definitions);
+	free_matrix(definitions);
 }
 
 static int	has_errors(char *str, int *i, t_context *context)
@@ -92,7 +118,7 @@ int	ft_export(int argc, char **argv, t_context *context)
 	if (ft_strcmp(argv[i], "export") == EQUAL_STRINGS)
 	{
 		if (argc == 1)
-			print_declarations(context);
+			print_definitions(context);
 		i++;
 	}
 	while (i < argc && argv[i])
