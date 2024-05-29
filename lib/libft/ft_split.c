@@ -6,13 +6,13 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:18:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/01/18 21:34:34 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/05/21 20:50:10 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	free_matrix(char **space)
+void	free_matrix(char **space)
 {
 	int	i;
 
