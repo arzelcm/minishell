@@ -75,20 +75,24 @@ t_token	*tokenize(char *line, t_context *context)
 	t_token			*actual;
 	int				i;
 
-	token = new_token(CMD);
-	actual = token;
+	token = NULL;
+	actual = NULL;
 	i = 0;
-	while (line[i] && token)
+	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
 			continue ;
+		if (!actual)
+			actual = new_token(CMD);
 		if (set_redirection(line, &i, actual, context))
 			continue ;
 		if (set_pipe(line, &i, &token, &actual))
 			continue ;
-		if (set_definitions(line, i, &token))
+		if (set_definitions(line, i, &actual))
 			continue ;
-		push_arg(&actual->args, get_word(line, &i, context), &token->argc);
+		push_arg(&actual->args, get_word(line, &i, context), &actual->argc);
 	}
+	if (!token)
+		return (actual);
 	return (token);
 }

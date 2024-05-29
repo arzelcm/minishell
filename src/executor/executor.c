@@ -59,6 +59,6 @@ void	execute(t_token *token, t_context *context)
 		return ;
 	else if (token->type == DEFINITION)
 		ft_export(token->argc, token->args, context);
-	else if (token->type == CMD && token->argc > 0)
+	else if (token->type == CMD)
 		execute_cmd_token(token, context);
 }
