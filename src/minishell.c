@@ -12,6 +12,7 @@
 #include "history.h"
 #include "expansor.h"
 #include "tokenizer.h"
+#include "environment.h"
 
 static void	catch_sigint(int signal)
 {
@@ -51,12 +52,11 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 
 	(void) argv;
-	(void) envp;
 	if (argc > 1)
 		return (EXIT_FAILURE);
 	ft_bzero(&context, sizeof(t_context));
-	ft_bzero(&token, sizeof(t_token));
-	context.envp = envp;
+	ft_bzero(&token, sizeof(t_token*));
+	init_env(&context.env, envp);
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);
@@ -71,7 +71,6 @@ int	main(int argc, char **argv, char **envp)
 			if (check_syntax(&context, line))
 			{
 				token = tokenize(line, &context);
-				// expand(&line, &context);
 				execute(token, &context);
 				free_token(token);
 			}

@@ -18,6 +18,8 @@ void	free_tokens(t_tokens *tokens)
 
 void	free_token(t_token *token)
 {
+	if (!token)
+		return ;
 	free_redirections(token->infiles);
 	free_redirections(token->outfiles);
 	free_tokens(&token->tokens);
@@ -38,7 +40,11 @@ void	print_token(t_token *token)
 {
 	t_redirection	*aux;
 	int				i;
-	ft_printf("token %p (%i)\n", token, token->type);
+
+	ft_printf("token %p\n", token);
+	if (!token)
+		return ;
+	ft_printf("type: %i\n", token->type);
 	ft_printf("args: ", token, token->type);
 	i = 0;
 	while (token->args && token->args[i])

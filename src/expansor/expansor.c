@@ -26,14 +26,17 @@ void
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if (line[i] == '$' && !quotes.simple)
+		start = i;
+		if (line[i] == '$'
+			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
 		{
-			start = i;
 			while (!variable_finished(line[i], i > start))
 				i++;
 			var = get_var(ft_substr(line, start, i - start), vars, context);
 			j += ft_strlcpy(&new_line[j], var->value, -1);
 		}
+		else if (line[i] == '$' && line[i + 1] == '\"')
+			i++;
 		else
 			new_line[j++] = line[i++];
 	}

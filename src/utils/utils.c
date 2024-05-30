@@ -9,6 +9,7 @@ void	custom_exit(int exit_code)
 	ft_printff(STDERR_FILENO, "\033[1A%sexit\n", PROMPT);
 	exit(exit_code);
 }
+
 void	push_char(char	**str, char c)
 {
 	char	*new_word;
@@ -46,5 +47,5 @@ char	*quote_str(char *str)
 	if (!quoted_str)
 		handle_syserror(ENOMEM);
 	free(tmp);
-	return (quoted_str);	
+	return (quoted_str);
 }

@@ -4,19 +4,19 @@
 #include "expansor.h"
 #include "quotes_flag.h"
 #include "quotes_utils.h"
+#include "environment.h"
 
 char	*get_var_value(char *key, t_context *context)
 {
 	char	*value;
 
-	value = getenv(key + 1);
+	value = ft_getenv(key + 1, context->env.global);
 	if (!value)
 	{
-		if (ft_strcmp(key,  "$") == EQUAL_STRINGS)
+		if (ft_strcmp(key, "$") == EQUAL_STRINGS)
 			value = ft_strdup(key);
 		else if (ft_strcmp(key, "$?") == EQUAL_STRINGS)
 			value = ft_itoa(context->err_code);
-		// TODO: Search for local vars
 	}
 	else
 		value = ft_strdup(value);
@@ -63,7 +63,7 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if (line[i] == '$' && !quotes.simple)
+		if (line[i] == '$' && line[i + 1] != '\"' && !quotes.simple)
 		{
 			start = i;
 			while (!variable_finished(line[i], i > start))
@@ -74,6 +74,8 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 		}
 		else
 			i++;
+		if (line[i] == '$' && line[i + 1] == '\"')
+			vars->keys_length -= 1;
 	}
 }
 

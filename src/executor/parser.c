@@ -36,7 +36,7 @@ void	execute_by_path(char **args, char **envp)
 	char	*path;
 	char	**paths;
 
-	path = getenv("PATH");
+	path = ft_getenv("PATH", envp);
 	if (!path)
 		path = DEF_PATH;
 	paths = ft_split(path, ':');

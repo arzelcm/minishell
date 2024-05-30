@@ -76,7 +76,7 @@ static void	\
 		if (pdata->pids[i] == -1)
 			handle_syserror(ENOMEM);
 		else if (pdata->pids[i] == 0)
-			execute_command(context->envp, pdata, cmd_token);
+			execute_command(context->env.global, pdata, cmd_token);
 		close_pipe(pdata->fds);
 		cmd_token = cmd_token->next;
 		i++;
@@ -88,6 +88,8 @@ void	execute(t_token *token, t_context *context)
 	t_pdata	p_data;
 	int		last_cmd_index;
 
+	if (!token)
+		return ;
 	if (token->tokens.amount == 0)
 		token->tokens.amount++;
 	initialize_pdata(&p_data, token);
