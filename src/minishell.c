@@ -54,7 +54,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argv;
 	if (argc > 1)
+	{
+		ft_printff(STDERR_FILENO, "Args are not allowed.\n");
 		return (EXIT_FAILURE);
+	}
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token*));
 	init_env(&context.global_env, &context.local_env, envp);
