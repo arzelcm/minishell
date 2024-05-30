@@ -10,7 +10,7 @@ typedef struct s_pdata
 	int		fds[2];
 	int		pipe_fds[2];
 	int		last_pipe;
-	int		*heredoc_fds;
+	int		*heredocs_fds;
 }	t_pdata;
 
 void	execute(t_token *token, t_context *context);

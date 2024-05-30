@@ -10,7 +10,7 @@
 void	free_pdata(t_pdata *p_data)
 {
 	free(p_data->pids);
-	free(p_data->heredoc_fds);
+	free(p_data->heredocs_fds);
 }
 
 void	close_pdata_fds(t_pdata *pdata)
@@ -21,8 +21,8 @@ void	close_pdata_fds(t_pdata *pdata)
 	close_pipe(pdata->pipe_fds);
 	safe_close(&pdata->last_pipe);
 	i = 0;
-	while (pdata->heredoc_fds[i])
-		safe_close(&pdata->heredoc_fds[i++]);
+	while (pdata->heredocs_fds[i])
+		safe_close(&pdata->heredocs_fds[i++]);
 }
 
 void	initialize_pdata(t_pdata *p_data, t_token *token)
@@ -37,16 +37,16 @@ void	initialize_pdata(t_pdata *p_data, t_token *token)
 	p_data->pipe_fds[READ_FD] = -1;
 	p_data->pipe_fds[WRITE_FD] = -1;
 	p_data->pids = safe_calloc((token->tokens.amount + 1) * sizeof(pid_t));
-	p_data->heredoc_fds = safe_calloc((token->tokens.amount + 1) * sizeof(int));
+	p_data->heredocs_fds = safe_calloc((token->tokens.amount +1) * sizeof(int));
 	curr_token = token;
 	if (token->tokens.amount > 1)
 		curr_token = token->tokens.token;
 	i = 0;
 	while (curr_token)
 	{
-		p_data->heredoc_fds[i] = -1;
+		p_data->heredocs_fds[i] = -1;
 		if (curr_token->here_docs)
-			p_data->heredoc_fds[i] = \
+			p_data->heredocs_fds[i] = \
 				open_here_docs(curr_token->infiles, curr_token->here_docs);
 		curr_token = curr_token->next;
 		i++;

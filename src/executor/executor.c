@@ -50,11 +50,11 @@ static void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
 	if (token->infiles)
 	{
 		safe_close(&pdata->fds[READ_FD]);
-		pdata->fds[READ_FD] = pdata->heredoc_fds[i];
+		pdata->fds[READ_FD] = pdata->heredocs_fds[i];
 	}
 	if (token->outfiles || i == cmd_amount - 1)
 		safe_close(&pdata->fds[WRITE_FD]);
-	pdata->heredoc_fds[i] = -1;
+	pdata->heredocs_fds[i] = -1;
 }
 
 static void	\
