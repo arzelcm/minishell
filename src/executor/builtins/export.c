@@ -8,6 +8,7 @@
 
 // TODO: Environment local getters
 // TODO: Leaks
+// TODO: Search duplicates on local or global and replace when needed, NONE CAN BE DUPLICATED
 
 static void	fill_definitions(char **definitions, int *i, char **envp, int size)
 {
@@ -18,12 +19,14 @@ static void	fill_definitions(char **definitions, int *i, char **envp, int size)
 	char	*key_value;
 	int		j;
 
+	(void) size;
 	j = 0;
-	while (j < size && envp[j])
+	while (envp[j])
 	{
+		// ft_printf("%.2i: %s\n", *i, envp[j]);
 		if (ft_stroccurrences(envp[j], '='))
 		{
-			complete = ft_split(envp[j++], '=');
+			complete = ft_split(envp[j], '=');
 			key = complete[0];
 			value = complete[1];
 			if (value)
@@ -45,8 +48,9 @@ static void	fill_definitions(char **definitions, int *i, char **envp, int size)
 		else
 			key_value = ft_strdup(envp[j]);
 		j++;
-		ft_printf("%.2i: %s\n", *i, key_value);
-		definitions[(*i)++] = ft_strjoin("declare -x ", key_value);
+		definitions[*i] = ft_strjoin("declare -x ", key_value);
+		// ft_printf("%.2i: %s\n", *i, definitions[*i]);
+		(*i)++;
 		free(key_value);
 	}
 	definitions[*i] = NULL;
@@ -67,7 +71,6 @@ static void	sort_definitions(char **definitions, int size)
 		{
 			if (ft_strcmp(definitions[i], definitions[j]) < 0)
 			{
-				ft_printf("changed something\n");
 				aux = definitions[j];
 				definitions[j] = definitions[i];
 				definitions[i] = aux;
@@ -88,7 +91,6 @@ static void	print_definitions(t_context *context)
 	fill_definitions(definitions, &i, context->global_env.envp, context->global_env.size);
 	fill_definitions(definitions, &i, context->local_env.envp, context->local_env.size);
 	sort_definitions(definitions, context->global_env.size + context->local_env.size);
-	// TODO: SORT
 	print_env(definitions);
 	free_matrix(definitions);
 }
