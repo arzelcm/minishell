@@ -2,6 +2,7 @@
 # define EXECUTOR_UTILS_H
 
 # include "context.h"
+# include "token.h"
 
 int		wait_child_processes(pid_t last_pid, int cmds_amount);
 
