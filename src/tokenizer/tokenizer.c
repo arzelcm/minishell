@@ -55,20 +55,6 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	return (1);
 }
 
-int	set_definitions(char *line, int i, t_token **token)
-{
-	char *word;
-
-	word = get_word(line, &i, NULL);
-	if (word[0] != '='
-		&& (*token)->type != DEFINITION
-		&& (ft_stroccurrences(word, '=')
-			|| (!(*token)->argc && ft_strcmp(word, EXPORT) == EQUAL_STRINGS)))
-		(*token)->type = DEFINITION;
-	free(word);
-	return (0);
-}
-
 t_token	*tokenize(char *line, t_context *context)
 {
 	t_token			*token;
@@ -87,8 +73,6 @@ t_token	*tokenize(char *line, t_context *context)
 		if (set_redirection(line, &i, actual, context))
 			continue ;
 		if (set_pipe(line, &i, &token, &actual))
-			continue ;
-		if (set_definitions(line, i, &actual))
 			continue ;
 		push_arg(&actual->args, get_word(line, &i, context), &actual->argc);
 	}

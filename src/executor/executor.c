@@ -10,7 +10,8 @@
 #include "open_utils.h"
 #include "builtins.h"
 
-static void	execute_command(char **envp, t_pdata *pdata, t_token *token, t_context *context)
+static void	
+	exec_command(int type, t_pdata *pdata, t_token *token, t_context *context)
 {
 	pdata->fds[READ_FD] = \
 		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
@@ -29,10 +30,15 @@ static void	execute_command(char **envp, t_pdata *pdata, t_token *token, t_conte
 		&& dup2(pdata->fds[WRITE_FD], STDOUT_FILENO) == -1)
 		handle_syserror(EBUSY);
 	close_pdata_fds(pdata);
-	if (is_a_builtin(token->args[0], token, context))
-		exit(EXIT_SUCCESS);
+	if (is_builtin(token->args[0]))
+	{
+		exec_builtin(token->args[0], token, context);
+		if (type == CMD)
+			return ;
+		exit(context->err_code);
+	}
 	else if (!is_directory(token->args[0]))
-		execute_by_path(token->args, envp);
+		execute_by_path(token->args, context->global_env.envp);
 	handle_error(token->args[0], ISDIRECTORY);
 	exit(PERM_ERR);
 }
@@ -76,7 +82,7 @@ static void	\
 		if (pdata->pids[i] == -1)
 			handle_syserror(ENOMEM);
 		else if (pdata->pids[i] == 0)
-			execute_command(context->global_env.envp, pdata, cmd_token, context);
+			exec_command(token->type, pdata, cmd_token, context);
 		close_pipe(pdata->fds);
 		cmd_token = cmd_token->next;
 		i++;
@@ -95,12 +101,12 @@ void	execute(t_token *token, t_context *context)
 		token->tokens.amount++;
 	initialize_pdata(&p_data, token);
 	last_cmd_index = token->tokens.amount - 1;
-	if (token->type == CMD || token->type == PIPE)
+	if (token->type == CMD && is_builtin(token->args[0]))
+		exec_command(token->type, &p_data, token, context);
+	else if (token->type == CMD || token->type == PIPE)
 		execute_pipe_token(&p_data, token, context);
-	else if (token->type == DEFINITION)
-		ft_export(token->argc, token->args, context);
-	if (token->type != DEFINITION)
-		context->err_code = \
-		wait_child_processes(p_data.pids[last_cmd_index], token->tokens.amount);
+	if (!(token->type == CMD && is_builtin(token->args[0])))
+		context->err_code = wait_child_processes(
+				p_data.pids[last_cmd_index], token->tokens.amount);
 	free_pdata(&p_data);
 }
