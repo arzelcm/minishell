@@ -5,6 +5,7 @@
 #include "open.h"
 #include <fcntl.h>
 #include <errno.h>
+#include "builtins.h"
 
 int	wait_child_processes(pid_t last_pid, int cmds_amount)
 {
@@ -25,10 +26,20 @@ int	wait_child_processes(pid_t last_pid, int cmds_amount)
 	return (status);
 }
 
-int	is_a_builtin(char *command)
+int	is_a_builtin(char *command, t_token *token, t_context *context)
 {
 	if (ft_strchr(command, '/'))
 		return (0);
+	else if (ft_strcmp(command, PWD) == EQUAL_STRINGS)
+		return (ft_pwd(token->argc, token->args, context));
+	else if (ft_strcmp(command, ENV) == EQUAL_STRINGS)
+		return (ft_env(token->argc, token->args, context));
+	else if (ft_strcmp(command, ECHO) == EQUAL_STRINGS)
+		return (ft_echo(token->argc, token->args, context));
+	else if (ft_strcmp(command, EXIT) == EQUAL_STRINGS)
+		return (ft_exit(token->argc, token->args, context));
+	else if (ft_strcmp(command, EXPORT) == EQUAL_STRINGS){
+	ft_printf("BUILTIN\n");print_token(token);return (ft_export(token->argc, token->args, context));}
 	return (0);
 }
 

@@ -4,7 +4,8 @@
 typedef enum e_token_type
 {
 	CMD,
-	PIPE
+	PIPE,
+	DEFINITION
 }	t_token_type;
 
 typedef enum e_redirection_mode
@@ -38,6 +39,7 @@ typedef struct s_token
 	t_token_type	type;
 	char			*raw_token;
 	char			**args;
+	int				argc;
 	t_redirection	*infiles;
 	t_redirection	*outfiles;
 	int				here_docs;

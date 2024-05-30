@@ -8,8 +8,9 @@
 #include "safe_utils.h"
 #include "executor_utils.h"
 #include "open_utils.h"
+#include "builtins.h"
 
-static void	execute_command(char **envp, t_pdata *pdata, t_token *token)
+static void	execute_command(char **envp, t_pdata *pdata, t_token *token, t_context *context)
 {
 	pdata->fds[READ_FD] = \
 		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
@@ -28,8 +29,7 @@ static void	execute_command(char **envp, t_pdata *pdata, t_token *token)
 		&& dup2(pdata->fds[WRITE_FD], STDOUT_FILENO) == -1)
 		handle_syserror(EBUSY);
 	close_pdata_fds(pdata);
-	// TODO: Add builtins
-	if (is_a_builtin(token->args[0]))
+	if (is_a_builtin(token->args[0], token, context))
 		exit(EXIT_SUCCESS);
 	else if (!is_directory(token->args[0]))
 		execute_by_path(token->args, envp);
@@ -76,7 +76,7 @@ static void	\
 		if (pdata->pids[i] == -1)
 			handle_syserror(ENOMEM);
 		else if (pdata->pids[i] == 0)
-			execute_command(context->env.global, pdata, cmd_token);
+			execute_command(context->global_env.envp, pdata, cmd_token, context);
 		close_pipe(pdata->fds);
 		cmd_token = cmd_token->next;
 		i++;
@@ -88,6 +88,7 @@ void	execute(t_token *token, t_context *context)
 	t_pdata	p_data;
 	int		last_cmd_index;
 
+	context->err_code = EXIT_SUCCESS;
 	if (!token)
 		return ;
 	if (token->tokens.amount == 0)
@@ -96,6 +97,8 @@ void	execute(t_token *token, t_context *context)
 	last_cmd_index = token->tokens.amount - 1;
 	if (token->type == CMD || token->type == PIPE)
 		execute_pipe_token(&p_data, token, context);
+	else if (token->type == DEFINITION)
+		ft_export(token->argc, token->args, context);
 	context->err_code = \
 		wait_child_processes(p_data.pids[last_cmd_index], token->tokens.amount);
 	free_pdata(&p_data);

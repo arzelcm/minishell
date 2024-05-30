@@ -45,7 +45,8 @@ void	print_token(t_token *token)
 	if (!token)
 		return ;
 	ft_printf("type: %i\n", token->type);
-	ft_printf("args: ", token, token->type);
+	ft_printf("argc: %i\n", token->argc);
+	ft_printf("args: ");
 	i = 0;
 	while (token->args && token->args[i])
 	{

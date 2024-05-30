@@ -8,4 +8,7 @@ t_token	*tokenize(char *line, t_context *context);
 
 void	free_args(char **args);
 
+int		set_definitions(char *line, int *i,
+			t_context *context, t_token **token);
+
 #endif
