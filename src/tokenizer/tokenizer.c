@@ -45,7 +45,7 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	if (line[*i] != '|')
 		return (0);
 	(*i)++;
-	if (*token == *actual)
+	if (!*token)
 	{
 		*token = new_token(PIPE);
 		push_token(&(*token)->tokens, *actual);

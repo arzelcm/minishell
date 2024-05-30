@@ -99,7 +99,8 @@ void	execute(t_token *token, t_context *context)
 		execute_pipe_token(&p_data, token, context);
 	else if (token->type == DEFINITION)
 		ft_export(token->argc, token->args, context);
-	context->err_code = \
+	if (token->type != DEFINITION)
+		context->err_code = \
 		wait_child_processes(p_data.pids[last_cmd_index], token->tokens.amount);
 	free_pdata(&p_data);
 }
