@@ -7,6 +7,7 @@
 typedef struct s_pdata
 {
 	pid_t	*pids;
+	int		std_fds[2];
 	int		fds[2];
 	int		pipe_fds[2];
 	int		last_pipe;

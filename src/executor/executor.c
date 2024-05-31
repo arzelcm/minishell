@@ -33,6 +33,13 @@ static void
 	if (is_builtin(token->args[0]))
 	{
 		exec_builtin(token->args[0], token, context);
+		if (pdata->std_fds[READ_FD] != -1
+			&& dup2(pdata->std_fds[READ_FD], STDIN_FILENO) == -1)
+			handle_syserror(EBUSY);
+		if (pdata->std_fds[WRITE_FD] != -1
+			&& dup2(pdata->std_fds[WRITE_FD], STDOUT_FILENO) == -1)
+			handle_syserror(EBUSY);
+		close_pipe(pdata->std_fds);
 		if (type == CMD)
 			return ;
 		exit(context->err_code);
@@ -73,6 +80,7 @@ static void	\
 	cmd_token = token;
 	if (token->type != CMD)
 		cmd_token = token->tokens.token;
+	close_pipe(pdata->std_fds);
 	while (i < token->tokens.amount && cmd_token)
 	{
 		if (i < token->tokens.amount - 1 && pipe(pdata->pipe_fds) == -1)
