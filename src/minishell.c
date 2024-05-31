@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token*));
-	init_env(&context.global_env, &context.local_env, envp);
+	init_env(&context, envp);
 	config_terminal();
 	listen_signals();
 	ft_printf(CREDITS);

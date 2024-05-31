@@ -1,10 +1,9 @@
-#ifndef CUSTOM_UTILS_H
-# define CUSTOM_UTILS_H
+#ifndef UTILS_H
+# define UTILS_H
 
 void	custom_exit(int exit_code);
 
 void	push_char(char	**str, char c);
-
 
 void	handle_syserror(int errnum);
 

@@ -10,7 +10,7 @@
 # define ISDIRECTORY "is a directory"
 # define PERMBITS 0644
 
-#include "environment.h"
+# include "environment.h"
 
 typedef struct s_context
 {

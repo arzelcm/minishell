@@ -4,6 +4,6 @@
 
 int	expand(char **line, t_context *context);
 
-int		variable_finished(char c, int not_first);
+int	variable_finished(char c, int not_first);
 
 #endif

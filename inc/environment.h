@@ -1,5 +1,5 @@
-#ifndef environment_H
-# define environment_H
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
 typedef struct s_env
 {
@@ -7,10 +7,12 @@ typedef struct s_env
 	int		size;
 }	t_env;
 
-void	init_env(t_env *global, t_env *local, char **envp);
+typedef struct s_context	t_context;
+
+void	init_env(t_context *context, char **envp);
 
 char	*ft_getenv(char *key, char **envp);
 
-void	ft_putenv(char *key, char *value, t_env *env);
+void	ft_putenv(char *key, char *value, t_context *context);
 
 #endif

@@ -7,8 +7,6 @@
 #include "safe_utils.h"
 
 // TODO: Environment local getters
-// TODO: Leaks
-// TODO: Search duplicates on local or global and replace when needed, NONE CAN BE DUPLICATED
 
 static void	fill_definitions(char **definitions, int *i, char **envp)
 {
@@ -82,7 +80,8 @@ static void	print_definitions(t_context *context)
 	char	**definitions;
 	int		i;
 
-	definitions = safe_calloc(sizeof(char *) * (context->global_env.size + context->local_env.size + 1));
+	definitions = safe_calloc(sizeof(char *)
+			* (context->global_env.size + context->local_env.size + 1));
 	i = 0;
 	fill_definitions(definitions, &i, context->global_env.envp);
 	fill_definitions(definitions, &i, context->local_env.envp);
@@ -105,37 +104,36 @@ static int	has_errors(char *str, int *i, t_context *context)
 		return (0);
 }
 
+static void	split_key_value(char **key, char **value, char *arg)
+{
+	char	**splitted;
+
+	splitted = ft_split(arg, '=');
+	*key = splitted[0];
+	*value = splitted[1];
+	free(splitted);
+}
+
 int	ft_export(int argc, char **argv, t_context *context)
 {
 	int		i;
 	char	*key;
 	char	*value;
-	char	**arg;
 
-	i = 0;
-	if (ft_strcmp(argv[i], "export") == EQUAL_STRINGS)
-	{
-		if (argc == 1)
-			print_definitions(context);
-		i++;
-	}
+	if (argc == 1)
+		print_definitions(context);
+	i = 1;
 	while (i < argc && argv[i])
 	{
 		if (has_errors(argv[i], &i, context))
 			continue ;
-		arg = ft_split(argv[i], '=');
-		key = arg[0];
-		value = arg[1];
+		split_key_value(&key, &value, argv[i]);
 		if (!value && argv[i][ft_strlen(argv[i]) - 1] == '=')
 			value = ft_strdup("");
-		if (value)
-			ft_putenv(key, value, &context->global_env);
-		else
-			ft_putenv(key, value, &context->local_env);
-		free(arg);
+		ft_putenv(key, value, context);
 		free(key);
 		free(value);
 		i++;
 	}
-	return(1);
+	return (1);
 }

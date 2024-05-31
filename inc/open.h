@@ -1,10 +1,10 @@
-#ifndef REDIRECTION_H
-# define REDIRECTION_H
+#ifndef OPEN_H
+# define OPEN_H
 
 # define HERE_DOC_PREFIX "> "
 # include "token.h"
 
-enum fd_indexes
+enum e_fd_indexes
 {
 	READ_FD,
 	WRITE_FD

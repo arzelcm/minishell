@@ -1,5 +1,6 @@
-#ifndef META_CHARACTERS_H
-# define META_CHARACTERS_H
+#ifndef META_CHARS_H
+# define META_CHARS_H
+
 # define D_QUOTE "\""
 # define S_QUOTE "\'"
 # define PIPE "|"
@@ -7,4 +8,5 @@
 # define OUTPUT_RD ">"
 # define HERE_DOC_RD "<<"
 # define APPEND_RD ">>"
+
 #endif
