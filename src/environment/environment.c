@@ -72,7 +72,6 @@ int	ft_deleteenv(char *key, t_env *env)
 	free(env->envp);
 	env->envp = new_env;
 	env->size--;
-	print_env(env->envp);
 	return (1);
 }
 

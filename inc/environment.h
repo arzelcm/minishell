@@ -15,4 +15,6 @@ char	*ft_getenv(char *key, char **envp);
 
 void	ft_putenv(char *key, char *value, t_context *context);
 
+int		ft_deleteenv(char *key, t_env *env);
+
 #endif

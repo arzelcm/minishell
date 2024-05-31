@@ -10,7 +10,8 @@ int	is_builtin(char *command)
 				|| ft_strcmp(command, ENV) == EQUAL_STRINGS
 				|| ft_strcmp(command, ECHO) == EQUAL_STRINGS
 				|| ft_strcmp(command, EXIT) == EQUAL_STRINGS
-				|| ft_strcmp(command, EXPORT) == EQUAL_STRINGS);
+				|| ft_strcmp(command, EXPORT) == EQUAL_STRINGS
+				|| ft_strcmp(command, UNSET) == EQUAL_STRINGS);
 }
 
 int	exec_builtin(char *command, t_token *token, t_context *context)
@@ -27,5 +28,7 @@ int	exec_builtin(char *command, t_token *token, t_context *context)
 		return (ft_exit(token->argc, token->args, context));
 	else if (ft_strcmp(command, EXPORT) == EQUAL_STRINGS)
 		return (ft_export(token->argc, token->args, context));
+	else if (ft_strcmp(command, UNSET) == EQUAL_STRINGS)
+		return (ft_unset(token->argc, token->args, context));
 	return (0);
 }
