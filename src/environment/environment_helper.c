@@ -2,7 +2,7 @@
 #include "environment.h"
 #include "context.h"
 
-void	free_enviroment(t_env *env)
+void	free_environment(t_env *env)
 {
 	free_matrix(env->envp);
 }

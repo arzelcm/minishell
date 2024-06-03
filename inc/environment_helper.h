@@ -7,7 +7,7 @@ void	increase_var(char *key, t_context *context);
 
 void	print_env(char **env);
 
-void	free_enviroment(t_env *env);
+void	free_environment(t_env *env);
 
 void	copy_envp(char **dst, char **src, int duplicate);
 

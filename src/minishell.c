@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 	}
-	free_enviroment(&context.global_env);
-	free_enviroment(&context.local_env);
+	free_environment(&context.global_env);
+	free_environment(&context.local_env);
 	return (EXIT_SUCCESS);
 }

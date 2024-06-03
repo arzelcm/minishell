@@ -2,12 +2,20 @@
 #include "minishell.h"
 #include "safe_utils.h"
 #include "quotes_flag.h"
-#include <errno.h>
+#include "context.h"
+#include "environment_helper.h"
 
 void	custom_exit(int exit_code)
 {
 	ft_printff(STDERR_FILENO, "\033[1A%sexit\n", PROMPT);
 	exit(exit_code);
+}
+
+void	c_exit(t_context *context)
+{
+	free_environment(&context->global_env);
+	free_environment(&context->local_env);
+	exit(context->err_code);
 }
 
 void	push_char(char	**str, char c)
@@ -33,19 +41,4 @@ void	handle_syserror(int errnum)
 void	handle_error(char *file, char *message)
 {
 	ft_printff(STDERR_FILENO, "%s: %s: %s\n", PROGRAM_NAME, file, message);
-}
-
-char	*quote_str(char *str)
-{
-	char	*tmp;
-	char	*quoted_str;
-
-	tmp = ft_strjoin("`", str);
-	if (!tmp)
-		handle_syserror(ENOMEM);
-	quoted_str = ft_strjoin(tmp, "'");
-	if (!quoted_str)
-		handle_syserror(ENOMEM);
-	free(tmp);
-	return (quoted_str);
 }

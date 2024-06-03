@@ -1,4 +1,7 @@
 #include "quotes_flag.h"
+#include "libft.h"
+#include "utils.h"
+#include <errno.h>
 
 void	check_quotes(t_quotes_flag *quotes, char c)
 {
@@ -23,4 +26,19 @@ int	avoid_quotes(char *str, int *i)
 		(*i)++;
 	(*i)++;
 	return (1);
+}
+
+char	*quote_str(char *str)
+{
+	char	*tmp;
+	char	*quoted_str;
+
+	tmp = ft_strjoin("`", str);
+	if (!tmp)
+		handle_syserror(ENOMEM);
+	quoted_str = ft_strjoin(tmp, "'");
+	if (!quoted_str)
+		handle_syserror(ENOMEM);
+	free(tmp);
+	return (quoted_str);
 }

@@ -6,6 +6,7 @@
 # define EXIT "exit"
 # define EXPORT "export"
 # define UNSET "unset"
+# define ABNORMAL_EXIT_STATUS 255
 
 # include "context.h"
 # include "token.h"

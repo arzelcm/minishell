@@ -1,7 +1,11 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "context.h"
+
 void	custom_exit(int exit_code);
+
+void	c_exit(t_context *context);
 
 void	push_char(char	**str, char c);
 
