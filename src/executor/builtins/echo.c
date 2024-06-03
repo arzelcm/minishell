@@ -4,23 +4,24 @@
 int	ft_echo(int argc, char **argv, t_context *context)
 {
 	int	i;
+	int	new_line;
 
 	(void) context;
+	new_line = 1;
 	i = 1;
-	if (argc == 1)
+	while (argc > 1 && i < argc && *argv[i] == '-'
+		&& ft_stroccurrences(argv[i], 'n') == (int) ft_strlen(argv[i]) - 1)
 	{
-		ft_printf("\n");
-		return (1);
+		new_line = 0;
+		i++;
 	}
-	if (ft_strcmp(argv[1], "-n") == EQUAL_STRINGS)
-		i = 2;
 	while (i < argc)
 	{
 		ft_printf("%s", argv[i++]);
-		if (i == argc - 1)
+		if (i < argc)
 			ft_printf(" ");
 	}
-	if (ft_strcmp(argv[1], "-n") != EQUAL_STRINGS)
+	if (new_line)
 		ft_printf("\n");
 	return (1);
 }
