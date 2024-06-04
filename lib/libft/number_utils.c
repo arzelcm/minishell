@@ -6,9 +6,24 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:54:22 by arcanava          #+#    #+#             */
-/*   Updated: 2024/02/28 16:54:26 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:49:41 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+int		count_ull_digits(unsigned long long nbr)
+{
+	int		i;
+
+	if (nbr == 0)
+		return (1);
+	i = 0;
+	while (nbr > 0)
+	{
+		nbr /= 10;
+		i++;
+	}
+	return (i);
+}
 
 int	count_digits(long nbr)
 {

@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 09:04:02 by arcanava          #+#    #+#             */
-/*   Updated: 2024/05/19 19:29:30 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:07:47 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,35 @@ long	ft_atol(const char *str)
 	int		i;
 	int		is_negative;
 	int		symbols_count;
+
+	symbols_count = 0;
+	num = 0;
+	i = 0;
+	is_negative = 0;
+	while (str[i] != '\0' && is_allowed_char(str[i]) && symbols_count == 0)
+	{
+		if (str[i] == '-' || str[i] == '+')
+			symbols_count++;
+		if (str[i] == '-')
+			is_negative = 1;
+		i++;
+	}
+	while (str[i] != '\0' && ft_isdigit(str[i]))
+	{
+		num *= 10;
+		num += str[i++] - '0';
+	}
+	if (is_negative)
+		num *= -1;
+	return (num);
+}
+
+long long	ft_atoll(const char *str)
+{
+	long long	num;
+	int			i;
+	int			is_negative;
+	int			symbols_count;
 
 	symbols_count = 0;
 	num = 0;
