@@ -6,6 +6,7 @@
 # define EXIT "exit"
 # define EXPORT "export"
 # define UNSET "unset"
+# define CD "cd"
 # define ABNORMAL_EXIT_STATUS 255
 
 # include "context.h"
@@ -26,5 +27,7 @@ int	ft_exit(int argc, char **argv, t_context *context);
 int	ft_export(int argc, char **argv, t_context *context);
 
 int	ft_unset(int argc, char **argv, t_context *context);
+
+int	ft_cd(int argc, char **argv, t_context *context);
 
 #endif

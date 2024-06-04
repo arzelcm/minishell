@@ -64,7 +64,8 @@ MSRCS = minishell.c \
 		exit.c \
 		export.c \
 		utils_builtins.c \
-		unset.c
+		unset.c \
+		cd.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
