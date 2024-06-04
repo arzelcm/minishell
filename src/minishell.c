@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	}
 	ft_bzero(&context, sizeof(t_context));
-	ft_bzero(&token, sizeof(t_token*));
+	ft_bzero(&token, sizeof(t_token *));
 	init_env(&context, envp);
 	config_terminal();
 	listen_signals();
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 	}
-	free_enviroment(&context.global_env);
-	free_enviroment(&context.local_env);
+	free_environment(&context.global_env);
+	free_environment(&context.local_env);
 	return (EXIT_SUCCESS);
 }
