@@ -31,6 +31,12 @@ void	initialize_pdata(t_pdata *p_data, t_token *token)
 	int		i;
 
 	ft_bzero(p_data, sizeof(t_pdata));
+	p_data->std_fds[READ_FD] = dup(STDIN_FILENO);
+	if (p_data->std_fds[READ_FD] == -1)
+		handle_syserror(EBUSY);
+	p_data->std_fds[WRITE_FD] = dup(STDIN_FILENO);
+	if (p_data->std_fds[WRITE_FD] == -1)
+		handle_syserror(EBUSY);
 	p_data->last_pipe = -1;
 	p_data->fds[READ_FD] = -1;
 	p_data->fds[WRITE_FD] = -1;
