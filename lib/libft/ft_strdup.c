@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:48:12 by arcanava          #+#    #+#             */
-/*   Updated: 2024/01/18 18:06:26 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:47:25 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 	size_t	i;
 
+	if (!s1)
+		return (NULL);
 	len = ft_strlen(s1);
 	ptr = malloc(sizeof(char) * (len + 1));
 	if (!ptr)

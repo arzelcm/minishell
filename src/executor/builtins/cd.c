@@ -22,20 +22,15 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 		{
 			dir = ft_getenv("OLDPWD", context->global_env.envp);
 			if (!dir)
-			{
-				ft_printff(STDERR_FILENO, "%s: cd: OLDPWD not set\n", PROGRAM_NAME);
-				return (NULL);
-			}
+				ft_printff(STDERR_FILENO,
+					"%s: cd: OLDPWD not set\n", PROGRAM_NAME);
 			*pwd = 1;
 		}
 		return (ft_strdup(dir));
 	}
 	dir = ft_getenv("HOME", context->global_env.envp);
 	if (!dir)
-	{
 		ft_printff(STDERR_FILENO, "%s: cd: HOME not set\n", PROGRAM_NAME);
-		return (NULL);
-	}
 	return (ft_strdup(dir));
 }
 
