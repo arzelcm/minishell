@@ -74,7 +74,7 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 		}
 		else
 			i++;
-		if (line[i] == '$' && line[i + 1] == '\"')
+		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\''))
 			vars->keys_length -= 1;
 	}
 }

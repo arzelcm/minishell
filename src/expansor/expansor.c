@@ -27,7 +27,9 @@ void
 	{
 		check_quotes(&quotes, line[i]);
 		start = i;
-		if (line[i] == '$'
+		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+			i++;
+		else if (line[i] == '$'
 			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
 		{
 			while (!variable_finished(line[i], i > start))
@@ -35,8 +37,6 @@ void
 			var = get_var(ft_substr(line, start, i - start), vars, context);
 			j += ft_strlcpy(&new_line[j], var->value, -1);
 		}
-		else if (line[i] == '$' && line[i + 1] == '\"')
-			i++;
 		else
 			new_line[j++] = line[i++];
 	}
