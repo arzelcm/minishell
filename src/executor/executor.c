@@ -9,18 +9,29 @@
 #include "executor_utils.h"
 #include "open_utils.h"
 #include "builtins.h"
+#include "signals.h"
 
 static void	
-	exec_command(int type, t_pdata *pdata, t_token *token, t_context *context)
+	exec_command(int doExit, t_pdata *pdata, t_token *token, t_context *context)
 {
+	listen_signals(SUBPROCESS, SUBPROCESS);
 	pdata->fds[READ_FD] = \
 		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
 	if (token->infiles && pdata->fds[READ_FD] == -1)
+	{
+		close_pdata_fds(pdata);
+		close_pipe(pdata->std_fds);
+		if (doExit == 0)
+			return ;
 		exit(EXIT_FAILURE);
+	}
 	pdata->fds[WRITE_FD] = open_outfiles(pdata->fds[WRITE_FD], token->outfiles);
 	if (token->outfiles && pdata->fds[WRITE_FD] == -1)
 	{
-		safe_close(&pdata->fds[READ_FD]);
+		close_pdata_fds(pdata);
+		close_pipe(pdata->std_fds);
+		if (doExit == 0)
+			return ;
 		exit(EXIT_FAILURE);
 	}
 	if (pdata->fds[READ_FD] != -1
@@ -40,11 +51,12 @@ static void
 			&& dup2(pdata->std_fds[WRITE_FD], STDOUT_FILENO) == -1)
 			handle_syserror(EBUSY);
 		close_pipe(pdata->std_fds);
-		if (type == CMD)
+		if (doExit == 0)
 			return ;
 		exit(context->err_code);
 	}
-	else if (!is_directory(token->args[0]))
+	close_pipe(pdata->std_fds);
+	if (!is_directory(token->args[0]))
 		execute_by_path(token->args, context->global_env.envp);
 	handle_error(token->args[0], ISDIRECTORY);
 	exit(PERM_ERR);
@@ -88,9 +100,9 @@ static void	\
 		parse_fds(i, token->tokens.amount, pdata, cmd_token);
 		pdata->pids[i] = fork();
 		if (pdata->pids[i] == -1)
-			handle_syserror(ENOMEM);
+			handle_syserror(EAGAIN);
 		else if (pdata->pids[i] == 0)
-			exec_command(token->type, pdata, cmd_token, context);
+			exec_command(1, pdata, cmd_token, context);
 		close_pipe(pdata->fds);
 		cmd_token = cmd_token->next;
 		i++;
@@ -102,15 +114,24 @@ void	execute(t_token *token, t_context *context)
 	t_pdata	p_data;
 	int		last_cmd_index;
 
+	listen_signals(MAIN, EXECUTOR);
 	context->err_code = EXIT_SUCCESS;
 	if (!token)
 		return ;
 	if (token->tokens.amount == 0)
 		token->tokens.amount++;
 	initialize_pdata(&p_data, token);
+	if (g_sigval == SIGINT)
+	{
+		g_sigval = 0;
+		context->err_code = 1;
+		free_pdata(&p_data);
+		return ;
+	}
+	config_echoctl_terminal(ON);
 	last_cmd_index = token->tokens.amount - 1;
 	if (token->type == CMD && is_builtin(token->args[0]))
-		exec_command(token->type, &p_data, token, context);
+		exec_command(0, &p_data, token, context);
 	else if (token->type == CMD || token->type == PIPE)
 		execute_pipe_token(&p_data, token, context);
 	if (!(token->type == CMD && is_builtin(token->args[0])))

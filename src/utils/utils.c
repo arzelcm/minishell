@@ -2,11 +2,14 @@
 #include "minishell.h"
 #include "safe_utils.h"
 #include "quotes_flag.h"
+#include "signals.h"
 #include <errno.h>
 
 void	custom_exit(int exit_code)
 {
-	ft_printff(STDERR_FILENO, "\033[1A%sexit\n", PROMPT);
+	config_echoctl_terminal(ON);
+	if (isatty(STDIN_FILENO))
+		ft_printff(STDERR_FILENO, "\033[1A%sexit\n", PROMPT);
 	exit(exit_code);
 }
 

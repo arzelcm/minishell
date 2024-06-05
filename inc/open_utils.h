@@ -12,6 +12,6 @@ void	initialize_pdata(t_pdata *p_data, t_token *token);
 
 int		open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs);
 
-int		open_here_doc(t_redirection *here_doc);
+int		open_here_doc(int fds[2], t_redirection *here_doc);
 
 #endif

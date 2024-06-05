@@ -3,6 +3,50 @@
 #include "libft.h"
 #include "executor_utils.h"
 #include "open_utils.h"
+#include "open.h"
+#include <signal.h>
+#include <errno.h>
+
+static void	wait_here_doc_process(int fds[2])
+{
+	int	status;
+
+	if (waitpid(-1, &status, 0) == -1)
+	{
+		safe_close(&fds[WRITE_FD]);
+		exit(ECHILD);
+	}
+	if (WIFEXITED(status))
+	{
+		status = WEXITSTATUS(status);
+		if (status == EXIT_FAILURE)
+			g_sigval = SIGINT;
+		if (status == EBADF)
+			handle_syserror(EBADF);
+	}
+}
+
+static int	fork_here_doc(t_redirection *here_doc)
+{
+	pid_t	pid;
+	int		fds[2];
+
+	if (pipe(fds) == -1)
+		handle_syserror(EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		handle_syserror(EAGAIN);
+	else if (pid == 0)
+		open_here_doc(fds, here_doc);
+	if (close(fds[WRITE_FD]) == -1)
+	{
+		safe_close(&fds[READ_FD]);
+		kill(pid, SIGTERM);
+		exit(EBADF);
+	}
+	wait_here_doc_process(fds);
+	return (fds[READ_FD]);
+}
 
 int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 {
@@ -17,7 +61,12 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 	{
 		if (file->mode == HERE_DOC)
 		{
-			fd = open_here_doc(file);
+			fd = fork_here_doc(file);
+			if (g_sigval == SIGINT)
+			{
+				safe_close(&fd);
+				return (-1);
+			}
 			i++;
 		}
 		if (i != here_docs_amount)

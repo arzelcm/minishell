@@ -6,45 +6,14 @@
 #include "token.h"
 #include "executor.h"
 #include <stdlib.h>
-#include <termios.h>
 #include <signal.h>
+#include "signals.h"
 #include "readline.h"
 #include "history.h"
 #include "expansor.h"
 #include "tokenizer.h"
 #include "environment.h"
 #include "environment_helper.h"
-
-static void	catch_sigint(int signal)
-{
-	if (signal != SIGINT)
-		return ;
-	ft_printf("\n");
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-static void	listen_signals(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_flags = SA_RESTART;
-	sigemptyset(&sa.sa_mask);
-	sa.__sigaction_u.__sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa, NULL);
-	sa.__sigaction_u.__sa_handler = catch_sigint;
-	sigaction(SIGINT, &sa, NULL);
-}
-
-static void	config_terminal(void)
-{
-	struct termios	termios;
-
-	tcgetattr(STDIN_FILENO, &termios);
-	termios.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -55,15 +24,21 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	if (argc > 1)
 		return (EXIT_FAILURE);
+	g_sigval = 0;
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token*));
 	init_env(&context.global_env, &context.local_env, envp);
-	config_terminal();
-	listen_signals();
 	ft_printf(CREDITS);
 	while (42)
 	{
+		config_echoctl_terminal(OFF);
+		listen_signals(MAIN, MAIN);
 		line = readline(PROMPT);
+		if (g_sigval == SIGINT)
+		{
+			context.err_code = 1;
+			g_sigval = 0;
+		}
 		if (line == NULL)
 			custom_exit(EXIT_SUCCESS);
 		else if (*line)
