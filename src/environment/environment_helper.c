@@ -11,9 +11,14 @@ void	increase_var(char *key, t_context *context)
 {
 	char	*value;
 	char	*new_val;
+	int		num;
 
 	value = ft_getenv(key, context->global_env.envp);
-	new_val = ft_itoa(ft_atoi(value) + 1);
+	num = ft_atoi(value);
+	if (num == 999)
+		new_val = ft_strdup("");
+	else
+		new_val = ft_itoa(num + 1);
 	ft_putenv(key, new_val, context);
 	free(new_val);
 }

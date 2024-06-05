@@ -10,7 +10,7 @@
 #include "open_utils.h"
 #include "builtins.h"
 
-static void	
+static void
 	exec_command(int type, t_pdata *pdata, t_token *token, t_context *context)
 {
 	pdata->fds[READ_FD] = \
