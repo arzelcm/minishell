@@ -25,7 +25,7 @@ int	ft_cd(int argc, char **argv, t_context *context)
 		{
 			ft_printff(STDERR_FILENO, "%s: cd: HOME not set\n", PROGRAM_NAME);
 			context->err_code = 1;
-			return (1);
+			return (EXIT_FAILURE);
 		}
 	}
 	cwd = getcwd(NULL, 0);
@@ -36,5 +36,5 @@ int	ft_cd(int argc, char **argv, t_context *context)
 	cwd = getcwd(NULL, 0);
 	ft_putenv("PWD", cwd, context);
 	free(cwd);
-	return (1);
+	return (EXIT_SUCCESS);
 }

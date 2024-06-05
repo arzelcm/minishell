@@ -23,5 +23,5 @@ int	ft_echo(int argc, char **argv, t_context *context)
 	}
 	if (new_line)
 		ft_printf("\n");
-	return (1);
+	return (EXIT_SUCCESS);
 }

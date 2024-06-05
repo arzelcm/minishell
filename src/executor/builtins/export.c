@@ -120,6 +120,7 @@ int	ft_export(int argc, char **argv, t_context *context)
 	char	*key;
 	char	*value;
 
+	context->err_code = EXIT_SUCCESS;
 	if (argc == 1)
 		print_definitions(context);
 	i = 1;
@@ -135,5 +136,5 @@ int	ft_export(int argc, char **argv, t_context *context)
 		free(value);
 		i++;
 	}
-	return (1);
+	return (context->err_code);
 }

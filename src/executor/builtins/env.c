@@ -8,5 +8,5 @@ int	ft_env(int argc, char **argv, t_context *context)
 		print_env(context->local_env.envp);
 	else
 		print_env(context->global_env.envp);
-	return (1);
+	return (EXIT_SUCCESS);
 }

@@ -6,6 +6,7 @@
 #include "builtins.h"
 #include "utils.h"
 
+// TODO: Limit to long long max and long long min n
 int	ft_exit(int argc, char **argv, t_context *context)
 {
 	ft_printff(STDERR_FILENO, "exit\n");
@@ -26,9 +27,8 @@ int	ft_exit(int argc, char **argv, t_context *context)
 	{
 		ft_printff(STDERR_FILENO, "%s: exit: too many arguments\n",
 			PROGRAM_NAME);
-		context->err_code = EXIT_FAILURE;
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	c_exit(context);
-	return (1);
+	return (EXIT_SUCCESS);
 }

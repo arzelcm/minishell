@@ -32,7 +32,7 @@ static void
 	close_pdata_fds(pdata);
 	if (is_builtin(token->args[0]))
 	{
-		exec_builtin(token->args[0], token, context);
+		context->err_code = exec_builtin(token->args[0], token, context);
 		if (pdata->std_fds[READ_FD] != -1
 			&& dup2(pdata->std_fds[READ_FD], STDIN_FILENO) == -1)
 			handle_syserror(EBUSY);
@@ -102,7 +102,6 @@ void	execute(t_token *token, t_context *context)
 	t_pdata	p_data;
 	int		last_cmd_index;
 
-	context->err_code = EXIT_SUCCESS;
 	if (!token)
 		return ;
 	if (token->tokens.amount == 0)
