@@ -117,7 +117,8 @@ void	ft_putenv(char *key, char *value, t_context *context)
 
 void	init_env(t_context *context, char **envp)
 {
-	int	i;
+	int		i;
+	char	*cwd;
 
 	ft_bzero(&context->global_env, sizeof(t_env));
 	ft_bzero(&context->local_env, sizeof(t_env));
@@ -128,7 +129,11 @@ void	init_env(t_context *context, char **envp)
 	context->global_env.envp = safe_calloc(sizeof(char *)
 			* (context->global_env.size + 2));
 	copy_envp(context->global_env.envp, envp, 1);
+	increase_var("SHLVL", context);
+	cwd = getcwd(NULL, 0);
+	ft_putenv("PWD", cwd, context);
+	free(cwd);
+	ft_deleteenv("OLDPWD", &context->global_env);
 	context->local_env.size = 0;
 	context->local_env.envp = safe_calloc(sizeof(char *) * 2);
-	increase_var("SHLVL", context);
 }
