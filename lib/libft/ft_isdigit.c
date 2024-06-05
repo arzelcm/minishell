@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 13:40:40 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/04 17:19:54 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:46:02 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ int	ft_isnum(char *str, long long max)
 		digits_amount++;
 		str++;
 	}
-	ft_printf("atoll: %l, max: %l, comparision: %i\n", num, max, num <= max);
 	return (is_num && num <= max);
 }

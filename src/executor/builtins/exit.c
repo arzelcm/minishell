@@ -11,7 +11,6 @@ int	ft_exit(int argc, char **argv, t_context *context)
 	ft_printff(STDERR_FILENO, "exit\n");
 	if (argc > 1)
 	{
-		ft_printf("is_num?: %i\n", ft_isnum(argv[1], LLONG_MAX));
 		if (ft_isnum(argv[1], LLONG_MAX))
 			context->err_code = ft_atoi(argv[1]);
 		else
