@@ -18,6 +18,6 @@ void	safe_close(int *fd)
 	if (*fd == -1)
 		return ;
 	if (close(*fd) == -1)
-		exit(ENOENT);
+		exit(EBADF);
 	*fd = -1;
 }

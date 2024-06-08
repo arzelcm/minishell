@@ -42,13 +42,11 @@ void	execute_by_path(char **args, char **envp)
 	paths = ft_split(path, ':');
 	if (!paths)
 		handle_syserror(ENOMEM);
-	if (ft_strchr(args[0], '/'))
-	{
-		check_bin(args[0]);
-		bin = args[0];
-	}
+	bin = args[0];
+	if (ft_strchr(bin, '/'))
+		check_bin(bin);
 	else
-		bin = get_full_cmd_path(args[0], paths);
+		bin = get_full_cmd_path(bin, paths);
 	if (!bin)
 	{
 		handle_error(args[0], CMDNOTFND);

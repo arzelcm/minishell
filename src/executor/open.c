@@ -13,7 +13,7 @@ static void	wait_here_doc_process(int fds[2])
 
 	if (waitpid(-1, &status, 0) == -1)
 	{
-		safe_close(&fds[WRITE_FD]);
+		safe_close(&fds[READ_FD]);
 		exit(ECHILD);
 	}
 	if (WIFEXITED(status))
@@ -63,10 +63,7 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 		{
 			fd = fork_here_doc(file);
 			if (g_sigval == SIGINT)
-			{
-				safe_close(&fd);
-				return (-1);
-			}
+				return (safe_close(&fd), -1);
 			i++;
 		}
 		if (i != here_docs_amount)

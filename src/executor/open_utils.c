@@ -103,7 +103,6 @@ int	open_here_doc(int fds[2], t_redirection *here_doc)
 		line = readline(HERE_DOC_PREFIX);
 	}
 	free(line);
-	if (close(fds[READ_FD]) == -1 || close(fds[WRITE_FD]) == -1)
-		exit(EBADF);
-	exit (EXIT_SUCCESS);
+	close_pipe(fds);
+	exit(EXIT_SUCCESS);
 }
