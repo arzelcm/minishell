@@ -9,7 +9,8 @@
 // TODO: Limit to long long max and long long min n
 int	ft_exit(int argc, char **argv, t_context *context)
 {
-	ft_printff(STDERR_FILENO, "exit\n");
+	if (isatty(STDIN_FILENO))
+		ft_printff(STDERR_FILENO, "exit\n");
 	if (argc > 1)
 	{
 		if (ft_isnum(argv[1], LLONG_MAX))
@@ -20,7 +21,7 @@ int	ft_exit(int argc, char **argv, t_context *context)
 				"%s: exit: %s: numeric argument required\n",
 				PROGRAM_NAME, argv[1]);
 			context->err_code = ABNORMAL_EXIT_STATUS;
-			c_exit(context);
+			custom_exit(context, 0);
 		}
 	}
 	if (argc > 2)
@@ -29,6 +30,6 @@ int	ft_exit(int argc, char **argv, t_context *context)
 			PROGRAM_NAME);
 		return (EXIT_FAILURE);
 	}
-	c_exit(context);
+	custom_exit(context, 0);
 	return (EXIT_SUCCESS);
 }

@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 			g_sigval = 0;
 		}
 		if (line == NULL)
-			custom_exit(EXIT_SUCCESS);
+			custom_exit(&context, 1);
 		else if (*line)
 		{
 			add_history(line);
