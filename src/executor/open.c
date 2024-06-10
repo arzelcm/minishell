@@ -40,8 +40,8 @@ static int	fork_here_doc(t_redirection *here_doc)
 		open_here_doc(fds, here_doc);
 	if (close(fds[WRITE_FD]) == -1)
 	{
-		safe_close(&fds[READ_FD]);
 		kill(pid, SIGTERM);
+		safe_close(&fds[READ_FD]);
 		exit(EBADF);
 	}
 	wait_here_doc_process(fds);
@@ -63,7 +63,10 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 		{
 			fd = fork_here_doc(file);
 			if (g_sigval == SIGINT)
-				return (safe_close(&fd), -1);
+			{
+				safe_close(&fd);
+				return (-1);
+			}
 			i++;
 		}
 		if (i != here_docs_amount)
