@@ -13,8 +13,8 @@ void	custom_exit(int exit_code)
 
 void	c_exit(t_context *context)
 {
-	free_environment(&context->global_env);
-	free_environment(&context->local_env);
+	// free_environment(&context->global_env);
+	// free_environment(&context->local_env);
 	exit(context->err_code);
 }
 
