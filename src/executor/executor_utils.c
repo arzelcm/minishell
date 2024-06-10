@@ -14,14 +14,24 @@ int	wait_child_processes(pid_t last_pid, int cmds_amount)
 	int		status;
 
 	status = 1;
-	while (cmds_amount > 0)
+	while (cmds_amount-- > 0)
 	{
 		pid = waitpid(-1, &tmp, 0);
 		if (pid < 0)
 			handle_syserror(ECHILD);
 		if (pid == last_pid && WIFEXITED(tmp))
 			status = WEXITSTATUS(tmp);
-		cmds_amount--;
+		else if (pid == last_pid && WIFSIGNALED(tmp))
+		{
+			status = WTERMSIG(tmp);
+			if (status == SIGINT)
+				status = SIGERR_SIGINT;
+			else if (status == SIGQUIT)
+				status = SIGERR_SIGQUIT;
+			if (status == SIGERR_SIGQUIT)
+				ft_printff(STDERR_FILENO, "Quit: 3");
+			ft_printff(STDERR_FILENO, "\n");
+		}
 	}
 	return (status);
 }
