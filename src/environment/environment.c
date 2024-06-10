@@ -133,7 +133,8 @@ void	init_env(t_context *context, char **envp)
 	cwd = getcwd(NULL, 0);
 	ft_putenv("PWD", cwd, context);
 	free(cwd);
-	ft_deleteenv("OLDPWD", &context->global_env);
 	context->local_env.size = 0;
 	context->local_env.envp = safe_calloc(sizeof(char *) * 2);
+	ft_deleteenv("OLDPWD", &context->global_env);
+	ft_putenv("OLDPWD", NULL, context);
 }
