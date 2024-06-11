@@ -1,7 +1,8 @@
+#include <unistd.h>
 #include "minishell.h"
 #include "libft.h"
 #include "context.h"
-#include <unistd.h>
+#include "utils.h"
 
 static void	handle_chdir_err(char *value)
 {
@@ -22,8 +23,7 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 		{
 			dir = ft_getenv("OLDPWD", context->global_env.envp);
 			if (!dir)
-				ft_printff(STDERR_FILENO,
-					"%s: cd: OLDPWD not set\n", PROGRAM_NAME);
+				handle_error("cd", "OLDPWD not set");
 			*pwd = 1;
 		}
 		return (ft_strdup(dir));
