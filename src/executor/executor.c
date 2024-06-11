@@ -10,6 +10,7 @@
 #include "open_utils.h"
 #include "builtins.h"
 #include "signals.h"
+#include <signal.h>
 
 static void	
 	exec_command(int doExit, t_pdata *pdata, t_token *token, t_context *context)
