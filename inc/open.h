@@ -10,6 +10,8 @@ enum e_fd_indexes
 	WRITE_FD
 };
 
+int	open_here_doc(int fds[2], t_redirection *here_doc);
+
 int	open_here_docs(t_redirection *infiles, int here_docs_amount);
 
 int	open_infiles(int read_fd, t_redirection *infiles, int here_docs_amount);

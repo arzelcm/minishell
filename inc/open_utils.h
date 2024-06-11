@@ -3,8 +3,10 @@
 
 # include "token.h"
 
-int		open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs);
+int	fork_here_doc(t_redirection *here_doc);
 
-int		open_here_doc(int fds[2], t_redirection *here_doc);
+int	open_infile(char *path);
+
+int	open_outfile(char *path, int mode);
 
 #endif
