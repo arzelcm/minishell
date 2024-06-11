@@ -33,6 +33,7 @@ t_token	*new_token(t_token_type type)
 
 	token = safe_calloc(sizeof(t_token));
 	token->type = type;
+	token->tokens.amount = 1;
 	return (token);
 }
 
