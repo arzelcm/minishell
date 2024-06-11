@@ -26,8 +26,7 @@ int	ft_exit(int argc, char **argv, t_context *context)
 	}
 	if (argc > 2)
 	{
-		ft_printff(STDERR_FILENO, "%s: exit: too many arguments\n",
-			PROGRAM_NAME);
+		handle_error("exit", "too many arguments");
 		return (EXIT_FAILURE);
 	}
 	custom_exit(context, 0);
