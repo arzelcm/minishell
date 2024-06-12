@@ -1,11 +1,8 @@
 #include "libft.h"
-#include "context.h"
+#include "open.h"
 #include "safe_utils.h"
 #include "utils.h"
-#include "open.h"
-#include <fcntl.h>
 #include <errno.h>
-#include "builtins.h"
 
 int	wait_child_processes(pid_t last_pid, int cmds_amount)
 {
