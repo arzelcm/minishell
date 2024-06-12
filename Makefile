@@ -157,6 +157,10 @@ $(READLINE_DIR):
 	printf "$(CYAN)Configuring: $(PINK)readline...$(DEF_COLOR)\n"
 	cd $(READLINE_DIR); bash ./configure >>$(LOG) 2>&1
 
+test: all
+	printf "testing...\n"
+
+
 .PHONY: all \
 		clean \
 		fclean \
