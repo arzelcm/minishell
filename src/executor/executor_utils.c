@@ -3,9 +3,10 @@
 #include "safe_utils.h"
 #include "utils.h"
 #include "open.h"
+#include "builtins.h"
 #include <fcntl.h>
 #include <errno.h>
-#include "builtins.h"
+#include <sys/wait.h>
 
 int	wait_child_processes(pid_t last_pid, int cmds_amount)
 {

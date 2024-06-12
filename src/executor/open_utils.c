@@ -8,6 +8,7 @@
 #include "builtins.h"
 #include "signals.h"
 #include <errno.h>
+#include <signal.h>
 
 void	free_pdata(t_pdata *p_data)
 {
@@ -50,7 +51,7 @@ void	initialize_pdata(t_pdata *p_data, t_token *token)
 		if (curr_token->here_docs)
 			p_data->heredocs_fds[i] = \
 				open_here_docs(curr_token->infiles, curr_token->here_docs);
-		if (g_sigval == SIGINT)
+		if (g_sval == SIGINT)
 		{
 			close_pdata_fds(p_data);
 			return ;

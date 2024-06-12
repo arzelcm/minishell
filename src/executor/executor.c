@@ -121,9 +121,9 @@ void	execute(t_token *token, t_context *context)
 	if (token->tokens.amount == 0)
 		token->tokens.amount++;
 	initialize_pdata(&p_data, token);
-	if (g_sigval == SIGINT)
+	if (g_sval == SIGINT)
 	{
-		g_sigval = 0;
+		g_sval = 0;
 		context->err_code = 1;
 		free_pdata(&p_data);
 		return ;

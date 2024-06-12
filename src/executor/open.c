@@ -21,7 +21,7 @@ static void	wait_here_doc_process(int fds[2])
 	{
 		status = WEXITSTATUS(status);
 		if (status == EXIT_FAILURE)
-			g_sigval = SIGINT;
+			g_sval = SIGINT;
 		if (status == EBADF)
 			handle_syserror(EBADF);
 	}
@@ -63,7 +63,7 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 		if (file->mode == HERE_DOC)
 		{
 			fd = fork_here_doc(file);
-			if (g_sigval == SIGINT)
+			if (g_sval == SIGINT)
 			{
 				safe_close(&fd);
 				return (-1);

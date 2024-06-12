@@ -1,5 +1,4 @@
 #include "libft.h"
-#include "context.h"
 #include "minishell.h"
 #include "utils.h"
 #include "lexer.h"
@@ -27,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_printff(STDERR_FILENO, "Args are not allowed.\n");
 		return (EXIT_FAILURE);
 	}
-	g_sigval = 0;
+	g_sval = 0;
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token *));
 	init_env(&context, envp);
@@ -37,10 +36,10 @@ int	main(int argc, char **argv, char **envp)
 		config_echoctl_terminal(OFF);
 		listen_signals(MAIN, MAIN);
 		line = readline(PROMPT);
-		if (g_sigval == SIGINT)
+		if (g_sval == SIGINT)
 		{
 			context.err_code = 1;
-			g_sigval = 0;
+			g_sval = 0;
 		}
 		if (line == NULL)
 			custom_exit(&context, 1);
