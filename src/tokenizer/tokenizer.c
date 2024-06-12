@@ -21,23 +21,27 @@ void	free_args(char **args)
 void	push_arg(char ***args, char *new_arg, int *argc)
 {
 	char	**new;
-	int		len;
 	int		i;
+	int		j;
+	char 	*word;
+	int		word_len;
 
 	i = 0;
-	len = 0;
-	while (*args && (*args)[i])
-		i++;
-	len = i;
-	new = safe_calloc(sizeof(char *) * (len + 2));
-	i = -1;
-	while (++i < len)
-		new[i] = (*args)[i];
-	new[len] = new_arg;
-	new[len + 1] = NULL;
-	free(*args);
-	*args = new;
-	(*argc)++;
+	word_len = ft_strlen(new_arg);
+	while (i < word_len)
+	{
+		word = get_word(new_arg, &i, NULL);
+		ft_printf("word: %s\n", word);
+		new = safe_calloc(sizeof(char *) * (*argc + 2));
+		j = -1;
+		while (++j < *argc)
+			new[j] = (*args)[j];
+		new[*argc] = word;
+		new[*argc + 1] = NULL;
+		free(*args);
+		*args = new;
+		(*argc)++;
+	}
 }
 
 int	set_pipe(char *line, int *i, t_token **token, t_token **actual)

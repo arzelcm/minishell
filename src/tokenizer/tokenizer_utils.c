@@ -51,7 +51,7 @@ void	fill_word(int len, char *str, char **word)
 	}
 }
 
-char	*get_word(char	*str, int *i, t_context *context)
+char	*get_word(char *str, int *i, t_context *context)
 {
 	char	*word;
 	int		len;
@@ -63,6 +63,22 @@ char	*get_word(char	*str, int *i, t_context *context)
 	*i += len;
 	if (context)
 		len = expand(&str, context);
+	fill_word(len, str, &word);
+	free(str);
+	return (word);
+}
+
+char	*get_words(char *str, int *i, t_context *context)
+{
+	char	*word;
+	int		len;
+
+	word = safe_calloc(sizeof(char));
+	avoid_spaces(str, i);
+	len = get_word_len(str, *i);
+	str = ft_substr(str, *i, len);
+	*i += len;
+	len = expand(&str, context);
 	fill_word(len, str, &word);
 	free(str);
 	return (word);
