@@ -57,7 +57,7 @@ char	*get_word(char	*str, int *i, t_context *context, int *expanded)
 	int		len;
 	int		str_len;
 
-	str_len = ft_strlen(str);
+	str_len = ft_strlen(str + *i);
 	word = safe_calloc(sizeof(char));
 	avoid_spaces(str, i);
 	len = get_word_len(str, *i);
