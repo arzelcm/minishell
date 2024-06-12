@@ -1,8 +1,7 @@
 #include "libft.h"
-#include "parser.h"
-#include "parser_utils.h"
+#include "execute_command.h"
+#include "execute_command_utils.h"
 #include "utils.h"
-#include "context.h"
 #include <errno.h>
 
 static char	*get_full_cmd_path(char *cmd, char **paths)
