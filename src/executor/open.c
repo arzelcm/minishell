@@ -1,3 +1,4 @@
+#include <sys/wait.h>
 #include "safe_utils.h"
 #include "utils.h"
 #include "libft.h"
