@@ -58,25 +58,26 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 t_token	*tokenize(char *line, t_context *context)
 {
 	t_token			*token;
-	t_token			*actual;
+	t_token			*curr_token;
 	int				i;
 
 	token = NULL;
-	actual = NULL;
+	curr_token = NULL;
 	i = 0;
 	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
 			continue ;
-		if (!actual)
-			actual = new_token(CMD);
-		if (set_redirection(line, &i, actual, context))
+		if (!curr_token)
+			curr_token = new_token(CMD);
+		if (set_redirection(line, &i, curr_token, context))
 			continue ;
-		if (set_pipe(line, &i, &token, &actual))
+		if (set_pipe(line, &i, &token, &curr_token))
 			continue ;
-		push_arg(&actual->args, get_word(line, &i, context), &actual->argc);
+		push_arg(&curr_token->args, get_word(line, &i, context), &curr_token->argc);
 	}
 	if (!token)
-		return (actual);
+		token = curr_token;
+	print_token(token);
 	return (token);
 }
