@@ -1,6 +1,10 @@
 #include "libft.h"
 #include "execute_command.h"
 #include "execute_command_utils.h"
+#include "executor_utils.h"
+#include "open.h"
+#include "signals.h"
+#include "builtins.h"
 #include "utils.h"
 #include <errno.h>
 
@@ -29,7 +33,7 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 	return (NULL);
 }
 
-void	execute_by_path(char **args, char **envp)
+static void	execute_by_path(char **args, char **envp)
 {
 	char	*bin;
 	char	*path;
@@ -53,4 +57,24 @@ void	execute_by_path(char **args, char **envp)
 	}
 	execve(bin, args, envp);
 	exit(EXIT_FAILURE);
+}
+
+void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
+{
+	listen_signals(SUBPROCESS, SUBPROCESS);
+	pdata->fds[READ_FD] = \
+		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
+	if (token->infiles && pdata->fds[READ_FD] == -1)
+		clean_exit(pdata);
+	pdata->fds[WRITE_FD] = open_outfiles(pdata->fds[WRITE_FD], token->outfiles);
+	if (token->outfiles && pdata->fds[WRITE_FD] == -1)
+		clean_exit(pdata);
+	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
+	close_pdata_fds(pdata);
+	if (is_builtin(token->args[0]))
+		exit(execute_builtin(token->args[0], token, context));
+	if (!is_directory(token->args[0]))
+		execute_by_path(token->args, context->global_env.envp);
+	handle_error(token->args[0], ISDIRECTORY);
+	exit(PERM_ERR);
 }
