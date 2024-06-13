@@ -5,6 +5,6 @@
 
 int		avoid_spaces(char *str, int *i);
 
-char	*get_word(char	*str, int *i, t_context *context, int *expanded);
+char	*get_word(char	*str, int *i, t_context *context, int *expanded, int *quoted);
 
 #endif

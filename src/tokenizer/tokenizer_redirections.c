@@ -57,26 +57,26 @@ int	set_redirection(char *line, int *i, t_token *token, t_context *context)
 	{
 		(*i) += 2;
 		push_redirection(HERE_DOC,
-			get_word(line, i, NULL, NULL), &token->infiles);
+			get_word(line, i, NULL, NULL, NULL), &token->infiles);
 		token->here_docs++;
 	}
 	else if (line[*i] == '<')
 	{
 		(*i)++;
 		push_redirection(INPUT,
-			get_word(line, i, NULL, NULL), &token->infiles);
+			get_word(line, i, NULL, NULL, NULL), &token->infiles);
 	}
 	else if (line[*i] == '>' && line[*i + 1] == '>')
 	{
 		(*i) += 2;
 		push_redirection(APPEND,
-			get_word(line, i, NULL, NULL), &token->outfiles);
+			get_word(line, i, NULL, NULL, NULL), &token->outfiles);
 	}
 	else if (line[*i] == '>')
 	{
 		(*i)++;
 		push_redirection(OUTPUT,
-			get_word(line, i, NULL, NULL), &token->outfiles);
+			get_word(line, i, NULL, NULL, NULL), &token->outfiles);
 	}
 	return (*i > start_i);
 }

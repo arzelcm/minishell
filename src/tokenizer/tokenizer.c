@@ -21,20 +21,14 @@ void	free_args(char **args)
 void	push_arg(char ***args, char *new_arg, int *argc)
 {
 	char	**new;
-	int		len;
 	int		i;
 
-	i = 0;
-	len = 0;
-	while (*args && (*args)[i])
-		i++;
-	len = i;
-	new = safe_calloc(sizeof(char *) * (len + 2));
+	new = safe_calloc(sizeof(char *) * (*argc + 2));
 	i = -1;
-	while (++i < len)
+	while (++i < *argc)
 		new[i] = (*args)[i];
-	new[len] = new_arg;
-	new[len + 1] = NULL;
+	new[*argc] = new_arg;
+	new[*argc + 1] = NULL;
 	free(*args);
 	*args = new;
 	(*argc)++;
@@ -55,23 +49,43 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	return (1);
 }
 
-int	set_arg(char *line, int *i, t_token *token, t_context *context)
+void	set_arg(char *line, int *i, t_token *token, t_context *context)
 {
 	char	*words;
+	char	*word;
 	int		words_len;
 	int		j;
 	int		expanded;
+	int		quoted;
 
 	j = 0;
 	expanded = 0;
-	words = get_word(line, i, context, &expanded);
+	quoted = 0;
+	words = get_word(line, i, context, &expanded, &quoted);
+	ft_printf("expanded: %i\n", expanded);
+	ft_printf("quoted: %i\n", quoted);
 	words_len = ft_strlen(words);
-	if (!expanded)
+	if (!expanded || quoted)
 		push_arg(&token->args, words, &token->argc);
 	else
 		while (j < words_len)
-			push_arg(&token->args, get_word(words, &j, NULL, NULL), &token->argc);
-	return (1);
+		{
+			word = get_word(words, &j, NULL, NULL, NULL);
+			if (*word)
+				push_arg(&token->args, word, &token->argc);
+		}
+}
+
+static void	checks(t_token **token)
+{
+	int	delete;
+
+	delete = (*token)->type == CMD && (*token)->argc == 0;
+	if (delete)
+	{
+		free_token(*token);
+		*token = NULL;
+	}
 }
 
 t_token	*tokenize(char *line, t_context *context)
@@ -83,6 +97,7 @@ t_token	*tokenize(char *line, t_context *context)
 	token = NULL;
 	curr_token = NULL;
 	i = 0;
+	ft_printf("line: \n", line);
 	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
@@ -93,10 +108,12 @@ t_token	*tokenize(char *line, t_context *context)
 			continue ;
 		if (set_pipe(line, &i, &token, &curr_token))
 			continue ;
-		if (set_arg(line, &i, curr_token, context))
-			continue ;
+		set_arg(line, &i, curr_token, context);
+		// print_token(curr_token);
+		checks(&curr_token);
 	}
 	if (!token)
 		token = curr_token;
+	print_token(token);
 	return (token);
 }
