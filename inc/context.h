@@ -8,6 +8,7 @@
 # define NOFILEDIR "No such file or directory"
 # define PERMDENIED "Permission denied"
 # define ISDIRECTORY "is a directory"
+# define ISDIRECTORY_U "Is a directory"
 # define PERMBITS 0644
 # define SIGERR_SIGINT 130
 # define SIGERR_SIGQUIT 131

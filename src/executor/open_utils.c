@@ -1,6 +1,7 @@
 #include "open.h"
 #include "safe_utils.h"
 #include "utils.h"
+#include "execute_command_utils.h"
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -76,6 +77,8 @@ int	open_outfile(char *path, int mode)
 
 	if (access(path, F_OK) == 0 && access(path, W_OK) == -1)
 		return (handle_error(path, PERMDENIED), -1);
+	if (is_directory(path))
+		return (handle_error(path, ISDIRECTORY_U), -1);
 	flags = O_CREAT | O_WRONLY;
 	if (mode == APPEND)
 		flags |= O_APPEND;
