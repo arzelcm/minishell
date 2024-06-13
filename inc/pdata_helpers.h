@@ -2,6 +2,7 @@
 # define PDATA_HELPERS_H
 
 # include "token.h"
+# include "context.h"
 # include <stdlib.h>
 
 typedef struct s_pdata
@@ -20,6 +21,6 @@ void	close_pdata_fds(t_pdata *pdata);
 
 void	save_backup_stdfds(t_pdata *p_data);
 
-void	initialize_pdata(t_pdata *p_data, t_token *token);
+void	initialize_pdata(t_pdata *p_data, t_token *token, t_context *context);
 
 #endif

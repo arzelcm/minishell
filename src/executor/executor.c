@@ -34,9 +34,11 @@ static void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 {
 	t_token	*cmd_token;
 	int		i;
+	int		last_cmd_idx;
 
 	i = 0;
 	cmd_token = token;
+	last_cmd_idx = token->tokens.amount - 1;
 	if (token->type != CMD)
 		cmd_token = token->tokens.token;
 	while (i < token->tokens.amount && cmd_token)
@@ -53,34 +55,29 @@ static void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 		cmd_token = cmd_token->next;
 		i++;
 	}
+	context->err_code = \
+		wait_child_processes(pdata->pids[last_cmd_idx], token->tokens.amount);
 }
 
 void	execute(t_token *token, t_context *context)
 {
 	t_pdata	p_data;
-	int		last_cmd_index;
 
 	listen_signals(MAIN, EXECUTOR);
 	if (!token)
 		return ;
 	if (token->tokens.amount == 0)
 		token->tokens.amount++;
-	initialize_pdata(&p_data, token);
+	initialize_pdata(&p_data, token, context);
 	if (g_sigval == SIGINT)
 	{
 		g_sigval = 0;
-		context->err_code = 1;
-		free_pdata(&p_data);
-		return ;
+		return (free_pdata(&p_data));
 	}
 	config_echoctl_terminal(ON);
-	last_cmd_index = token->tokens.amount - 1;
 	if (token->type == CMD && is_builtin(token->args[0]))
 		execute_cmd_builtin(&p_data, token, context);
 	else if (token->type == CMD || token->type == PIPE)
 		execute_pipe(&p_data, token, context);
-	if (!(token->type == CMD && is_builtin(token->args[0])))
-		context->err_code = wait_child_processes(
-				p_data.pids[last_cmd_index], token->tokens.amount);
 	free_pdata(&p_data);
 }

@@ -55,7 +55,7 @@ static void	initialize_heredocs(t_pdata *p_data, t_token *curr_token)
 	}
 }
 
-void	initialize_pdata(t_pdata *p_data, t_token *token)
+void	initialize_pdata(t_pdata *p_data, t_token *token, t_context *context)
 {
 	t_token	*curr_token;
 
@@ -73,4 +73,6 @@ void	initialize_pdata(t_pdata *p_data, t_token *token)
 	if (token->tokens.amount > 1)
 		curr_token = token->tokens.token;
 	initialize_heredocs(p_data, curr_token);
+	if (g_sigval == SIGINT)
+		context->err_code = 1;
 }
