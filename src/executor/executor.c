@@ -1,14 +1,12 @@
-#include <errno.h>
 #include "libft.h"
 #include "open.h"
 #include "execute_command.h"
-#include "execute_command_utils.h"
 #include "utils.h"
 #include "safe_utils.h"
 #include "executor_utils.h"
-#include "open_utils.h"
 #include "builtins.h"
 #include "signals.h"
+#include <errno.h>
 
 static void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
 {
