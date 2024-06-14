@@ -93,6 +93,15 @@ vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/token
 #----LOG----#
 LOG = log
 
+#----TEST----#
+TESTROOT = 42_minishell_tester
+TESTDIR = ./$(TESTROOT)-master
+TESTREPO = $(HOME)/$(TESTROOT)
+
+TEST_INSTALL = $(TESTDIR)/install.sh
+TEST_INSTALL_TMP = $(TESTDIR)/install_tmp.sh
+START_TEST = $(TESTDIR)/tester.sh m
+
 #----RULES----#
 all:
 	@$(MAKE) --no-print-directory make_libft
@@ -115,7 +124,7 @@ $(BIN_DIR)%.o: %.c Makefile
 	@mkdir -p $(BIN_DIR)
 	@$(CC) $(CCFLAGS) $(INCLUDES) -MMD -c $< -o $@
 
-clean: libft_clean
+clean: libft_clean test_clean
 	@rm -rf $(BIN_DIR)
 	@echo "$(RED)bin/ deleted$(DEF_COLOR)"
 	-$(MAKE) --no-print-directory -C $(READLINE_DIR) clean >>$(LOG) 2>&1
@@ -142,6 +151,9 @@ libft_clean:
 libft_fclean:
 	@echo "$(RED)Cleaning $(PINK)Libft$(RED)...$(DEF_COLOR)"
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
+
+test_clean:
+	@rm -rf	$(TESTDIR) $(TESTREPO)
 
 $(READLINE_LIB): $(READLINE_DIR)
 	printf "$(BLUE)Compiling and linking library...$(DEF_COLOR)\n"
@@ -170,13 +182,16 @@ $(READLINE_DIR):
 		b \
 
 test:
-	rm -rf 42_minishell_tester-master
-	rm -rf $(HOME)/42_minishell_tester
+	$(MAKE) --no-print-directory test_clean
 	curl -sLO https://github.com/zstenger93/42_minishell_tester/archive/refs/heads/master.zip
 	unzip master.zip > /dev/null
-	chmod 744 ./42_minishell_tester-master/install.sh
-	./42_minishell_tester-master/install.sh
-	./42_minishell_tester-master/tester.sh m
+	rm -rf master.zip
+	head -n 33 $(TEST_INSTALL) > $(TEST_INSTALL_TMP)
+	rm -rf $(TEST_INSTALL)
+	mv $(TESTDIR)/install_tmp.sh $(TEST_INSTALL) 
+	chmod 744 $(TEST_INSTALL)
+	$(TEST_INSTALL)
+	$(START_TEST)
 
 -include $(DEPS)
 -include $(MDEPS)

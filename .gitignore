@@ -15,4 +15,8 @@ la*
 lim
 test
 minishell_tester/
+42_minishell_tester-master/
+tmp*
+$HOME
+$USER*
 .gitmodules
