@@ -1,17 +1,12 @@
 #ifndef OPEN_UTILS_H
 # define OPEN_UTILS_H
 
-# include "executor.h"
 # include "token.h"
 
-void	free_pdata(t_pdata *p_data);
+int	fork_here_doc(t_redirection *here_doc);
 
-void	close_pdata_fds(t_pdata *pdata);
+int	open_infile(char *path);
 
-void	initialize_pdata(t_pdata *p_data, t_token *token);
-
-int		open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs);
-
-int		open_here_doc(int fds[2], t_redirection *here_doc);
+int	open_outfile(char *path, int mode);
 
 #endif

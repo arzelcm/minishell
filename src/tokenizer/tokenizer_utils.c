@@ -18,7 +18,7 @@ int	get_word_len(char *str, int i)
 	int	start_i;
 
 	start_i = i;
-	while (str[i] != '\0' && !ft_stroccurrences("| <>&", str[i]))
+	while (str[i] != '\0' && !ft_stroccurrences("| <>", str[i]))
 	{
 		if (!avoid_quotes(str, &i))
 			i++;

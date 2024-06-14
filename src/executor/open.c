@@ -1,52 +1,34 @@
 #include <sys/wait.h>
-#include "safe_utils.h"
-#include "utils.h"
 #include "libft.h"
-#include "executor_utils.h"
-#include "open_utils.h"
+#include "readline.h"
+#include "context.h"
+#include "signals.h"
 #include "open.h"
-#include <signal.h>
+#include "open_utils.h"
+#include "safe_utils.h"
+#include "executor_utils.h"
 #include <errno.h>
 
-static void	wait_here_doc_process(int fds[2])
+int	open_here_doc(int fds[2], t_redirection *here_doc)
 {
-	int	status;
+	char	*line;
 
-	if (waitpid(-1, &status, 0) == -1)
+	listen_signals(HEREDOC, HEREDOC);
+	line = readline(HERE_DOC_PREFIX);
+	while (line && ft_strcmp(line, here_doc->delimiter))
 	{
-		safe_close(&fds[READ_FD]);
-		exit(ECHILD);
+		if (ft_printff(fds[WRITE_FD], "%s\n", line) == -1)
+		{
+			free(line);
+			close_pipe(fds);
+			exit(EBADF);
+		}
+		free(line);
+		line = readline(HERE_DOC_PREFIX);
 	}
-	if (WIFEXITED(status))
-	{
-		status = WEXITSTATUS(status);
-		if (status == EXIT_FAILURE)
-			g_sigval = SIGINT;
-		if (status == EBADF)
-			handle_syserror(EBADF);
-	}
-}
-
-static int	fork_here_doc(t_redirection *here_doc)
-{
-	pid_t	pid;
-	int		fds[2];
-
-	if (pipe(fds) == -1)
-		handle_syserror(EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		handle_syserror(EAGAIN);
-	else if (pid == 0)
-		open_here_doc(fds, here_doc);
-	if (close(fds[WRITE_FD]) == -1)
-	{
-		kill(pid, SIGTERM);
-		safe_close(&fds[READ_FD]);
-		exit(EBADF);
-	}
-	wait_here_doc_process(fds);
-	return (fds[READ_FD]);
+	free(line);
+	close_pipe(fds);
+	exit(EXIT_SUCCESS);
 }
 
 int	open_here_docs(t_redirection *infiles, int here_docs_amount)
@@ -75,6 +57,25 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 		file = file->next;
 	}
 	return (fd);
+}
+
+static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdcs)
+{
+	int	fd;
+	int	failed;
+
+	failed = 0;
+	fd = open_infile(file->path);
+	if (fd == -1)
+		failed = 1;
+	if (i >= hdcs)
+	{
+		safe_close(read_fd);
+		*read_fd = fd;
+	}
+	else
+		safe_close(&fd);
+	return (failed);
 }
 
 int	open_infiles(int read_fd, t_redirection *infiles, int here_docs_amount)

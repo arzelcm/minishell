@@ -9,25 +9,26 @@
 # define CD "cd"
 # define ABNORMAL_EXIT_STATUS 255
 
-# include "context.h"
-# include "token.h"
+# include "pdata_helpers.h"
 
-int	exec_builtin(char *command, t_token *token, t_context *context);
+int		execute_builtin(char *command, t_token *token, t_context *context);
 
-int	is_builtin(char *command);
+void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context);
 
-int	ft_pwd(int argc, char **argv, t_context *context);
+int		is_builtin(char *command);
 
-int	ft_env(int argc, char **argv, t_context *context);
+int		ft_pwd(int argc, char **argv, t_context *context);
 
-int	ft_echo(int argc, char **argv, t_context *context);
+int		ft_env(int argc, char **argv, t_context *context);
 
-int	ft_exit(int argc, char **argv, t_context *context);
+int		ft_echo(int argc, char **argv, t_context *context);
 
-int	ft_export(int argc, char **argv, t_context *context);
+int		ft_exit(int argc, char **argv, t_context *context);
 
-int	ft_unset(int argc, char **argv, t_context *context);
+int		ft_export(int argc, char **argv, t_context *context);
 
-int	ft_cd(int argc, char **argv, t_context *context);
+int		ft_unset(int argc, char **argv, t_context *context);
+
+int		ft_cd(int argc, char **argv, t_context *context);
 
 #endif

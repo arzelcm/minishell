@@ -1,108 +1,96 @@
 #include "open.h"
-#include "libft.h"
-#include "executor.h"
-#include "executor_utils.h"
-#include "readline.h"
 #include "safe_utils.h"
 #include "utils.h"
-#include "builtins.h"
-#include "signals.h"
+#include "execute_command_utils.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <stdlib.h>
 #include <errno.h>
 
-void	free_pdata(t_pdata *p_data)
+static void	wait_here_doc_process(int fds[2])
 {
-	free(p_data->pids);
-	free(p_data->heredocs_fds);
-}
+	int	status;
 
-void	close_pdata_fds(t_pdata *pdata)
-{
-	int	i;
-
-	close_pipe(pdata->fds);
-	close_pipe(pdata->pipe_fds);
-	safe_close(&pdata->last_pipe);
-	i = 0;
-	while (pdata->heredocs_fds[i])
-		safe_close(&pdata->heredocs_fds[i++]);
-}
-
-void	initialize_pdata(t_pdata *p_data, t_token *token)
-{
-	t_token	*curr_token;
-	int		i;
-
-	ft_bzero(p_data, sizeof(t_pdata));
-	p_data->last_pipe = -1;
-	p_data->fds[READ_FD] = -1;
-	p_data->fds[WRITE_FD] = -1;
-	p_data->pipe_fds[READ_FD] = -1;
-	p_data->pipe_fds[WRITE_FD] = -1;
-	p_data->pids = safe_calloc((token->tokens.amount + 1) * sizeof(pid_t));
-	p_data->heredocs_fds = safe_calloc((token->tokens.amount +1) * sizeof(int));
-	curr_token = token;
-	if (token->tokens.amount > 1)
-		curr_token = token->tokens.token;
-	i = 0;
-	while (curr_token)
+	if (waitpid(-1, &status, 0) == -1)
 	{
-		p_data->heredocs_fds[i] = -1;
-		if (curr_token->here_docs)
-			p_data->heredocs_fds[i] = \
-				open_here_docs(curr_token->infiles, curr_token->here_docs);
-		if (g_sigval == SIGINT)
-		{
-			close_pdata_fds(p_data);
-			return ;
-		}
-		curr_token = curr_token->next;
-		i++;
+		safe_close(&fds[READ_FD]);
+		exit(ECHILD);
 	}
-	p_data->std_fds[READ_FD] = dup(STDIN_FILENO);
-	if (p_data->std_fds[READ_FD] == -1)
-		handle_syserror(EBUSY);
-	p_data->std_fds[WRITE_FD] = dup(STDIN_FILENO);
-	if (p_data->std_fds[WRITE_FD] == -1)
-		handle_syserror(EBUSY);
+	if (WIFEXITED(status))
+	{
+		status = WEXITSTATUS(status);
+		if (status == EXIT_FAILURE)
+			g_sigval = SIGINT;
+		if (status == EBADF)
+			handle_syserror(EBADF);
+	}
 }
 
-int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdocs)
+int	fork_here_doc(t_redirection *here_doc)
 {
-	int	fd;
-	int	failed;
+	pid_t	pid;
+	int		fds[2];
 
-	failed = 0;
-	fd = open_infile(file->path);
-	if (fd == -1)
-		failed = 1;
-	if (i >= hdocs)
+	if (pipe(fds) == -1)
+		handle_syserror(EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		handle_syserror(EAGAIN);
+	else if (pid == 0)
+		open_here_doc(fds, here_doc);
+	if (close(fds[WRITE_FD]) == -1)
 	{
-		safe_close(read_fd);
-		*read_fd = fd;
+		kill(pid, SIGTERM);
+		safe_close(&fds[READ_FD]);
+		exit(EBADF);
 	}
+	wait_here_doc_process(fds);
+	return (fds[READ_FD]);
+}
+
+int	open_infile(char *path)
+{
+	int		fd;
+	char	*quoted_file;
+
+	if (access(path, F_OK) == -1)
+		return (handle_error(path, NOFILEDIR), -1);
+	if (access(path, R_OK) == -1)
+		return (handle_error(path, PERMDENIED), -1);
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		quoted_file = quote_str(path);
+		handle_error("open: Error trying open file", quoted_file);
+		free(quoted_file);
+		return (-1);
+	}
+	return (fd);
+}
+
+int	open_outfile(char *path, int mode)
+{
+	int		fd;
+	int		flags;
+	char	*quoted_file;
+
+	if (access(path, F_OK) == 0 && access(path, W_OK) == -1)
+		return (handle_error(path, PERMDENIED), -1);
+	if (is_directory(path))
+		return (handle_error(path, ISDIRECTORY_U), -1);
+	flags = O_CREAT | O_WRONLY;
+	if (mode == APPEND)
+		flags |= O_APPEND;
 	else
-		safe_close(&fd);
-	return (failed);
-}
-
-int	open_here_doc(int fds[2], t_redirection *here_doc)
-{
-	char	*line;
-
-	listen_signals(HEREDOC, HEREDOC);
-	line = readline(HERE_DOC_PREFIX);
-	while (line && ft_strcmp(line, here_doc->delimiter))
+		flags |= O_TRUNC;
+	fd = open(path, flags, PERMBITS);
+	if (fd < 0)
 	{
-		if (ft_printff(fds[WRITE_FD], "%s\n", line) == -1)
-		{
-			free(line);
-			close_pipe(fds);
-			exit(EBADF);
-		}
-		free(line);
-		line = readline(HERE_DOC_PREFIX);
+		quoted_file = quote_str(path);
+		handle_error("open: Error trying open file", quoted_file);
+		free(quoted_file);
+		return (-1);
 	}
-	free(line);
-	close_pipe(fds);
-	exit(EXIT_SUCCESS);
+	return (fd);
 }

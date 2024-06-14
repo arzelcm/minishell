@@ -1,15 +1,15 @@
 #ifndef EXECUTOR_UTILS_H
 # define EXECUTOR_UTILS_H
 
-# include "context.h"
-# include "token.h"
+# include "pdata_helpers.h"
+# include <stdlib.h>
 
 int		wait_child_processes(pid_t last_pid, int cmds_amount);
 
 void	close_pipe(int fds[2]);
 
-int		open_infile(char *path);
+void	redirect_fds(int read_fd, int write_fd);
 
-int		open_outfile(char *path, int mode);
+void	clean_exit(t_pdata *pdata);
 
 #endif

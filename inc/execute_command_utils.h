@@ -1,5 +1,5 @@
-#ifndef PARSER_UTILS_H
-# define PARSER_UTILS_H
+#ifndef EXECUTE_COMMAND_UTILS_H
+# define EXECUTE_COMMAND_UTILS_H
 
 int		is_directory(char *path);
 
