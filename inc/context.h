@@ -15,7 +15,7 @@
 
 # include "environment.h"
 
-int	g_sigval;
+extern int	g_sigval;
 
 typedef struct s_context
 {
