@@ -8,8 +8,6 @@
 
 void	custom_exit(t_context *context, int print)
 {
-	// free_environment(&context->global_env);
-	// free_environment(&context->local_env);
 	config_echoctl_terminal(ON);
 	if (isatty(STDIN_FILENO) && print)
 		ft_printff(STDERR_FILENO, "\033[1A%sexit\n", PROMPT);

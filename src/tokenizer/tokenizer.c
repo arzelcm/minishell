@@ -21,20 +21,14 @@ void	free_args(char **args)
 void	push_arg(char ***args, char *new_arg, int *argc)
 {
 	char	**new;
-	int		len;
 	int		i;
 
-	i = 0;
-	len = 0;
-	while (*args && (*args)[i])
-		i++;
-	len = i;
-	new = safe_calloc(sizeof(char *) * (len + 2));
+	new = safe_calloc(sizeof(char *) * (*argc + 2));
 	i = -1;
-	while (++i < len)
+	while (++i < *argc)
 		new[i] = (*args)[i];
-	new[len] = new_arg;
-	new[len + 1] = NULL;
+	new[*argc] = new_arg;
+	new[*argc + 1] = NULL;
 	free(*args);
 	*args = new;
 	(*argc)++;
@@ -55,28 +49,63 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	return (1);
 }
 
+void	set_arg(char *line, int *i, t_token *token, t_context *context)
+{
+	char	**words;
+	char	*word;
+	int		j;
+	int		expanded;
+	int		quoted;
+
+	expanded = 0;
+	quoted = 0;
+	word = get_word(line, i, context, &expanded, &quoted);
+	if (!expanded || quoted)
+		push_arg(&token->args, word, &token->argc);
+	else
+	{
+		words = ft_split(word, ' ');
+		j = 0;
+		while (words[j])
+			push_arg(&token->args, words[j++], &token->argc);
+	}
+}
+
+static void	checks(t_token **token)
+{
+	int	delete;
+
+	delete = (*token)->type == CMD && (*token)->argc == 0;
+	if (delete)
+	{
+		free_token(*token);
+		*token = NULL;
+	}
+}
+
 t_token	*tokenize(char *line, t_context *context)
 {
 	t_token			*token;
-	t_token			*actual;
+	t_token			*curr_token;
 	int				i;
 
 	token = NULL;
-	actual = NULL;
+	curr_token = NULL;
 	i = 0;
 	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
 			continue ;
-		if (!actual)
-			actual = new_token(CMD);
-		if (set_redirection(line, &i, actual, context))
+		if (!curr_token)
+			curr_token = new_token(CMD);
+		if (set_redirection(line, &i, curr_token, context))
 			continue ;
-		if (set_pipe(line, &i, &token, &actual))
+		if (set_pipe(line, &i, &token, &curr_token))
 			continue ;
-		push_arg(&actual->args, get_word(line, &i, context), &actual->argc);
+		set_arg(line, &i, curr_token, context);
+		checks(&curr_token);
 	}
 	if (!token)
-		return (actual);
+		token = curr_token;
 	return (token);
 }
