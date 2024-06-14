@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "pdata_helpers.h"
 #include <errno.h>
+#include <sys/wait.h>
 
 int	wait_child_processes(pid_t last_pid, int cmds_amount)
 {

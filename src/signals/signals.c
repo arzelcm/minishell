@@ -36,18 +36,18 @@ void	listen_signals(int sigquit_mode, int sigint_mode)
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	if (sigquit_mode == MAIN || sigquit_mode == HEREDOC)
-		sa.__sigaction_u.__sa_handler = SIG_IGN;
+		sa.sa_handler = SIG_IGN;
 	else if (sigquit_mode == SUBPROCESS)
-		sa.__sigaction_u.__sa_handler = SIG_DFL;
+		sa.sa_handler = SIG_DFL;
 	sigaction(SIGQUIT, &sa, NULL);
 	if (sigint_mode == MAIN)
-		sa.__sigaction_u.__sa_handler = catch_sigint_prompt;
+		sa.sa_handler = catch_sigint_prompt;
 	else if (sigint_mode == SUBPROCESS)
-		sa.__sigaction_u.__sa_handler = SIG_DFL;
+		sa.sa_handler = SIG_DFL;
 	else if (sigint_mode == EXECUTOR)
-		sa.__sigaction_u.__sa_handler = SIG_IGN;
+		sa.sa_handler = SIG_IGN;
 	else if (sigint_mode == HEREDOC)
-		sa.__sigaction_u.__sa_handler = catch_sigint_heredoc;
+		sa.sa_handler = catch_sigint_heredoc;
 	sigaction(SIGINT, &sa, NULL);
 }
 

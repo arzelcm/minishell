@@ -4,6 +4,7 @@
 #include "safe_utils.h"
 #include "utils.h"
 #include <errno.h>
+#include <signal.h>
 
 void	free_pdata(t_pdata *p_data)
 {

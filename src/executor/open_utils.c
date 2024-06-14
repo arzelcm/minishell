@@ -7,6 +7,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/wait.h>
 
 static void	wait_here_doc_process(int fds[2])
 {
