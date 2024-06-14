@@ -15,6 +15,8 @@
 #include "environment.h"
 #include "environment_helper.h"
 
+int	g_sigval;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*token;
