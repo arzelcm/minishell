@@ -14,6 +14,7 @@
 #include "tokenizer.h"
 #include "environment.h"
 #include "environment_helper.h"
+#include "unistd.h"
 
 int	g_sigval;
 
@@ -33,12 +34,16 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&context, sizeof(t_context));
 	ft_bzero(&token, sizeof(t_token *));
 	init_env(&context, envp);
-	ft_printf(CREDITS);
+	if (isatty(STDIN_FILENO))
+		ft_printf(CREDITS);
 	while (42)
 	{
 		config_echoctl_terminal(OFF);
 		listen_signals(MAIN, MAIN);
-		line = readline(PROMPT);
+		if (isatty(STDIN_FILENO))
+			line = readline(PROMPT);
+		else
+			line = get_next_line(STDIN_FILENO, 0);
 		if (g_sigval == SIGINT)
 		{
 			context.err_code = 1;

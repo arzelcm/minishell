@@ -169,6 +169,15 @@ $(READLINE_DIR):
 		libft_fclean \
 		b \
 
+test:
+	rm -rf 42_minishell_tester-master
+	rm -rf $(HOME)/42_minishell_tester
+	curl -sLO https://github.com/zstenger93/42_minishell_tester/archive/refs/heads/master.zip
+	unzip master.zip > /dev/null
+	chmod 744 ./42_minishell_tester-master/install.sh
+	./42_minishell_tester-master/install.sh
+	./42_minishell_tester-master/tester.sh m
+
 -include $(DEPS)
 -include $(MDEPS)
 -include $(BDEPS)

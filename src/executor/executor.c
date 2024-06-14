@@ -74,7 +74,7 @@ void	execute(t_token *token, t_context *context)
 		return (free_pdata(&p_data));
 	}
 	config_echoctl_terminal(ON);
-	if (token->type == CMD && is_builtin(token->args[0]))
+	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
 		execute_cmd_builtin(&p_data, token, context);
 	else if (token->type == CMD || token->type == PIPE)
 		execute_pipe(&p_data, token, context);

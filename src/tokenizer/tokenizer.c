@@ -68,6 +68,8 @@ void	set_arg(char *line, int *i, t_token *token, t_context *context)
 		j = 0;
 		while (words[j])
 			push_arg(&token->args, words[j++], &token->argc);
+		free(words);
+		free(word);
 	}
 }
 

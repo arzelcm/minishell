@@ -71,6 +71,8 @@ void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 		clean_exit(pdata);
 	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
 	close_pdata_fds(pdata);
+	if (!token->argc)
+		exit(EXIT_SUCCESS);
 	if (is_builtin(token->args[0]))
 		exit(execute_builtin(token->args[0], token, context));
 	if (!is_directory(token->args[0]))
