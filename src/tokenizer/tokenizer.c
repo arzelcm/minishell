@@ -51,29 +51,24 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 
 void	set_arg(char *line, int *i, t_token *token, t_context *context)
 {
-	char	*words;
+	char	**words;
 	char	*word;
-	int		words_len;
 	int		j;
 	int		expanded;
 	int		quoted;
 
-	j = 0;
 	expanded = 0;
 	quoted = 0;
-	words = get_word(line, i, context, &expanded, &quoted);
-	ft_printf("expanded: %i\n", expanded);
-	ft_printf("quoted: %i\n", quoted);
-	words_len = ft_strlen(words);
+	word = get_word(line, i, context, &expanded, &quoted);
 	if (!expanded || quoted)
-		push_arg(&token->args, words, &token->argc);
+		push_arg(&token->args, word, &token->argc);
 	else
-		while (j < words_len)
-		{
-			word = get_word(words, &j, NULL, NULL, NULL);
-			if (*word)
-				push_arg(&token->args, word, &token->argc);
-		}
+	{
+		words = ft_split(word, ' ');
+		j = 0;
+		while (words[j])
+			push_arg(&token->args, words[j++], &token->argc);
+	}
 }
 
 static void	checks(t_token **token)
@@ -97,7 +92,6 @@ t_token	*tokenize(char *line, t_context *context)
 	token = NULL;
 	curr_token = NULL;
 	i = 0;
-	ft_printf("line: \n", line);
 	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
@@ -109,11 +103,9 @@ t_token	*tokenize(char *line, t_context *context)
 		if (set_pipe(line, &i, &token, &curr_token))
 			continue ;
 		set_arg(line, &i, curr_token, context);
-		// print_token(curr_token);
 		checks(&curr_token);
 	}
 	if (!token)
 		token = curr_token;
-	print_token(token);
 	return (token);
 }
