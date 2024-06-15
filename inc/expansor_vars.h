@@ -1,6 +1,6 @@
 #ifndef EXPANSOR_VARS_H
 # define EXPANSOR_VARS_H
-# define VAR_LIMIT "\"'|<><<>> ="
+# define VAR_LIMIT "\"'|<><<>> \t="
 
 # include "context.h" 
 

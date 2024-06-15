@@ -64,7 +64,7 @@ void	set_arg(char *line, int *i, t_token *token, t_context *context)
 		push_arg(&token->args, word, &token->argc);
 	else
 	{
-		words = ft_split(word, ' ');
+		words = ft_split_set(word, " \t");
 		j = 0;
 		while (words[j])
 			push_arg(&token->args, words[j++], &token->argc);
