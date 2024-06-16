@@ -9,7 +9,7 @@ int	ft_echo(int argc, char **argv, t_context *context)
 	(void) context;
 	new_line = 1;
 	i = 1;
-	while (argc > 1 && i < argc && *argv[i] == '-'
+	while (argc > 1 && i < argc && *argv[i] == '-' && ft_strlen(argv[i]) > 1
 		&& ft_stroccurrences(argv[i], 'n') == (int) ft_strlen(argv[i]) - 1)
 	{
 		new_line = 0;
