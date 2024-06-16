@@ -27,6 +27,8 @@ void	close_pdata_fds(t_pdata *pdata)
 
 void	save_backup_stdfds(t_pdata *p_data)
 {
+	if (!isatty(STDIN_FILENO))
+		return ;
 	p_data->std_fds[READ_FD] = dup(STDIN_FILENO);
 	if (p_data->std_fds[READ_FD] == -1)
 		handle_syserror(EBUSY);
