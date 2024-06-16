@@ -30,7 +30,7 @@ void	save_backup_stdfds(t_pdata *p_data)
 	p_data->std_fds[READ_FD] = dup(STDIN_FILENO);
 	if (p_data->std_fds[READ_FD] == -1)
 		handle_syserror(EBUSY);
-	p_data->std_fds[WRITE_FD] = dup(STDIN_FILENO);
+	p_data->std_fds[WRITE_FD] = dup(STDOUT_FILENO);
 	if (p_data->std_fds[WRITE_FD] == -1)
 		handle_syserror(EBUSY);
 }
