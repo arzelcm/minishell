@@ -57,7 +57,7 @@ int	set_redirection(char *line, int *i, t_token *token, t_context *context)
 	{
 		(*i) += 2;
 		push_redirection(HERE_DOC,
-			get_word(line, i, context, NULL, NULL), &token->infiles);
+			get_word(line, i, NULL, NULL, NULL), &token->infiles);
 		token->here_docs++;
 	}
 	else if (line[*i] == '<')
