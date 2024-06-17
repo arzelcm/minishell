@@ -155,7 +155,7 @@ libft_fclean:
 test_clean:
 	@rm -rf	$(TESTDIR) $(TESTREPO)
 
-$(READLINE_LIB): $(READLINE_DIR)
+$(READLINE_LIB): | $(READLINE_DIR)
 	printf "$(BLUE)Compiling and linking library...$(DEF_COLOR)\n"
 	$(MAKE) -s --no-print-directory -C $(READLINE_DIR) >>$(LOG) 2>&1
 	printf "$(GREEN)\r\033[2K[✓] $(PINK)readline$(GREEN) created!!!$(DEF_COLOR)\n\n"
