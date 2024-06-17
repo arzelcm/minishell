@@ -63,7 +63,7 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
-		if (line[i] == '$' && line[i + 1] != '\"' && !quotes.simple)
+		if (line[i] == '$' && (quotes.double_ || line[i + 1] != '\"') && !quotes.simple)
 		{
 			start = i;
 			while (!variable_finished(line[i], i > start))
@@ -74,7 +74,7 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 		}
 		else
 			i++;
-		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+		if (line[i] == '$' && ((line[i + 1] == '\"' && !quotes.double_) || (line[i + 1] == '\'' && !quotes.simple)))
 			vars->keys_length -= 1;
 	}
 }

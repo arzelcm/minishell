@@ -27,7 +27,7 @@ void
 	{
 		check_quotes(&quotes, line[i]);
 		start = i;
-		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+		if (line[i] == '$' && ((line[i + 1] == '\"' && !quotes.double_) || (line[i + 1] == '\'' && !quotes.simple)))
 			i++;
 		else if (line[i] == '$'
 			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
