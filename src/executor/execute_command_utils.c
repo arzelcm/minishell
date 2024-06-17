@@ -8,6 +8,8 @@ int	is_directory(char *path)
 {
 	DIR	*dir;
 
+	if (!ft_strchr(path, '/'))
+		return (0);
 	dir = opendir(path);
 	if (dir)
 		return (closedir(dir), 1);

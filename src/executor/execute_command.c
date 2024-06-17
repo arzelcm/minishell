@@ -16,7 +16,8 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 
 	i = 0;
 	full_cmd_path = NULL;
-	if (!cmd[0])
+	if (!cmd[0] || ft_strcmp(cmd, ".") == EQUAL_STRINGS
+		|| ft_strcmp(cmd, "..") == EQUAL_STRINGS)
 		return (NULL);
 	while (paths[i])
 	{
