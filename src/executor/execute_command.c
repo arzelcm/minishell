@@ -30,6 +30,7 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 			return (full_cmd_path);
 		i++;
 	}
+	free(full_cmd_path);
 	return (NULL);
 }
 
