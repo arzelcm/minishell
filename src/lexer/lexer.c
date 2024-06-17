@@ -14,7 +14,7 @@ static int	check_pipe(t_context *context, char *line, int index)
 	i = index - 1;
 	while (i >= 0)
 	{
-		if (line[i] != ' ')
+		if (line[i] != ' ' && line[i] != '\t')
 			break ;
 		i--;
 	}
@@ -25,7 +25,7 @@ static int	check_pipe(t_context *context, char *line, int index)
 	{
 		if (line[i] == PIPE[0])
 			return (throw_syntax_error(context, PIPE), 0);
-		else if (line[i] != ' ')
+		else if (line[i] != ' ' && line[i] != '\t')
 			break ;
 		i++;
 	}
@@ -48,7 +48,7 @@ static int	check_redirection(t_context *context, char *line, int index)
 	{
 		if (!check_metachar(context, line, i))
 			return (0);
-		else if (line[i] != ' ')
+		else if (line[i] != ' ' && line[i] != '\t')
 			break ;
 		i++;
 	}
