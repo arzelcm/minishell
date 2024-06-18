@@ -40,7 +40,6 @@ void
 
 	if (!path || mode == UNKNOWN_RED)
 		return ;
-	ft_printf("path: %s\n", path);
 	if (mode == HERE_DOC)
 		token->here_docs++;
 	if (mode == HERE_DOC || mode == INPUT)
