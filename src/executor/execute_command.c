@@ -77,7 +77,7 @@ void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(token->args[0]))
 		exit(execute_builtin(token->args[0], token, context));
-	if (!is_directory(token->args[0]))
+	if (!ft_strchr(token->args[0], '/') || !is_directory(token->args[0]))
 		execute_by_path(token->args, context->global_env.envp);
 	handle_error(token->args[0], ISDIRECTORY);
 	exit(PERM_ERR);
