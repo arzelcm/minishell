@@ -7,6 +7,7 @@
 #include "open_utils.h"
 #include "safe_utils.h"
 #include "executor_utils.h"
+#include <signal.h>
 #include <errno.h>
 
 int	open_here_doc(int fds[2], t_redirection *here_doc)
