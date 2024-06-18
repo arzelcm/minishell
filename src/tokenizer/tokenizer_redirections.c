@@ -1,3 +1,5 @@
+#include "libft.h"
+#include "utils.h"
 #include "token.h"
 #include "tokenizer_utils.h"
 #include "safe_utils.h"
@@ -32,51 +34,74 @@ t_redirection	*new_redirection(t_redirection_mode mode, char *path)
 }
 
 void
-	push_redirection(t_redirection_mode mode, char *path, t_redirection **list)
+	push_redirection(t_redirection_mode mode, char *path, t_token *token)
 {
-	t_redirection	*current;
+	t_redirection	**current;
 
-	current = *list;
-	if (!current)
+	if (!path || mode == UNKNOWN_RED)
+		return ;
+	ft_printf("path: %s\n", path);
+	if (mode == HERE_DOC)
+		token->here_docs++;
+	if (mode == HERE_DOC || mode == INPUT)
+		current = &token->infiles;
+	else
+		current = &token->outfiles;
+	if (!*current)
 	{
-		*list = new_redirection(mode, path);
+		*current = new_redirection(mode, path);
 		return ;
 	}
-	while (current->next)
-		current = current->next;
-	current->next = new_redirection(mode, path);
+	while ((*current)->next)
+		*current = (*current)->next;
+	(*current)->next = new_redirection(mode, path);
 }
 
-int	set_redirection(char *line, int *i, t_token *token, t_context *context)
-{
-	int	start_i;
+// static char	*get_red_filename(char *line, int *i, t_redirection_mode mode, t_context *context)
+// {
+// 	int					expanded;
+// 	int					quoted;
+// 	char				*word;
+// 	int					start;
 
-	(void) context;
+// 	expanded = 0;
+// 	quoted = 0;
+// 	avoid_spaces(line, i);
+// 	start = *i;
+// 	if (mode == HERE_DOC)
+// 		word = get_word(line, i, NULL, NULL, NULL);
+// 	else
+// 		word = get_word(line, i, NULL, NULL, NULL);
+// 	if (expanded && !quoted && (ft_stroccurrences(word, ' ') || !*word))
+// 	{
+// 		handle_error(line + start, "ambiguous redirect");
+// 		context->err_code = EXIT_FAILURE;
+// 		free(word);
+// 		return (NULL);
+// 	}
+// 	return (word);
+// }
+
+int	set_redirection(char *line, int *i, t_token *token)
+{
+	int					start_i;
+	t_redirection_mode	mode;
+
 	start_i = *i;
+	mode = UNKNOWN_RED;
 	if (line[*i] == '<' && line[*i + 1] == '<')
-	{
-		(*i) += 2;
-		push_redirection(HERE_DOC,
-			get_word(line, i, NULL, NULL, NULL), &token->infiles);
-		token->here_docs++;
-	}
+		mode = HERE_DOC;
 	else if (line[*i] == '<')
-	{
-		(*i)++;
-		push_redirection(INPUT,
-			get_word(line, i, context, NULL, NULL), &token->infiles);
-	}
+		mode = INPUT;
 	else if (line[*i] == '>' && line[*i + 1] == '>')
-	{
-		(*i) += 2;
-		push_redirection(APPEND,
-			get_word(line, i, context, NULL, NULL), &token->outfiles);
-	}
+		mode = APPEND;
 	else if (line[*i] == '>')
-	{
+		mode = OUTPUT;
+	if (mode == HERE_DOC || mode == APPEND)
+		(*i) += 2;
+	else if (mode == INPUT || mode == OUTPUT)
 		(*i)++;
-		push_redirection(OUTPUT,
-			get_word(line, i, context, NULL, NULL), &token->outfiles);
-	}
+	if (mode != UNKNOWN_RED)
+		push_redirection(mode, get_raw_word(line, i, 1), token);
 	return (*i > start_i);
 }

@@ -6,6 +6,6 @@
 
 void	free_redirections(t_redirection *list);
 
-int		set_redirection(char *line, int *i, t_token *token, t_context *context);
+int		set_redirection(char *line, int *i, t_token *token);
 
 #endif

@@ -13,14 +13,14 @@ int	avoid_spaces(char *str, int *i)
 	return (1);
 }
 
-int	get_word_len(char *str, int i)
+int	get_word_len(char *str, int i, int keep_quotes)
 {
 	int	start_i;
 
 	start_i = i;
 	while (str[i] != '\0' && !ft_stroccurrences("| <>", str[i]))
 	{
-		if (!avoid_quotes(str, &i))
+		if (keep_quotes || !avoid_quotes(str, &i))
 			i++;
 	}
 	return (i - start_i);
@@ -59,7 +59,7 @@ char	*get_word(char	*str, int *i, t_context *context, int *expanded, int *quoted
 
 	word = safe_calloc(sizeof(char));
 	avoid_spaces(str, i);
-	word_len = get_word_len(str, *i);
+	word_len = get_word_len(str, *i, 0);
 	len = word_len;
 	str = ft_substr(str, *i, len);
 	*i += len;
@@ -67,5 +67,19 @@ char	*get_word(char	*str, int *i, t_context *context, int *expanded, int *quoted
 		len = expand(&str, context, expanded, quoted);
 	fill_word(len, str, &word);
 	free(str);
+	return (word);
+}
+
+char	*get_raw_word(char	*str, int *i, int keep_quotes)
+{
+	char	*word;
+	int		len;
+	int		word_len;
+
+	avoid_spaces(str, i);
+	word_len = get_word_len(str, *i, keep_quotes);
+	len = word_len;
+	word = ft_substr(str, *i, len);
+	*i += len;
 	return (word);
 }

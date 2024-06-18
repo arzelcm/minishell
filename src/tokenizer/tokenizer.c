@@ -100,7 +100,7 @@ t_token	*tokenize(char *line, t_context *context)
 			continue ;
 		if (!curr_token)
 			curr_token = new_token(CMD);
-		if (set_redirection(line, &i, curr_token, context))
+		if (set_redirection(line, &i, curr_token))
 			continue ;
 		if (set_pipe(line, &i, &token, &curr_token))
 			continue ;
