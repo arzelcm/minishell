@@ -78,6 +78,7 @@ static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdcs)
 	return (failed);
 }
 // Merge functions and expand
+// char	*expand_redirect(t_redirection *redirection, t_context *context);
 int	open_infiles(int read_fd, t_redirection *infiles, int here_docs_amount)
 {
 	int				i;
