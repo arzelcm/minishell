@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			if (check_syntax(&context, line))
 			{
-				token = tokenize(line, &context);
+				token = tokenize(line);
 				execute(token, &context);
 				free_token(token);
 			}

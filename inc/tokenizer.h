@@ -4,7 +4,7 @@
 # include "token.h"
 # include "context.h"
 
-t_token	*tokenize(char *line, t_context *context);
+t_token	*tokenize(char *line);
 
 void	free_args(char **args);
 

@@ -42,6 +42,7 @@ void
 		return ;
 	if (mode == HERE_DOC)
 		token->here_docs++;
+	// current = &token->redirections;
 	if (mode == HERE_DOC || mode == INPUT)
 		current = &token->infiles;
 	else
