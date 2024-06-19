@@ -75,7 +75,7 @@ int	set_redirection(char *line, int *i, t_token *token)
 	else if (mode == INPUT || mode == OUTPUT)
 		(*i)++;
 	if (mode != UNKNOWN_RED)
-		push_redirection(mode, get_raw_word(line, i, 1), token);
+		push_redirection(mode, get_raw_word(line, i), token);
 	return (mode != UNKNOWN_RED);
 }
 
@@ -92,7 +92,7 @@ char	*expand_redirect(t_redirection *redirection, t_context *context)
 	i = 0;
 	avoid_spaces(redirection->path, &i);
 	if (redirection->mode == HERE_DOC)
-		word = get_raw_word(redirection->path, &i, 0);
+		word = get_raw_word(redirection->path, &i);
 	else
 		word = get_word(redirection->path, &i, context, &expanded, &quoted);
 	if (expanded && !quoted && (ft_stroccurrences_set(word, " \t") || !*word))

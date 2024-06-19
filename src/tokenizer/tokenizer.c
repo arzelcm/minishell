@@ -94,7 +94,7 @@ t_token	*tokenize(char *line)
 			continue ;
 		if (set_pipe(line, &i, &token, &curr_token))
 			continue ;
-		push_arg(&curr_token->args, get_raw_word(line, &i, 1), &curr_token->argc);
+		push_arg(&curr_token->args, get_raw_word(line, &i), &curr_token->argc);
 	}
 	if (!token)
 		token = curr_token;
