@@ -42,10 +42,10 @@ typedef struct s_token
 	char			**args;
 	int				expanded;
 	int				argc;
-	t_redirection	*infiles;
-	t_redirection	*outfiles;
 	t_redirection	*redirections;
 	int				here_docs;
+	int				infiles;
+	int				outfiles;
 	t_token			*next;
 	t_tokens		tokens;
 }	t_token;

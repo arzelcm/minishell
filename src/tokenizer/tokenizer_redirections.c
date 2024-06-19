@@ -42,11 +42,11 @@ void
 		return ;
 	if (mode == HERE_DOC)
 		token->here_docs++;
-	// current = &token->redirections;
+	current = &token->redirections;
 	if (mode == HERE_DOC || mode == INPUT)
-		current = &token->infiles;
+		token->infiles++;
 	else
-		current = &token->outfiles;
+		token->outfiles++;
 	if (!*current)
 	{
 		*current = new_redirection(mode, path);
@@ -57,37 +57,10 @@ void
 	(*current)->next = new_redirection(mode, path);
 }
 
-// static char	*get_red_filename(char *line, int *i, t_redirection_mode mode, t_context *context)
-// {
-// 	int					expanded;
-// 	int					quoted;
-// 	char				*word;
-// 	int					start;
-
-// 	expanded = 0;
-// 	quoted = 0;
-// 	avoid_spaces(line, i);
-// 	start = *i;
-// 	if (mode == HERE_DOC)
-// 		word = get_word(line, i, NULL, NULL, NULL);
-// 	else
-// 		word = get_word(line, i, NULL, NULL, NULL);
-// 	if (expanded && !quoted && (ft_stroccurrences(word, ' ') || !*word))
-// 	{
-// 		handle_error(line + start, "ambiguous redirect");
-// 		context->err_code = EXIT_FAILURE;
-// 		free(word);
-// 		return (NULL);
-// 	}
-// 	return (word);
-// }
-
 int	set_redirection(char *line, int *i, t_token *token)
 {
-	int					start_i;
 	t_redirection_mode	mode;
 
-	start_i = *i;
 	mode = UNKNOWN_RED;
 	if (line[*i] == '<' && line[*i + 1] == '<')
 		mode = HERE_DOC;
@@ -103,5 +76,33 @@ int	set_redirection(char *line, int *i, t_token *token)
 		(*i)++;
 	if (mode != UNKNOWN_RED)
 		push_redirection(mode, get_raw_word(line, i, 1), token);
-	return (*i > start_i);
+	return (mode != UNKNOWN_RED);
+}
+
+char	*expand_redirect(t_redirection *redirection, t_context *context)
+{
+
+	int					expanded;
+	int					quoted;
+	char				*word;
+	int					i;
+
+	expanded = 0;
+	quoted = 0;
+	i = 0;
+	avoid_spaces(redirection->path, &i);
+	if (redirection->mode == HERE_DOC)
+		word = get_raw_word(redirection->path, &i, 0);
+	else
+		word = get_word(redirection->path, &i, context, &expanded, &quoted);
+	if (expanded && !quoted && (ft_stroccurrences(word, ' ') || !*word))
+	{
+		handle_error(redirection->path, "ambiguous redirect");
+		context->err_code = EXIT_FAILURE;
+		free(word);
+		return (NULL);
+	}
+	free(redirection->path);
+	redirection->path = word;
+	return (redirection->path);
 }
