@@ -36,25 +36,25 @@ t_redirection	*new_redirection(t_redirection_mode mode, char *path)
 void
 	push_redirection(t_redirection_mode mode, char *path, t_token *token)
 {
-	t_redirection	**current;
+	t_redirection	*current;
 
 	if (!path || mode == UNKNOWN_RED)
 		return ;
 	if (mode == HERE_DOC)
 		token->here_docs++;
-	current = &token->redirections;
 	if (mode == HERE_DOC || mode == INPUT)
 		token->infiles++;
 	else
 		token->outfiles++;
-	if (!*current)
+	if (!token->redirections)
 	{
-		*current = new_redirection(mode, path);
+		token->redirections = new_redirection(mode, path);
 		return ;
 	}
-	while ((*current)->next)
-		*current = (*current)->next;
-	(*current)->next = new_redirection(mode, path);
+	current = token->redirections;
+	while (current->next)
+		current = current->next;
+	current->next = new_redirection(mode, path);
 }
 
 int	set_redirection(char *line, int *i, t_token *token)

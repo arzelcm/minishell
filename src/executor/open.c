@@ -7,6 +7,7 @@
 #include "open_utils.h"
 #include "safe_utils.h"
 #include "executor_utils.h"
+#include "tokenizer_redirections.h"
 #include <signal.h>
 #include <errno.h>
 
