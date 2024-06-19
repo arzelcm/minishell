@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/04 16:10:17 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/19 04:41:58 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ int			count_hex_digits(unsigned int nbr);
 char		*ft_filename(char *path);
 
 int			ft_stroccurrences(char *str, char c);
+
+int			ft_stroccurrences_set(char *str, char *set);
 
 int			ft_normalize(int value, int min, int max);
 

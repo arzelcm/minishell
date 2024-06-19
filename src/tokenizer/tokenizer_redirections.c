@@ -95,7 +95,7 @@ char	*expand_redirect(t_redirection *redirection, t_context *context)
 		word = get_raw_word(redirection->path, &i, 0);
 	else
 		word = get_word(redirection->path, &i, context, &expanded, &quoted);
-	if (expanded && !quoted && (ft_stroccurrences(word, ' ') || !*word))
+	if (expanded && !quoted && (ft_stroccurrences_set(word, " \t") || !*word))
 	{
 		handle_error(redirection->path, "ambiguous redirect");
 		context->err_code = EXIT_FAILURE;
