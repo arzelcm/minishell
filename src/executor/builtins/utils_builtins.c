@@ -42,17 +42,9 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 {
 	listen_signals(SUBPROCESS, SUBPROCESS);
 	save_backup_stdfds(pdata);
-	pdata->fds[READ_FD] = \
-		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
-	if (token->infiles && pdata->fds[READ_FD] == -1)
+	if (!open_files(pdata, token->redirections, token->here_docs, context))
 	{
-		context->err_code = 1;
-		return (close_pdata_fds(pdata));
-	}
-	pdata->fds[WRITE_FD] = open_outfiles(pdata->fds[WRITE_FD], token->outfiles);
-	if (token->outfiles && pdata->fds[WRITE_FD] == -1)
-	{
-		context->err_code = 1;
+		context->err_code = EXIT_FAILURE;
 		return (close_pdata_fds(pdata));
 	}
 	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);

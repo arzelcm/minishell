@@ -39,16 +39,16 @@ static void	initialize_heredocs(t_pdata *p_data, t_token *curr_token)
 {
 	int				i;
 	int				here_docs;
-	t_redirection	*infiles;
+	t_redirection	*redirections;
 
 	i = 0;
 	while (curr_token)
 	{
 		p_data->heredocs_fds[i] = -1;
-		infiles = curr_token->infiles;
+		redirections = curr_token->redirections;
 		here_docs = curr_token->here_docs;
 		if (here_docs)
-			p_data->heredocs_fds[i] = open_here_docs(infiles, here_docs);
+			p_data->heredocs_fds[i] = open_here_docs(redirections, here_docs);
 		if (g_sigval == SIGINT)
 			return (close_pdata_fds(p_data));
 		curr_token = curr_token->next;

@@ -7,6 +7,7 @@
 #include "open_utils.h"
 #include "safe_utils.h"
 #include "executor_utils.h"
+#include <signal.h>
 #include <errno.h>
 
 int	open_here_doc(int fds[2], t_redirection *here_doc)
@@ -59,13 +60,13 @@ int	open_here_docs(t_redirection *infiles, int here_docs_amount)
 	return (fd);
 }
 
-static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdcs)
+static int	open_next_infile(char *path, int i, int *read_fd, int hdcs)
 {
 	int	fd;
 	int	failed;
 
 	failed = 0;
-	fd = open_infile(file->path);
+	fd = open_infile(path);
 	if (fd == -1)
 		failed = 1;
 	if (i >= hdcs)
@@ -77,48 +78,41 @@ static int	open_next_infile(t_redirection *file, int i, int *read_fd, int hdcs)
 		safe_close(&fd);
 	return (failed);
 }
-// Merge functions and expand
-// char	*expand_redirect(t_redirection *redirection, t_context *context);
-int	open_infiles(int read_fd, t_redirection *infiles, int here_docs_amount)
+
+static int	open_next_outfile(t_redirection *file, char *path, int *write_fd)
+{
+	safe_close(write_fd);
+	*write_fd = open_outfile(path, file->mode);
+	if (*write_fd == -1)
+		return (1);
+	return (0);
+}
+
+int	open_files(
+	t_pdata *pdata, t_redirection *redirs, int hds_amnt, t_context *context)
 {
 	int				i;
 	int				failed;
+	char			*path;
 	t_redirection	*file;
 
 	i = 0;
 	failed = 0;
-	file = infiles;
+	file = redirs;
 	while (file)
 	{
-		if (file->mode != HERE_DOC)
-			failed += open_next_infile(file, i, &read_fd, here_docs_amount);
+		path = expand_redirect(file, context);
+		if (!path)
+			return (close_pipe(pdata->fds), 0);
+		if (file->mode == INPUT)
+			failed = open_next_infile(path, i, &pdata->fds[READ_FD], hds_amnt);
+		else if (file->mode == OUTPUT || file->mode == APPEND)
+			failed = open_next_outfile(file, path, &pdata->fds[WRITE_FD]);
 		else
 			i++;
+		if (failed)
+			return (close_pipe(pdata->fds), 0);
 		file = file->next;
 	}
-	if (failed)
-		safe_close(&read_fd);
-	return (read_fd);
-}
-
-int	open_outfiles(int write_fd, t_redirection *outfiles)
-{
-	int				fd;
-	int				failed;
-	t_redirection	*file;
-
-	fd = write_fd;
-	file = outfiles;
-	failed = 0;
-	while (file)
-	{
-		safe_close(&fd);
-		fd = open_outfile(file->path, file->mode);
-		if (fd == -1)
-			failed++;
-		file = file->next;
-	}
-	if (failed)
-		safe_close(&fd);
-	return (fd);
+	return (1);
 }

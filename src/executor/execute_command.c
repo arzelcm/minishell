@@ -62,12 +62,7 @@ static void	execute_by_path(char **args, char **envp)
 void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 {
 	listen_signals(SUBPROCESS, SUBPROCESS);
-	pdata->fds[READ_FD] = \
-		open_infiles(pdata->fds[READ_FD], token->infiles, token->here_docs);
-	if (token->infiles && pdata->fds[READ_FD] == -1)
-		clean_exit(pdata);
-	pdata->fds[WRITE_FD] = open_outfiles(pdata->fds[WRITE_FD], token->outfiles);
-	if (token->outfiles && pdata->fds[WRITE_FD] == -1)
+	if (!open_files(pdata, token->redirections, token->here_docs, context))
 		clean_exit(pdata);
 	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
 	close_pdata_fds(pdata);
