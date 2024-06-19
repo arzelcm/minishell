@@ -20,8 +20,7 @@ void	free_token(t_token *token)
 {
 	if (!token)
 		return ;
-	free_redirections(token->infiles);
-	free_redirections(token->outfiles);
+	free_redirections(token->redirections);
 	free_tokens(&token->tokens);
 	free_args(token->args);
 	free(token);
@@ -54,15 +53,8 @@ void	print_token(t_token *token)
 		ft_printf("%s, ", token->args[i]);
 		i++;
 	}
-	ft_printf("\ninfiles: ");
-	aux = token->infiles;
-	while (aux)
-	{
-		ft_printf("%s(%i), ", aux->path, aux->mode);
-		aux = aux->next;
-	}
-	ft_printf("\noutfiles: ");
-	aux = token->outfiles;
+	ft_printf("\nredirections: ");
+	aux = token->redirections;
 	while (aux)
 	{
 		ft_printf("%s(%i), ", aux->path, aux->mode);
