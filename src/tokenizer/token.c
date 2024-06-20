@@ -107,7 +107,7 @@ void	expand_args(t_token *token, t_context *context)
 	new_args = NULL;
 	token->argc = 0;
 	i = 0;
-	while (!token->expanded && token->args[i])
+	while (!token->expanded && token->args && token->args[i])
 	{
 		expanded = 0;
 		quoted = 0;
@@ -132,5 +132,4 @@ void	expand_args(t_token *token, t_context *context)
 	}
 	free_args(token->args);
 	token->args = new_args;
-	print_token(token);
 }
