@@ -3,6 +3,7 @@
 #include "tokenizer.h"
 #include "tokenizer_redirections.h"
 #include "safe_utils.h"
+#include "tokenizer_utils.h"
 
 void	free_tokens(t_tokens *tokens)
 {
@@ -46,6 +47,7 @@ void	print_token(t_token *token)
 		return ;
 	ft_printf("type: %i\n", token->type);
 	ft_printf("argc: %i\n", token->argc);
+	ft_printf("expanded: %i\n", token->expanded);
 	ft_printf("args: ");
 	i = 0;
 	while (token->args && token->args[i])
@@ -90,4 +92,45 @@ void	push_token(t_tokens *tokens, t_token *token)
 		aux->next = token;
 		tokens->amount++;
 	}
+}
+
+void	expand_args(t_token *token, t_context *context)
+{
+	char	**new_args;
+	char	**words;
+	char	*word;
+	int		expanded;
+	int		quoted;
+	int		j;
+	int		i;
+
+	new_args = NULL;
+	token->argc = 0;
+	i = 0;
+	while (!token->expanded && token->args[i])
+	{
+		expanded = 0;
+		quoted = 0;
+		j = 0;
+		word = get_word(token->args[i], &j, context, &expanded, &quoted);
+		if (!expanded || quoted)
+			push_arg(&new_args, word, &token->argc);
+		else
+		{
+			// TODO: Use split_set
+			words = ft_split(word, ' ');
+			j = 0;
+			while (words[j])
+			{
+				push_arg(&new_args, words[j], &token->argc);
+				j++;
+			}
+			free(words);
+			free(word);
+		}
+		i++;
+	}
+	free_args(token->args);
+	token->args = new_args;
+	print_token(token);
 }

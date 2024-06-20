@@ -6,6 +6,7 @@
 #include "executor_utils.h"
 #include "builtins.h"
 #include "signals.h"
+#include "token.h"
 #include <signal.h>
 #include <errno.h>
 
@@ -74,7 +75,7 @@ void	execute(t_token *token, t_context *context)
 		return (free_pdata(&p_data));
 	}
 	config_echoctl_terminal(ON);
-	// TODO: Expand args void	expand_tok_args(t_token *token, t_context *context);
+	expand_args(token, context);
 	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
 		execute_cmd_builtin(&p_data, token, context);
 	else if (token->type == CMD || token->type == PIPE)

@@ -1,6 +1,8 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
+# include "context.h"
+
 typedef enum e_token_type
 {
 	CMD,
@@ -57,5 +59,7 @@ t_token	*new_token(t_token_type type);
 void	print_token(t_token *token);
 
 void	push_token(t_tokens *tokens, t_token *token);
+
+void	expand_args(t_token *token, t_context *context);
 
 #endif

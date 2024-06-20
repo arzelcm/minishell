@@ -49,32 +49,6 @@ int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
 	return (1);
 }
 
-// void	set_arg(char *line, int *i, t_token *token, t_context *context)
-// {
-// 	char	**words;
-// 	char	*word;
-// 	int		j;
-// 	int		expanded;
-// 	int		quoted;
-
-// 	expanded = 0;
-// 	quoted = 0;
-// 	word = get_raw_word(line, i, 1);
-// 	push_arg(&token->args, word, &token->argc);
-// 	// word = get_word(line, i, context, &expanded, &quoted);
-// 	// if (!expanded || quoted)
-// 	// 	push_arg(&token->args, word, &token->argc);
-// 	// else
-// 	// {
-// 	// 	words = ft_split(word, ' ');
-// 	// 	j = 0;
-// 	// 	while (words[j])
-// 	// 		push_arg(&token->args, words[j++], &token->argc);
-// 	// 	free(words);
-// 	// 	free(word);
-// 	// }
-// }
-
 t_token	*tokenize(char *line)
 {
 	t_token			*token;
@@ -98,6 +72,5 @@ t_token	*tokenize(char *line)
 	}
 	if (!token)
 		token = curr_token;
-	print_token(token);
 	return (token);
 }
