@@ -104,10 +104,12 @@ void	expand_args(t_token *token, t_context *context)
 	int		j;
 	int		i;
 
+	if (token->expanded)
+		return ;
 	new_args = NULL;
 	token->argc = 0;
 	i = 0;
-	while (!token->expanded && token->args && token->args[i])
+	while (token->args && token->args[i])
 	{
 		expanded = 0;
 		quoted = 0;
@@ -117,8 +119,7 @@ void	expand_args(t_token *token, t_context *context)
 			push_arg(&new_args, word, &token->argc);
 		else
 		{
-			// TODO: Use split_set
-			words = ft_split(word, ' ');
+			words = ft_split_set(word, " \t");
 			j = 0;
 			while (words[j])
 			{
@@ -130,6 +131,7 @@ void	expand_args(t_token *token, t_context *context)
 		}
 		i++;
 	}
+	token->expanded = 1;
 	free_args(token->args);
 	token->args = new_args;
 }
