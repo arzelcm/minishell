@@ -6,9 +6,9 @@
 
 int	avoid_spaces(char *str, int *i)
 {
-	if (str[*i] != ' ')
+	if (str[*i] != ' ' && str[*i] != '\t')
 		return (0);
-	while (str[*i] == ' ')
+	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
 	return (1);
 }

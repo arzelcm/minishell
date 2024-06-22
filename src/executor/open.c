@@ -16,7 +16,10 @@ int	open_here_doc(int fds[2], t_redirection *here_doc)
 	char	*line;
 
 	listen_signals(HEREDOC, HEREDOC);
-	line = readline(HERE_DOC_PREFIX);
+	if (isatty(STDIN_FILENO))
+		line = readline(HERE_DOC_PREFIX);
+	else
+		line = get_next_line(STDIN_FILENO, 0);
 	while (line && ft_strcmp(line, here_doc->delimiter))
 	{
 		if (ft_printff(fds[WRITE_FD], "%s\n", line) == -1)
@@ -26,7 +29,10 @@ int	open_here_doc(int fds[2], t_redirection *here_doc)
 			exit(EBADF);
 		}
 		free(line);
-		line = readline(HERE_DOC_PREFIX);
+		if (isatty(STDIN_FILENO))
+			line = readline(HERE_DOC_PREFIX);
+		else
+			line = get_next_line(STDIN_FILENO, 0);
 	}
 	free(line);
 	close_pipe(fds);

@@ -16,7 +16,8 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 
 	i = 0;
 	full_cmd_path = NULL;
-	if (!cmd[0])
+	if (!cmd[0] || ft_strcmp(cmd, ".") == EQUAL_STRINGS
+		|| ft_strcmp(cmd, "..") == EQUAL_STRINGS)
 		return (NULL);
 	while (paths[i])
 	{
@@ -30,6 +31,7 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 			return (full_cmd_path);
 		i++;
 	}
+	free(full_cmd_path);
 	return (NULL);
 }
 
@@ -71,7 +73,7 @@ void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(token->args[0]))
 		exit(execute_builtin(token->args[0], token, context));
-	if (!is_directory(token->args[0]))
+	if (!ft_strchr(token->args[0], '/') || !is_directory(token->args[0]))
 		execute_by_path(token->args, context->global_env.envp);
 	handle_error(token->args[0], ISDIRECTORY);
 	exit(PERM_ERR);

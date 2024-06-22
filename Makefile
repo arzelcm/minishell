@@ -100,7 +100,8 @@ TESTREPO = $(HOME)/$(TESTROOT)
 
 TEST_INSTALL = $(TESTDIR)/install.sh
 TEST_INSTALL_TMP = $(TESTDIR)/install_tmp.sh
-START_TEST = $(TESTDIR)/tester.sh m
+TESTER = $(TESTDIR)/tester.sh
+START_TEST = $(TESTER) m
 
 #----RULES----#
 all:
@@ -191,6 +192,7 @@ test:
 	mv $(TESTDIR)/install_tmp.sh $(TEST_INSTALL) 
 	chmod 744 $(TEST_INSTALL)
 	$(TEST_INSTALL)
+	echo "[[ \$$1 != \"-f\" ]] && rm -f \"\\\$$HOME\" \"\\\$$USER\" \"\\\$$USER'\\\$$USER'\"" >> $(TESTER)
 	$(START_TEST)
 
 -include $(DEPS)

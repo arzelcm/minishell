@@ -2,6 +2,8 @@
 #include "open.h"
 #include "safe_utils.h"
 #include "utils.h"
+#include "pdata_helpers.h"
+#include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
 
