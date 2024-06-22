@@ -68,7 +68,7 @@ void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 		clean_exit(pdata);
 	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
 	close_pdata_fds(pdata);
-	// TODO: Expand void	expand_tok_args(t_token *token, t_context *context);
+	expand_args(token, context);
 	if (!token->argc)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(token->args[0]))
