@@ -174,7 +174,7 @@ $(READLINE_DIR):
 .PHONY: all \
 		clean \
 		fclean \
-		re \
+		re \ 
 		bonus \
 		bonusre \
 		make_libft \
@@ -194,6 +194,10 @@ test:
 	$(TEST_INSTALL)
 	echo "[[ \$$1 != \"-f\" ]] && rm -f \"\\\$$HOME\" \"\\\$$USER\" \"\\\$$USER'\\\$$USER'\"" >> $(TESTER)
 	$(START_TEST)
+
+mpanic:
+	git clone git@github.com:ChewyToast/mpanic.git
+	bash mpanic/mpanic.sh
 
 -include $(DEPS)
 -include $(MDEPS)

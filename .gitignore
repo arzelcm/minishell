@@ -14,9 +14,13 @@ a.out
 la*
 lim
 test
-minishell_tester/
-42_minishell_tester-master/
+.timmer
 tmp*
 $HOME
 $USER*
+
+# testers
+minishell_tester/
+42_minishell_tester-master/
+mpanic/
 .gitmodules
