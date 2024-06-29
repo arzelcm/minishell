@@ -24,3 +24,6 @@ minishell_tester/
 42_minishell_tester-master/
 mpanic/
 .gitmodules
+
+.github/norminette-master
+master.zip

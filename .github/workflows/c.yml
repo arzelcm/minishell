@@ -1,29 +1,31 @@
 name: C CI
 
-on:
-  push:
-    branches: [ "main", "ultimate-chaaaaaaanges" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
-  build:
+  norminette_job:
+    runs-on: ubuntu-latest
+    name: norminette
+    steps:
+    - uses: actions/checkout@v2
+    - uses: alexandregv/norminette-action@v3
+      with:
+        flags: '.'
+  norme:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    #- name: configure
-    #  run: ./configure
-    -  run: make
-    -  run: make test
-    #- name: make check
-    #  run: make check
-    #- name: make distcheck
-    #  run: make distcheck
-  test:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v4
-      - name: blank-test
-        run: make test
-      - name: mpanic
-        run: make panic
+    - name: install norminette
+      run: bash .github/norme-install.sh
+    - name: run test
+      run: norminette.sh
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build
+      run: make
+    - name: blank test
+      run: make test
+    - name: mpanic test
+      run: make panic
