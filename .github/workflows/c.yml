@@ -1,4 +1,4 @@
-name: C CI
+name: Minishell CI
 
 on: [push, pull_request]
 
@@ -11,14 +11,6 @@ jobs:
     - uses: alexandregv/norminette-action@v3
       with:
         flags: '.'
-  norme:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: install norminette
-      run: bash .github/norme-install.sh
-    - name: run test
-      run: norminette.sh
   tests:
     runs-on: ubuntu-latest
     steps:
