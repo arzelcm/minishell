@@ -6,11 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:31 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:58:48 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "tokenizer_utils.h"
 #include "libft.h"
 #include "context.h"
 #include "limits.h"
@@ -18,23 +19,30 @@
 #include "builtins.h"
 #include "utils.h"
 
+static void	throw_err_numeric_argument(char **argv, t_context *context)
+{
+	ft_printff(STDERR_FILENO,
+		"%s: exit: %s: numeric argument required\n",
+		PROGRAM_NAME, argv[1]);
+	context->err_code = ABNORMAL_EXIT_STATUS;
+	custom_exit(context, 0);
+}
+
 // TODO: Limit to long long max and long long min n
 int	ft_exit(int argc, char **argv, t_context *context)
 {
+	char	*trimed_arg;
+
 	if (isatty(STDIN_FILENO))
 		ft_printff(STDERR_FILENO, "exit\n");
 	if (argc > 1)
 	{
-		if (ft_isnum(argv[1], LLONG_MAX))
+		trimed_arg = ft_strtrim(argv[1], " \t");
+		if (ft_isnum(trimed_arg, LLONG_MAX))
 			context->err_code = ft_atoi(argv[1]);
 		else
-		{
-			ft_printff(STDERR_FILENO,
-				"%s: exit: %s: numeric argument required\n",
-				PROGRAM_NAME, argv[1]);
-			context->err_code = ABNORMAL_EXIT_STATUS;
-			custom_exit(context, 0);
-		}
+			throw_err_numeric_argument(argv, context);
+		free(trimed_arg);
 	}
 	if (argc > 2)
 	{
