@@ -88,7 +88,7 @@ endif
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor:src/executor/builtins:src/environment:src/signals
+vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor:src/executor/builtins:src/environment
 
 #----LOG----#
 LOG = log
