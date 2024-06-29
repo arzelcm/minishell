@@ -11,13 +11,19 @@ jobs:
     - uses: alexandregv/norminette-action@v3
       with:
         flags: '.'
-  tests:
+  blank-tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: build
       run: make
-    - name: blank test
+    - name: test
       run: make test
-    - name: mpanic test
+  mpanic-tests:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build
+      run: make
+    - name: test
       run: make mpanic
