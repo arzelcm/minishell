@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 22:22:58 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/30 00:36:44 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 		}
 		else
 			i++;
-		if (line[i] == '$' && starting_quote(line[i + 1], &quotes))
+		if (line[i] == '$' && is_starting_quote(line[i + 1], &quotes))
 			vars->keys_length -= 1;
 	}
 }

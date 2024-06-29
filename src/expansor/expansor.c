@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 22:21:17 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/30 00:36:44 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void
 	{
 		check_quotes(&quotes, line[i]);
 		start = i;
-		if (line[i] == '$' && starting_quote(line[i + 1], &quotes))
+		if (line[i] == '$' && is_starting_quote(line[i + 1], &quotes))
 			i++;
 		else if (line[i] == '$'
 			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
