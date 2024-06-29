@@ -89,7 +89,7 @@ static int	check_outfile(char *path)
 		free(prefix);
 		return (handle_error(path, NOFILEDIR), 0);
 	}
-	if (!is_directory(path) || 
+	if (!is_directory(path) || \
 		(!is_directory(path) && ft_strcmp(prefix, "./") != EQUAL_STRINGS))
 	{
 		free(prefix);

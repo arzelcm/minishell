@@ -2,13 +2,13 @@
 # define SIGNALS_H
 
 typedef enum e_echoctl_mode
-{	
+{
 	OFF,
 	ON
 }	t_echoctl_mode;
 
 typedef enum e_signals_mode
-{	
+{
 	MAIN,
 	SUBPROCESS,
 	EXECUTOR,

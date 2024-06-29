@@ -5,28 +5,6 @@
 #include "limits.h"
 #include "context.h"
 
-char	**ft_getenvline(char *key, char **envp)
-{
-	int		i;
-	int		found;
-	int		key_len;
-
-	key_len = ft_strlen(key);
-	found = 0;
-	i = 0;
-	while (envp && envp[i] && !found)
-	{
-		found = ft_strncmp(key, envp[i], key_len) == EQUAL_STRINGS
-			&& (envp[i][key_len] == '=' || envp[i][key_len] == '\0');
-		if (!found)
-			i++;
-	}
-	if (found)
-		return (envp + i);
-	else
-		return (NULL);
-}
-
 char	*ft_getenv(char *key, char **envp)
 {
 	char	*val;
@@ -75,7 +53,26 @@ int	ft_deleteenv(char *key, t_env *env)
 	return (1);
 }
 
-// TODO: REFACTOR!
+static char	*set_vars(char *value, char *key, t_env **env, t_context *context)
+{
+	char	*complete_val;
+
+	if (!value)
+	{
+		if (ft_getenvline(key, context->global_env.envp))
+			return (NULL);
+		*env = &context->local_env;
+		complete_val = ft_strdup("");
+	}
+	else
+	{
+		ft_deleteenv(key, &context->local_env);
+		*env = &context->global_env;
+		complete_val = ft_strjoin("=", value);
+	}
+	return (complete_val);
+}
+
 void	ft_putenv(char *key, char *value, t_context *context)
 {
 	char	*complete_val;
@@ -83,19 +80,9 @@ void	ft_putenv(char *key, char *value, t_context *context)
 	char	**line;
 	t_env	*env;
 
-	if (!value)
-	{
-		if (ft_getenvline(key, context->global_env.envp))
-			return ;
-		env = &context->local_env;
-		complete_val = ft_strdup("");
-	}
-	else
-	{
-		ft_deleteenv(key, &context->local_env);
-		env = &context->global_env;
-		complete_val = ft_strjoin("=", value);
-	}
+	complete_val = set_vars(value, key, &env, context);
+	if (!complete_val)
+		return ;
 	line = ft_getenvline(key, env->envp);
 	if (line)
 	{

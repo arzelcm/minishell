@@ -15,7 +15,7 @@ int	open_here_doc(int fds[2], t_redirection *here_doc);
 
 int	open_here_docs(t_redirection *infiles, int here_docs_amount);
 
-int	open_files(
-	t_pdata *pdata, t_redirection *redirs, int hds_amnt, t_context *context);
+int	open_files(t_pdata *pdata, t_redirection *redirs,
+		int hds_amnt, t_context *context);
 
 #endif

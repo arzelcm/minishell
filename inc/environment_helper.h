@@ -11,4 +11,6 @@ void	free_environment(t_env *env);
 
 void	copy_envp(char **dst, char **src, int duplicate);
 
+char	**ft_getenvline(char *key, char **envp);
+
 #endif

@@ -46,3 +46,25 @@ void	copy_envp(char **dst, char **src, int duplicate)
 		i++;
 	}
 }
+
+char	**ft_getenvline(char *key, char **envp)
+{
+	int		i;
+	int		found;
+	int		key_len;
+
+	key_len = ft_strlen(key);
+	found = 0;
+	i = 0;
+	while (envp && envp[i] && !found)
+	{
+		found = ft_strncmp(key, envp[i], key_len) == EQUAL_STRINGS
+			&& (envp[i][key_len] == '=' || envp[i][key_len] == '\0');
+		if (!found)
+			i++;
+	}
+	if (found)
+		return (envp + i);
+	else
+		return (NULL);
+}
