@@ -5,12 +5,6 @@
 #include "safe_utils.h"
 #include <stdlib.h>
 
-static void	free_redirection(t_redirection *redirection)
-{
-	free(redirection->path);
-	free(redirection);
-}
-
 void	free_redirections(t_redirection *list)
 {
 	t_redirection	*aux;
@@ -19,7 +13,8 @@ void	free_redirections(t_redirection *list)
 	{
 		aux = list;
 		list = list->next;
-		free_redirection(aux);
+		free(aux->path);
+		free(aux);
 	}
 }
 

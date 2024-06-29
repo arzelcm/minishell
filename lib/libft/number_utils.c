@@ -6,11 +6,11 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:54:22 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/04 15:49:41 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:37:51 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		count_ull_digits(unsigned long long nbr)
+int	count_ull_digits(unsigned long long nbr)
 {
 	int		i;
 

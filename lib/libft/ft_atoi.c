@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 09:04:02 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/04 16:07:47 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:37:33 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ int	ft_atoi(const char *str)
 	long	num;
 	int		i;
 	int		is_negative;
-	int		symbols_count;
+	int		symb_count;
 
-	symbols_count = 0;
+	symb_count = 0;
 	num = 0;
 	i = 0;
 	is_negative = 0;
-	while (str && str[i] != '\0' && is_allowed_char(str[i]) && symbols_count == 0)
+	while (str && str[i] != '\0' && is_allowed_char(str[i]) && symb_count == 0)
 	{
 		if (str[i] == '-' || str[i] == '+')
-			symbols_count++;
+			symb_count++;
 		if (str[i] == '-')
 			is_negative = 1;
 		i++;
