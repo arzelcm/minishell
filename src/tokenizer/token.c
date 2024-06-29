@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 23:06:02 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:15:26 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	split_push(char ***new_args, char *word, int *argc)
 	j = 0;
 	while (words[j])
 	{
-		ft_printf("new_args SP: %p\n", new_args);
 		push_arg(new_args, words[j], argc);
 		j++;
 	}
@@ -133,7 +132,6 @@ void	expand_args(t_token *token, t_context *context)
 	{
 		j = 0;
 		word = get_word(token->args[i], &j, context, &expansion);
-		ft_printf("new_args: %p\n", new_args);
 		if (!expansion.expanded || expansion.quoted)
 			push_arg(&new_args, word, &token->argc);
 		else
