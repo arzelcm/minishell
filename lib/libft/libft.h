@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/22 14:45:43 by chris            ###   ########.fr       */
+/*   Updated: 2024/06/29 16:59:10 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,7 @@ int			ft_stroccurrences_set(char *str, char *set);
 int			ft_normalize(int value, int min, int max);
 
 long		ft_closest_multiple(long n, long x);
+
+void		ft_matrix_sort(char **matrix);
 
 #endif

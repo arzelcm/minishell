@@ -76,7 +76,8 @@ SRCS = ft_isdigit.c \
 		ft_filename.c \
 		ft_stroccurrences.c \
 		ft_normalize.c \
-		ft_closest_multiple.c
+		ft_closest_multiple.c \
+		ft_sort.c
 OBJS = $(SRCS:%.c=$(BINDIR)/%.o)
 DEPS = $(SRCS:%.c=%.d)
 
