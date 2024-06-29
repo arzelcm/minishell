@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:21:41 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 23:53:03 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/30 00:04:13 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	included(char c, char const *set)
 		included = set[i++] == c;
 	return (included);
 }
+
 /**
  * @brief 
  * @param s1 
