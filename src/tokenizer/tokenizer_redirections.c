@@ -76,20 +76,18 @@ int	set_redirection(char *line, int *i, t_token *token)
 
 char	*expand_redirect(t_redirection *redirection, t_context *context)
 {
-	int					expanded;
-	int					quoted;
-	char				*word;
-	int					i;
+	t_expansion	expansion;
+	char		*word;
+	int			i;
 
-	expanded = 0;
-	quoted = 0;
 	i = 0;
 	avoid_spaces(redirection->path, &i);
 	if (redirection->mode == HERE_DOC)
 		word = get_raw_word(redirection->path, &i);
 	else
-		word = get_word(redirection->path, &i, context, &expanded, &quoted);
-	if (expanded && !quoted && (ft_stroccurrences_set(word, " \t") || !*word))
+		word = get_word(redirection->path, &i, context, &expansion);
+	if (expansion.expanded && !expansion.quoted
+		&& (ft_stroccurrences_set(word, " \t") || !*word))
 	{
 		handle_error(redirection->path, "ambiguous redirect");
 		context->err_code = EXIT_FAILURE;

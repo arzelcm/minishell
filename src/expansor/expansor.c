@@ -1,4 +1,5 @@
 #include "libft.h"
+#include "expansor.h"
 #include "safe_utils.h"
 #include "expansor_vars.h"
 #include "quotes_flag.h"
@@ -42,23 +43,25 @@ void
 	}
 }
 
-int	expand(char **line, t_context *context, int *expanded, int *quoted)
+int	expand(char **line, t_context *context, t_expansion *expansion)
 {
 	t_vars	vars;
 	char	*new_line;
 	int		new_len;
 
 	ft_bzero(&vars, sizeof(t_vars));
-	if (quoted)
-		*quoted = (**line) == '\"';
+	if (expansion)
+		ft_bzero(expansion, sizeof(t_expansion));
+	if (expansion)
+		expansion->quoted = (**line) == '\"';
 	fill_needed_vars(&vars, *line, context);
 	new_len = ft_strlen(*line) - vars.keys_length + vars.values_length;
 	new_line = safe_calloc(sizeof(char) * (new_len + 1));
 	expand_values(*line, new_line, &vars, context);
 	free(*line);
 	*line = new_line;
-	if (expanded)
-		*expanded = vars.size;
+	if (expansion)
+		expansion->expanded = vars.size;
 	free_expansor_vars(vars.list);
 	return (new_len);
 }

@@ -5,24 +5,19 @@
 #include "safe_utils.h"
 #include "tokenizer_utils.h"
 
-void	free_tokens(t_tokens *tokens)
+void	free_token(t_token *token)
 {
 	t_token	*aux;
 
-	while (tokens->token)
-	{
-		aux = tokens->token;
-		tokens->token = tokens->token->next;
-		free_token(aux);
-	}
-}
-
-void	free_token(t_token *token)
-{
 	if (!token)
 		return ;
 	free_redirections(token->redirections);
-	free_tokens(&token->tokens);
+	while (token->tokens.token)
+	{
+		aux = token->tokens.token;
+		token->tokens.token = token->tokens.token->next;
+		free_token(aux);
+	}
 	free_args(token->args);
 	free(token);
 }
@@ -96,29 +91,25 @@ void	push_token(t_tokens *tokens, t_token *token)
 
 void	expand_args(t_token *token, t_context *context)
 {
-	char	**new_args;
-	char	**words;
-	char	*word;
-	int		expanded;
-	int		quoted;
-	int		j;
-	int		i;
+	t_expansion	expansion;
+	char		**new_args;
+	char		**words;
+	char		*word;
+	int			j;
+	int			i;
 
 	new_args = NULL;
 	token->argc = 0;
 	i = 0;
 	while (!token->expanded && token->args && token->args[i])
 	{
-		expanded = 0;
-		quoted = 0;
 		j = 0;
-		word = get_word(token->args[i], &j, context, &expanded, &quoted);
-		if (!expanded || quoted)
+		word = get_word(token->args[i], &j, context, &expansion);
+		if (!expansion.expanded || expansion.quoted)
 			push_arg(&new_args, word, &token->argc);
 		else
 		{
-			// TODO: Use split_set
-			words = ft_split(word, ' ');
+			words = ft_split_set(word, " \t");
 			j = 0;
 			while (words[j])
 			{

@@ -51,7 +51,8 @@ void	fill_word(int len, char *str, char **word)
 	}
 }
 
-char	*get_word(char	*str, int *i, t_context *context, int *expanded, int *quoted)
+char
+	*get_word(char	*str, int *i, t_context *context, t_expansion *expansion)
 {
 	char	*word;
 	int		len;
@@ -64,7 +65,7 @@ char	*get_word(char	*str, int *i, t_context *context, int *expanded, int *quoted
 	str = ft_substr(str, *i, len);
 	*i += len;
 	if (context)
-		len = expand(&str, context, expanded, quoted);
+		len = expand(&str, context, expansion);
 	fill_word(len, str, &word);
 	free(str);
 	return (word);

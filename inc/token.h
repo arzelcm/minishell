@@ -31,6 +31,7 @@ typedef struct s_redirection
 }	t_redirection;
 
 typedef struct s_token	t_token;
+
 typedef struct s_tokens
 {
 	t_token	*token;
