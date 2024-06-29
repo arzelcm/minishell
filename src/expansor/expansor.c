@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:10 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 22:21:17 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ int	variable_finished(char c, int not_first)
 		|| (not_first && c == '$'));
 }
 
+void	init_vars(t_quotes_flag *quotes, int *i, int *j)
+{
+	ft_bzero(quotes, sizeof(t_quotes_flag));
+	*i = 0;
+	*j = 0;
+}
+
 void
 	expand_values(char *line, char *new_line, t_vars *vars, t_context *context)
 {
@@ -33,14 +40,12 @@ void
 	t_quotes_flag	quotes;
 	t_var			*var;
 
-	ft_bzero(&quotes, sizeof(t_quotes_flag));
-	i = 0;
-	j = 0;
+	init_vars(&quotes, &i, &j);
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
 		start = i;
-		if (line[i] == '$' && ((line[i + 1] == '\"' && !quotes.double_) || (line[i + 1] == '\'' && !quotes.simple)))
+		if (line[i] == '$' && starting_quote(line[i + 1], &quotes))
 			i++;
 		else if (line[i] == '$'
 			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)

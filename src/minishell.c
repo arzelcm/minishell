@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:41 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:42 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 22:47:01 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,40 @@
 
 int	g_sigval;
 
+void	use_line(char *line, t_token *token, t_context *context)
+{
+	add_history(line);
+	if (check_syntax(context, line))
+	{
+		token = tokenize(line);
+		execute(token, context);
+		free_token(token);
+	}
+}
+
+void	prompt(char *line, t_token *token, t_context *context)
+{
+	while (42)
+	{
+		config_echoctl_terminal(OFF);
+		listen_signals(MAIN, MAIN);
+		if (isatty(STDIN_FILENO))
+			line = readline(PROMPT);
+		else
+			line = get_next_line(STDIN_FILENO, 0);
+		if (g_sigval == SIGINT)
+		{
+			context->err_code = 1;
+			g_sigval = 0;
+		}
+		if (line == NULL)
+			custom_exit(context, 1);
+		else if (*line)
+			use_line(line, token, context);
+		free(line);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*token;
@@ -43,38 +77,13 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	}
 	g_sigval = 0;
+	line = NULL;
+	token = NULL;
 	ft_bzero(&context, sizeof(t_context));
-	ft_bzero(&token, sizeof(t_token *));
 	init_env(&context, envp);
 	if (isatty(STDIN_FILENO))
 		ft_printf(CREDITS);
-	while (42)
-	{
-		config_echoctl_terminal(OFF);
-		listen_signals(MAIN, MAIN);
-		if (isatty(STDIN_FILENO))
-			line = readline(PROMPT);
-		else
-			line = get_next_line(STDIN_FILENO, 0);
-		if (g_sigval == SIGINT)
-		{
-			context.err_code = 1;
-			g_sigval = 0;
-		}
-		if (line == NULL)
-			custom_exit(&context, 1);
-		else if (*line)
-		{
-			add_history(line);
-			if (check_syntax(&context, line))
-			{
-				token = tokenize(line);
-				execute(token, &context);
-				free_token(token);
-			}
-		}
-		free(line);
-	}
+	prompt(line, token, &context);
 	free_environment(&context.global_env);
 	free_environment(&context.local_env);
 	return (EXIT_SUCCESS);

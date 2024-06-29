@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:34 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:35 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 22:16:52 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,9 @@ char	*quote_str(char *str)
 		handle_syserror(ENOMEM);
 	free(tmp);
 	return (quoted_str);
+}
+
+int	starting_quote(char c, t_quotes_flag *quotes)
+{
+	return ((c == '\"' && !quotes->double_) || (c == '\'' && !quotes->simple));
 }

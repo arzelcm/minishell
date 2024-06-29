@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:25 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 22:47:46 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_token	*new_token(t_token_type type)
 	return (token);
 }
 
-void	print_token(t_token *token)
+/*void	print_token(t_token *token)
 {
 	t_redirection	*aux;
 	int				i;
@@ -80,7 +80,7 @@ void	print_token(t_token *token)
 		i++;
 		aux_tok = aux_tok->next;
 	}
-}
+}*/
 
 void	push_token(t_tokens *tokens, t_token *token)
 {
@@ -101,11 +101,27 @@ void	push_token(t_tokens *tokens, t_token *token)
 	}
 }
 
+void	split_push(char *word, char **new_args, t_token *token)
+{
+	char		**words;
+	int			j;
+
+	j = 0;
+	words = ft_split_set(word, " \t");
+	j = 0;
+	while (words[j])
+	{
+		push_arg(&new_args, words[j], &token->argc);
+		j++;
+	}
+	free(words);
+	free(word);
+}
+
 void	expand_args(t_token *token, t_context *context)
 {
 	t_expansion	expansion;
 	char		**new_args;
-	char		**words;
 	char		*word;
 	int			j;
 	int			i;
@@ -120,17 +136,7 @@ void	expand_args(t_token *token, t_context *context)
 		if (!expansion.expanded || expansion.quoted)
 			push_arg(&new_args, word, &token->argc);
 		else
-		{
-			words = ft_split_set(word, " \t");
-			j = 0;
-			while (words[j])
-			{
-				push_arg(&new_args, words[j], &token->argc);
-				j++;
-			}
-			free(words);
-			free(word);
-		}
+			split_push(word, new_args, token);
 		i++;
 	}
 	free_args(token->args);
