@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 22:47:46 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:06:02 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,17 @@ void	push_token(t_tokens *tokens, t_token *token)
 	}
 }
 
-void	split_push(char *word, char **new_args, t_token *token)
+void	split_push(char ***new_args, char *word, int *argc)
 {
 	char		**words;
 	int			j;
 
-	j = 0;
 	words = ft_split_set(word, " \t");
 	j = 0;
 	while (words[j])
 	{
-		push_arg(&new_args, words[j], &token->argc);
+		ft_printf("new_args SP: %p\n", new_args);
+		push_arg(new_args, words[j], argc);
 		j++;
 	}
 	free(words);
@@ -133,10 +133,11 @@ void	expand_args(t_token *token, t_context *context)
 	{
 		j = 0;
 		word = get_word(token->args[i], &j, context, &expansion);
+		ft_printf("new_args: %p\n", new_args);
 		if (!expansion.expanded || expansion.quoted)
 			push_arg(&new_args, word, &token->argc);
 		else
-			split_push(word, new_args, token);
+			split_push(&new_args, word, &token->argc);
 		i++;
 	}
 	free_args(token->args);
