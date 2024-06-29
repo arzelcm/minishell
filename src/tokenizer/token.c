@@ -125,10 +125,12 @@ void	expand_args(t_token *token, t_context *context)
 	int			j;
 	int			i;
 
+	if (token->expanded)
+		return ;
 	new_args = NULL;
 	token->argc = 0;
 	i = 0;
-	while (!token->expanded && token->args && token->args[i])
+	while (token->args && token->args[i])
 	{
 		j = 0;
 		word = get_word(token->args[i], &j, context, &expansion);
@@ -138,6 +140,7 @@ void	expand_args(t_token *token, t_context *context)
 			split_push(&new_args, word, &token->argc);
 		i++;
 	}
+	token->expanded = 1;
 	free_args(token->args);
 	token->args = new_args;
 }
