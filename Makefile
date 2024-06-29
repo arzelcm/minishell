@@ -153,9 +153,6 @@ libft_fclean:
 	@echo "$(RED)Cleaning $(PINK)Libft$(RED)...$(DEF_COLOR)"
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 
-test_clean:
-	@rm -rf	$(TESTDIR) $(TESTREPO)
-
 $(READLINE_LIB): | $(READLINE_DIR)
 	printf "$(BLUE)Compiling and linking library...$(DEF_COLOR)\n"
 	$(MAKE) -s --no-print-directory -C $(READLINE_DIR) >>$(LOG) 2>&1
@@ -171,16 +168,9 @@ $(READLINE_DIR):
 	printf "$(CYAN)Configuring: $(PINK)readline...$(DEF_COLOR)\n"
 	cd $(READLINE_DIR); bash ./configure >>$(LOG) 2>&1
 
-.PHONY: all \
-		clean \
-		fclean \
-		re \ 
-		bonus \
-		bonusre \
-		make_libft \
-		libft_clean \
-		libft_fclean \
-		b \
+test_clean:
+	@rm -rf	$(TESTDIR) $(TESTREPO)
+	rm -rf mpanic
 
 test:
 	$(MAKE) --no-print-directory test_clean
@@ -197,7 +187,23 @@ test:
 
 mpanic:
 	git clone git@github.com:ChewyToast/mpanic.git
-	bash mpanic/mpanic.sh
+
+panic: mpanic
+	cd mpanic; bash mpanic.sh
+
+.PHONY: all \
+		clean \
+		fclean \
+		re \ 
+		bonus \
+		bonusre \
+		make_libft \
+		libft_clean \
+		libft_fclean \
+		b \
+		test \
+		panic \
+		test_clean
 
 -include $(DEPS)
 -include $(MDEPS)

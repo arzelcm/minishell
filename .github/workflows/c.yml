@@ -1,16 +1,14 @@
-name: C/C++ CI
+name: C CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "ultimate-chaaaaaaanges" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     #- name: configure
@@ -21,3 +19,11 @@ jobs:
     #  run: make check
     #- name: make distcheck
     #  run: make distcheck
+  test:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v4
+      - name: blank-test
+        run: make test
+      - name: mpanic
+        run: make panic
