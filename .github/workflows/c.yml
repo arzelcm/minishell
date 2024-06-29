@@ -20,4 +20,4 @@ jobs:
     - name: blank test
       run: make test
     - name: mpanic test
-      run: make panic
+      run: make mpanic

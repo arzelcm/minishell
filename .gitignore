@@ -22,7 +22,7 @@ $USER*
 # testers
 minishell_tester/
 42_minishell_tester-master/
-mpanic/
+mpanic-main/
 .gitmodules
 
 .github/norminette-master

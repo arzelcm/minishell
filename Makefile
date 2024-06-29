@@ -170,7 +170,7 @@ $(READLINE_DIR):
 
 test_clean:
 	@rm -rf	$(TESTDIR) $(TESTREPO)
-	rm -rf mpanic
+	rm -rf mpanic-main
 
 test:
 	$(MAKE) --no-print-directory test_clean
@@ -186,10 +186,11 @@ test:
 	$(START_TEST)
 
 mpanic:
-	git clone git@github.com:ChewyToast/mpanic.git
-
-panic: mpanic
-	cd mpanic; bash mpanic.sh
+	curl -sLO https://github.com/ChewyToast/mpanic/archive/refs/heads/main.zip
+	unzip main.zip > /dev/null
+	rm -rf main.zip
+	cd mpanic-main; bash mpanic.sh;
+	cd mpanic-main; bash mpanic.sh
 
 .PHONY: all \
 		clean \
