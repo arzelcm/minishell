@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:35 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/30 12:57:48 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static void	print_definitions(t_context *context)
 
 static int	has_errors(char *str, int *i, t_context *context)
 {
-	if (!ft_isalpha(*str))
+	if (!ft_isalpha(*str)
+		|| (!ft_stroccurrences(str, '=') && ft_stroccurrences_set(str, " \t")))
 	{
 		ft_printff(STDERR_FILENO,
 			"%s: export: `%s': not a valid identifier\n", PROGRAM_NAME, str);
