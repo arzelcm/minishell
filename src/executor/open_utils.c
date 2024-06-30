@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:59 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/30 11:48:37 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static int	check_outfile(char *path)
 	prefix_len = ft_strlen(path) - (ft_strlen(ft_strrchr(path, '/') + 1));
 	prefix = safe_calloc(prefix_len + 1);
 	ft_strlcpy(prefix, path, prefix_len + 1);
-	ft_printf("Prefix: %s\n", prefix);
 	if (access(prefix, F_OK) == -1 && !is_directory(prefix))
 	{
 		free(prefix);
