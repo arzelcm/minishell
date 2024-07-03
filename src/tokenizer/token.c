@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 12:43:57 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:44:20 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,9 @@ void	expand_args(t_token *token, t_context *context)
 
 	if (token->expanded)
 		return ;
-	if (token->expanded)
-		return ;
 	new_args = NULL;
 	token->argc = 0;
 	i = 0;
-	while (token->args && token->args[i])
 	while (token->args && token->args[i])
 	{
 		j = 0;
@@ -143,7 +140,6 @@ void	expand_args(t_token *token, t_context *context)
 			split_push(&new_args, word, &token->argc);
 		i++;
 	}
-	token->expanded = 1;
 	token->expanded = 1;
 	free_args(token->args);
 	token->args = new_args;
