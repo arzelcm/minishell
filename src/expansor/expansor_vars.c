@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/30 00:36:44 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:38:06 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include "quotes_flag.h"
 #include "quotes_utils.h"
 #include "environment.h"
+#include "safe_libft.h"
+#include "utils.h"
 
 char	*get_var_value(char *key, t_context *context)
 {
@@ -26,12 +28,12 @@ char	*get_var_value(char *key, t_context *context)
 	if (!value)
 	{
 		if (ft_strcmp(key, "$") == EQUAL_STRINGS)
-			value = ft_strdup(key);
+			value = safe_ft_strdup(key, handle_syserror);
 		else if (ft_strcmp(key, "$?") == EQUAL_STRINGS)
-			value = ft_itoa(context->err_code);
+			value = safe_itoa(context->err_code);
 	}
 	else
-		value = ft_strdup(value);
+		value = safe_ft_strdup(value, handle_syserror);
 	return (value);
 }
 

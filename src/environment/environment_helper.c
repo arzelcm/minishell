@@ -6,13 +6,15 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:15 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:31:00 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "environment.h"
 #include "context.h"
+#include "safe_libft.h"
+#include "utils.h"
 
 void	free_environment(t_env *env)
 {
@@ -28,9 +30,9 @@ void	increase_var(char *key, t_context *context)
 	value = ft_getenv(key, context->global_env.envp);
 	num = ft_atoi(value);
 	if (num == 999)
-		new_val = ft_strdup("");
+		new_val = safe_ft_strdup("", handle_syserror);
 	else
-		new_val = ft_itoa(num + 1);
+		new_val = safe_itoa(num + 1);
 	ft_putenv(key, new_val, context);
 	free(new_val);
 }
@@ -52,7 +54,7 @@ void	copy_envp(char **dst, char **src, int duplicate)
 	while (src && src[i])
 	{
 		if (duplicate)
-			dst[i] = ft_strdup(src[i]);
+			dst[i] = safe_ft_strdup(src[i], handle_syserror);
 		else
 			dst[i] = src[i];
 		i++;

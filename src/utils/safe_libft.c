@@ -1,46 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   safe_libft.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 10:48:12 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:33:11 by arcanava         ###   ########.fr       */
+/*   Created: 2024/07/03 18:06:43 by arcanava          #+#    #+#             */
+/*   Updated: 2024/07/03 18:19:08 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "libft.h"
+#include "utils.h"
 #include <errno.h>
 
-char	*ft_strdup(const char *s1)
+char	*safe_itoa(int n)
 {
-	char	*ptr;
-	size_t	len;
-	size_t	i;
+	char	*result;
 
-	if (!s1)
-		return (NULL);
-	len = ft_strlen(s1);
-	ptr = malloc(sizeof(char) * (len + 1));
-	if (!ptr)
-		return (0);
-	i = 0;
-	while (i < len)
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
-
-char	*safe_ft_strdup(const char *s1, void (*f)(int))
-{
-	char	*res;
-
-	res = ft_strdup(s1);
-	if (!res)
-		f(ENOMEM);
-	return (res);
+	result = ft_itoa(n);
+	if (!result)
+		handle_syserror(ENOMEM);
+	return (result);
 }

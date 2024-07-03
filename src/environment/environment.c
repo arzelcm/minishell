@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:18 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:18 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:35:01 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "environment_helper.h"
 #include "limits.h"
 #include "context.h"
+#include "utils.h"
 
 char	*ft_getenv(char *key, char **envp)
 {
@@ -74,7 +75,7 @@ static char	*set_vars(char *value, char *key, t_env **env, t_context *context)
 		if (ft_getenvline(key, context->global_env.envp))
 			return (NULL);
 		*env = &context->local_env;
-		complete_val = ft_strdup("");
+		complete_val = safe_ft_strdup("", handle_syserror);
 	}
 	else
 	{

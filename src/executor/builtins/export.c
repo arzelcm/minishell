@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/30 12:57:48 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:37:20 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "tokenizer.h"
 #include "tokenizer_utils.h"
 #include "safe_utils.h"
+#include "utils.h"
 
 void	set_complete_definition(char *curr_def, char **key_value)
 {
@@ -39,7 +40,7 @@ void	set_complete_definition(char *curr_def, char **key_value)
 		value = NULL;
 	}
 	else
-		complete_val = ft_strdup("=\"\"");
+		complete_val = safe_ft_strdup("=\"\"", handle_syserror);
 	*key_value = ft_strjoin(key, complete_val);
 	free(complete_val);
 	free(value);
@@ -57,7 +58,7 @@ static void	fill_definitions(char **definitions, int *i, char **envp)
 		if (ft_stroccurrences(envp[j], '='))
 			set_complete_definition(envp[j], &key_value);
 		else
-			key_value = ft_strdup(envp[j]);
+			key_value = safe_ft_strdup(envp[j], handle_syserror);
 		j++;
 		definitions[(*i)++] = ft_strjoin("declare -x ", key_value);
 		free(key_value);
@@ -115,7 +116,7 @@ int	ft_export(int argc, char **argv, t_context *context)
 		value = splitted[1];
 		free(splitted);
 		if (!value && argv[i][ft_strlen(argv[i]) - 1] == '=')
-			value = ft_strdup("");
+			value = safe_ft_strdup("", handle_syserror);
 		ft_putenv(key, value, context);
 		free(key);
 		free(value);
