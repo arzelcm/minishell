@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 12:47:36 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:19:21 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	open_infile(char *path)
 	char	*quoted_file;
 
 	if (access(path, F_OK) == -1)
-		return (handle_error(path, NOFILEDIR), -1);
+		return (handle_error(path, NULL), -1);
 	if (access(path, R_OK) == -1)
-		return (handle_error(path, PERMDENIED), -1);
+		return (handle_error(path, NULL), -1);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
@@ -83,36 +83,25 @@ int	open_infile(char *path)
 	return (fd);
 }
 
-// static int	check_outfile(char *path)
-// {
-// 	char	*prefix;
-// 	int		prefix_len;
+static int	check_outfile(char *path)
+{
+	char	*prefix;
+	int		prefix_len;
 
-// 	if (!path[0])
-// 		return (handle_error(path, NOFILEDIR), 0);
-// 	if (!ft_strchr(path, '/'))
-// 		return (1);
-// 	prefix_len = ft_strlen(path) - (ft_strlen(ft_strrchr(path, '/') + 1));
-// 	prefix = safe_calloc(prefix_len + 1);
-// 	ft_strlcpy(prefix, path, prefix_len + 1);
-// 	ft_printf("Prefix: %s\n", prefix);
-// 	if (access(prefix, F_OK) == -1 && !is_directory(prefix))
-// 	{
-// 		free(prefix);
-// 		return (handle_error(path, NOFILEDIR), 0);
-// 	}
-// 	if (!is_directory(path) || 
-// 		(!is_directory(path) && ft_strcmp(prefix, "./") != EQUAL_STRINGS))
-// 	{
-// 		free(prefix);
-// 		return (handle_error(path, NOTDIRECTORY), 0);
-// 	}
-// 	return (free(prefix), 1);
-// }
-
-// line 122
-// if (!check_outfile(path))
-	// 	return (-1);
+	if (!path[0])
+		return (handle_error(path, NOFILEDIR), 0);
+	if (!ft_strchr(path, '/'))
+		return (1);
+	prefix_len = ft_strlen(path) - (ft_strlen(ft_strrchr(path, '/') + 1));
+	prefix = safe_calloc(prefix_len + 1);
+	ft_strlcpy(prefix, path, prefix_len + 1);
+	if (access(prefix, F_OK) == -1 && !is_directory(prefix))
+	{
+		free(prefix);
+		return (handle_error(path, NULL), 0);
+	}
+	return (free(prefix), 1);
+}
 
 int	open_outfile(char *path, int mode)
 {
@@ -120,10 +109,12 @@ int	open_outfile(char *path, int mode)
 	int		flags;
 	char	*quoted_file;
 
+	if (!check_outfile(path))
+		return (-1);
 	if (is_directory(path))
 		return (handle_error(path, ISDIRECTORY_U), -1);
 	if (access(path, F_OK) == 0 && access(path, W_OK) == -1)
-		return (handle_error(path, PERMDENIED), -1);
+		return (handle_error(path, NULL), -1);
 	flags = O_CREAT | O_WRONLY;
 	if (mode == APPEND)
 		flags |= O_APPEND;

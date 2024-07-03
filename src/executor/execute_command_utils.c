@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:49 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:50 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:04:01 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_cmd(char *cmd)
 	{
 		if (access(cmd, X_OK) == -1)
 		{
-			handle_error(cmd, PERMDENIED);
+			handle_error(cmd, NULL);
 			exit(PERM_ERR);
 		}
 		return (1);
@@ -44,12 +44,12 @@ void	check_bin(char *bin)
 {
 	if (access(bin, F_OK) == -1)
 	{
-		handle_error(bin, NOFILEDIR);
+		handle_error(bin, NULL);
 		exit(NOFDIR_ERR);
 	}
 	if (access(bin, X_OK) == -1)
 	{
-		handle_error(bin, PERMDENIED);
+		handle_error(bin, NULL);
 		exit(PERM_ERR);
 	}
 }

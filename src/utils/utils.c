@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:39 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:39 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:53:04 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,9 @@ void	handle_syserror(int errnum)
 
 void	handle_error(char *file, char *message)
 {
-	ft_printff(STDERR_FILENO, "%s: %s: %s\n", PROGRAM_NAME, file, message);
+	ft_printff(STDERR_FILENO, "%s: %s: ", PROGRAM_NAME, file);
+	if (!message || !message[0])
+		perror("");
+	else
+		ft_printff(STDERR_FILENO, "%s\n", message);
 }
