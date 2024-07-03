@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:31 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 23:58:48 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:44:39 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	throw_err_numeric_argument(char **argv, t_context *context)
 	custom_exit(context, 0);
 }
 
-// TODO: Limit to long long max and long long min n
 int	ft_exit(int argc, char **argv, t_context *context)
 {
 	char	*trimed_arg;
@@ -38,7 +37,7 @@ int	ft_exit(int argc, char **argv, t_context *context)
 	if (argc > 1)
 	{
 		trimed_arg = ft_strtrim(argv[1], " \t");
-		if (ft_isnum(trimed_arg, LLONG_MAX))
+		if (ft_isnum(trimed_arg, LLONG_MAX, LLONG_MIN))
 			context->err_code = ft_atoi(argv[1]);
 		else
 			throw_err_numeric_argument(argv, context);

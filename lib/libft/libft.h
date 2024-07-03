@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 16:59:10 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/06/30 14:07:13 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ft_isalpha(int c);
 
 int			ft_isdigit(int c);
 
-int			ft_isnum(char *str, long long max);
+int			ft_isnum(char *str, long long max, long long min);
 
 int			ft_isalnum(int c);
 
