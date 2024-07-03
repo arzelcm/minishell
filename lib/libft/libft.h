@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:32:28 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:45:30 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,7 @@ char		*safe_ltoa(long n);
 long		get_positive_num(int n);
 
 char		*safe_ft_strdup(const char *s1, void (*f)(int));
+
+char		*safe_strjoin(char const *s1, char const *s2, void (*f)(int));
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:31 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 15:44:39 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:47:28 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "environment_helper.h"
 #include "builtins.h"
 #include "utils.h"
+#include <errno.h>
 
 static void	throw_err_numeric_argument(char **argv, t_context *context)
 {
@@ -37,6 +38,8 @@ int	ft_exit(int argc, char **argv, t_context *context)
 	if (argc > 1)
 	{
 		trimed_arg = ft_strtrim(argv[1], " \t");
+		if (!trimed_arg)
+			handle_syserror(ENOMEM);
 		if (ft_isnum(trimed_arg, LLONG_MAX, LLONG_MIN))
 			context->err_code = ft_atoi(argv[1]);
 		else

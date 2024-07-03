@@ -6,11 +6,22 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:21:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/01/12 11:37:57 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:42:19 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <errno.h>
+
+char	*safe_strjoin(char const *s1, char const *s2, void (*f)(int))
+{
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	if (!res)
+		f(ENOMEM);
+	return (res);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -24,7 +35,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s2_len = ft_strlen(s2);
 	result = malloc(sizeof(char) * (s1_len + s2_len) + 1);
 	if (!result)
-		return (0);
+		return (NULL);
 	ft_strlcpy(result, s1, s1_len + 1);
 	ft_strlcpy(result + s1_len, s2, s2_len + 1);
 	return (result);

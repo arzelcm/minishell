@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:37:20 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:44:46 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ void	set_complete_definition(char *curr_def, char **key_value)
 	free(complete);
 	if (value)
 	{
-		complete_val = ft_strjoin("=\"", value);
+		complete_val = safe_strjoin("=\"", value, handle_syserror);
 		free(value);
-		value = ft_strjoin(complete_val, "\"");
+		value = safe_strjoin(complete_val, "\"", handle_syserror);
 		free(complete_val);
 		complete_val = value;
 		value = NULL;
 	}
 	else
 		complete_val = safe_ft_strdup("=\"\"", handle_syserror);
-	*key_value = ft_strjoin(key, complete_val);
+	*key_value = safe_strjoin(key, complete_val, handle_syserror);
 	free(complete_val);
 	free(value);
 	free(key);
@@ -60,7 +60,8 @@ static void	fill_definitions(char **definitions, int *i, char **envp)
 		else
 			key_value = safe_ft_strdup(envp[j], handle_syserror);
 		j++;
-		definitions[(*i)++] = ft_strjoin("declare -x ", key_value);
+		definitions[(*i)++] = safe_strjoin("declare -x ", key_value,
+				handle_syserror);
 		free(key_value);
 	}
 	definitions[*i] = NULL;
