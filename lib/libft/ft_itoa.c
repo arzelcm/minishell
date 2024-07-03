@@ -6,11 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 12:16:26 by arcanava          #+#    #+#             */
-/*   Updated: 2024/04/30 12:42:48 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:55:26 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <errno.h>
 
 static char	*str_parse_result(char *s, int is_negative)
 {
@@ -36,23 +37,6 @@ static char	*str_parse_result(char *s, int is_negative)
 	result[j] = '\0';
 	free(s);
 	return (result);
-}
-
-static long	get_positive_num(int n)
-{
-	long	nu;
-
-	nu = n;
-	if (nu < 0)
-		nu *= -1;
-	return (nu);
-}
-
-static unsigned long	get_positive_lnum(long n)
-{
-	if (n < 0)
-		return ((unsigned long) n * -1);
-	return (n);
 }
 
 char	*ft_itoa(int n)
@@ -81,6 +65,23 @@ char	*ft_itoa(int n)
 	}
 	result[j] = '\0';
 	return (str_parse_result(result, n < 0));
+}
+
+static unsigned long	get_positive_lnum(long n)
+{
+	if (n < 0)
+		return ((unsigned long) n * -1);
+	return (n);
+}
+
+char	*safe_ltoa(long n)
+{
+	char	*res;
+
+	res = ft_ltoa(n);
+	if (!res)
+		exit(ENOMEM);
+	return (res);
 }
 
 char	*ft_ltoa(long n)

@@ -6,13 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/30 14:07:13 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:51:51 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include "get_next_line.h"
 # include "ft_printf.h"
 # include "ft_strncmp.h"
@@ -144,5 +143,9 @@ int			ft_normalize(int value, int min, int max);
 long		ft_closest_multiple(long n, long x);
 
 void		ft_matrix_sort(char **matrix);
+
+char		*safe_ltoa(long n);
+
+long		get_positive_num(int n);
 
 #endif

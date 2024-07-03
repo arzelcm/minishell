@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:54:22 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 17:37:51 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:52:01 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ int	count_hex_digits(unsigned int nbr)
 	while (nbr)
 		nbr /= 16 + (0 * i++);
 	return (i);
+}
+
+long	get_positive_num(int n)
+{
+	long	nu;
+
+	nu = n;
+	if (nu < 0)
+		nu *= -1;
+	return (nu);
 }

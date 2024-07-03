@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 13:40:40 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 16:08:07 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:54:46 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,16 @@ int	ft_isdigit(int c)
 	return (c >= 48 && c <= 57);
 }
 
-// TODO: Safe ft_ltoa()!!!
 static int	is_inside_limits(char *str, long long max, long long min)
 {
 	char	*s_max;
 	char	*s_min;
 	int		result;
 
-	s_max = ft_ltoa(max);
-	s_min = ft_ltoa(min);
+	s_max = safe_ltoa(max);
+	s_min = safe_ltoa(min);
 	result = (*str != '-' && ft_strcmp(str, s_max) <= EQUAL_STRINGS)
-		|| (*str == '-' && ft_strcmp(str, ft_ltoa(min)) <= EQUAL_STRINGS);
+		|| (*str == '-' && ft_strcmp(str, s_min) <= EQUAL_STRINGS);
 	free(s_max);
 	free(s_min);
 	return (result);
