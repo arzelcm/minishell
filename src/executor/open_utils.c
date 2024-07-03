@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 12:43:06 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:47:36 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,16 @@ int	open_infile(char *path)
 // 	return (free(prefix), 1);
 // }
 
+// line 122
+// if (!check_outfile(path))
+	// 	return (-1);
+
 int	open_outfile(char *path, int mode)
 {
 	int		fd;
 	int		flags;
 	char	*quoted_file;
 
-	// if (!check_outfile(path))
-	// 	return (-1);
 	if (is_directory(path))
 		return (handle_error(path, ISDIRECTORY_U), -1);
 	if (access(path, F_OK) == 0 && access(path, W_OK) == -1)
