@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:31:56 by chris             #+#    #+#             */
-/*   Updated: 2024/07/04 16:01:13 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/04 16:09:33 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_key(char *str, int *export_mode)
 {
 	char	*key;
 	char	delimiter;
-	
+
 	if (ft_strnstr(str, "+=", ft_strchr(str, '=') - str + 1))
 	{
 		delimiter = '+';
