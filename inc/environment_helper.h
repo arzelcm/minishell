@@ -6,15 +6,15 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:56:51 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 21:40:26 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:17:46 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_HELPER_H
 # define ENVIRONMENT_HELPER_H
 
-# ifndef SHLVL_MAX_LEN
-#  define SHLVL_MAX_LEN 3
+# ifndef SHLVL_MAX
+#  define SHLVL_MAX "999"
 # endif
 
 # include "environment.h"
