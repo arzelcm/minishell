@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:42 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:43 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:46:22 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 #include "libft.h"
 #include "context.h"
 #include "environment.h"
+#include "builtins.h"
 
 static int	has_errors(char *str, int *i, t_context *context)
 {
-	if (!ft_isalpha(*str))
+	if ((!ft_isalpha(*str) && str[0] != '_') || !check_invalid_chars(str)
+		|| ft_stroccurrences(str, '='))
 	{
 		ft_printff(STDERR_FILENO,
 			"%s: unset: `%s': not a valid identifier\n", PROGRAM_NAME, str);
