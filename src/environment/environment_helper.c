@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 22:21:47 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 23:23:39 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ void	increase_shlevel(char *key, t_context *context)
 	new_val = safe_itoa(num);
 	if (ft_strcmp(SHLVL_MAX, value) == EQUAL_STRINGS)
 		new_val = safe_ft_strdup("", handle_syserror);
-	else if (num < 0)
-		new_val = safe_ft_strdup("0", handle_syserror);
 	else if (ft_strlen(new_val) > ft_strlen(SHLVL_MAX))
 	{
-		ft_printff(STDERR_FILENO,
-			"%s: warning: shell level (%s) too high, resetting to 1\n",
-			PROGRAM_NAME, new_val);
+		if (num > 0)
+			ft_printff(STDERR_FILENO,
+				"%s: warning: shell level (%s) too high, resetting to 1\n",
+				PROGRAM_NAME, new_val);
 		new_val = safe_ft_strdup("1", handle_syserror);
 	}
+	else if (num < 0)
+		new_val = safe_ft_strdup("0", handle_syserror);
 	ft_putenv(key, new_val, context);
 	free(new_val);
 }
