@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:18 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:43:13 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:36:40 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,19 +117,17 @@ void	ft_putenv(char *key, char *value, t_context *context)
 
 void	init_env(t_context *context, char **envp)
 {
-	int		i;
 	char	*cwd;
 
 	ft_bzero(&context->global_env, sizeof(t_env));
 	ft_bzero(&context->local_env, sizeof(t_env));
-	i = 0;
-	while (envp[i])
-		i++;
-	context->global_env.size = i;
+	context->global_env.size = 0;
+	while (envp[context->global_env.size])
+		context->global_env.size++;
 	context->global_env.envp = safe_calloc(sizeof(char *)
 			* (context->global_env.size + 2));
 	copy_envp(context->global_env.envp, envp, 1);
-	increase_var("SHLVL", context);
+	increase_shlevel("SHLVL", context);
 	cwd = getcwd(NULL, 0);
 	ft_putenv("PWD", cwd, context);
 	free(cwd);

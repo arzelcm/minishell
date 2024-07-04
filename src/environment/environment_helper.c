@@ -6,22 +6,24 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:31:00 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:58:09 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "libft.h"
 #include "environment.h"
 #include "context.h"
 #include "safe_libft.h"
 #include "utils.h"
+#include "environment_helper.h"
 
 void	free_environment(t_env *env)
 {
 	free_matrix(env->envp);
 }
 
-void	increase_var(char *key, t_context *context)
+void	increase_shlevel(char *key, t_context *context)
 {
 	char	*value;
 	char	*new_val;
@@ -29,8 +31,15 @@ void	increase_var(char *key, t_context *context)
 
 	value = ft_getenv(key, context->global_env.envp);
 	num = ft_atoi(value);
-	if (num == 999)
-		new_val = safe_ft_strdup("", handle_syserror);
+	if (num < 0)
+		new_val = safe_ft_strdup("0", handle_syserror);
+	else if (ft_strlen(value) > SHLVL_MAX_LEN)
+	{
+		ft_printff(STDERR_FILENO,
+			"%s: warning: shell level (%s) too high, resetting to 1\n",
+			PROGRAM_NAME, value);
+		new_val = safe_ft_strdup("1", handle_syserror);
+	}
 	else
 		new_val = safe_itoa(num + 1);
 	ft_putenv(key, new_val, context);

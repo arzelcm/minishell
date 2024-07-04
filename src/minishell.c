@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:41 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 22:47:01 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:33:09 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	use_line(char *line, t_token *token, t_context *context)
 	}
 }
 
-void	prompt(char *line, t_token *token, t_context *context)
+void	infinite_prompt(char *line, t_token *token, t_context *context)
 {
 	while (42)
 	{
@@ -64,6 +64,22 @@ void	prompt(char *line, t_token *token, t_context *context)
 	}
 }
 
+void	init(t_context *context, char **line, t_token **token, char **envp)
+{
+	(void) context;
+	g_sigval = 0;
+	*line = NULL;
+	*token = NULL;
+	ft_bzero(context, sizeof(t_context));
+	init_env(context, envp);
+}
+
+void	clean(t_context *context)
+{
+	free_environment(&context->global_env);
+	free_environment(&context->local_env);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*token;
@@ -76,15 +92,10 @@ int	main(int argc, char **argv, char **envp)
 		ft_printff(STDERR_FILENO, "Args are not allowed.\n");
 		return (EXIT_FAILURE);
 	}
-	g_sigval = 0;
-	line = NULL;
-	token = NULL;
-	ft_bzero(&context, sizeof(t_context));
-	init_env(&context, envp);
+	init(&context, &line, &token, envp);
 	if (isatty(STDIN_FILENO))
 		ft_printf(CREDITS);
-	prompt(line, token, &context);
-	free_environment(&context.global_env);
-	free_environment(&context.local_env);
+	infinite_prompt(line, token, &context);
+	clean(&context);
 	return (EXIT_SUCCESS);
 }
