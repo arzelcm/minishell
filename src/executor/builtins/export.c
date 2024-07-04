@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:44:46 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:20:27 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "environment_helper.h"
 #include "tokenizer.h"
 #include "tokenizer_utils.h"
+#include "builtins.h"
 #include "safe_utils.h"
 #include "utils.h"
 
@@ -24,12 +25,9 @@ void	set_complete_definition(char *curr_def, char **key_value)
 	char	*key;
 	char	*value;
 	char	*complete_val;
-	char	**complete;
 
-	complete = ft_split(curr_def, '=');
-	key = complete[0];
-	value = complete[1];
-	free(complete);
+	key = ft_substr(curr_def, 0, ft_strchr(curr_def, '=') - curr_def);
+	value = ft_substr(ft_strchr(curr_def, '='), 1, ft_strlen(curr_def));
 	if (value)
 	{
 		complete_val = safe_strjoin("=\"", value, handle_syserror);
@@ -82,10 +80,12 @@ static void	print_definitions(t_context *context)
 	free_matrix(definitions);
 }
 
+// TODO: Add += compatibility
 static int	has_errors(char *str, int *i, t_context *context)
 {
-	if (!ft_isalpha(*str)
-		|| (!ft_stroccurrences(str, '=') && ft_stroccurrences_set(str, " \t")))
+	if ((!ft_isalpha(*str) && *str != '_')
+		|| (!ft_stroccurrences(str, '=') && ft_stroccurrences_set(str, " \t"))
+		|| !check_invalid_chars(str))
 	{
 		ft_printff(STDERR_FILENO,
 			"%s: export: `%s': not a valid identifier\n", PROGRAM_NAME, str);
@@ -100,9 +100,9 @@ static int	has_errors(char *str, int *i, t_context *context)
 int	ft_export(int argc, char **argv, t_context *context)
 {
 	int		i;
+	int		export_mode;
 	char	*key;
 	char	*value;
-	char	**splitted;
 
 	context->err_code = EXIT_SUCCESS;
 	if (argc == 1)
@@ -112,13 +112,11 @@ int	ft_export(int argc, char **argv, t_context *context)
 	{
 		if (has_errors(argv[i], &i, context))
 			continue ;
-		splitted = ft_split(argv[i], '=');
-		key = splitted[0];
-		value = splitted[1];
-		free(splitted);
+		key = get_key(argv[i], &export_mode);
+		value = ft_substr(ft_strchr(argv[i], '='), 1, ft_strlen(argv[i]));
 		if (!value && argv[i][ft_strlen(argv[i]) - 1] == '=')
-			value = safe_ft_strdup("", handle_syserror);
-		ft_putenv(key, value, context);
+			value = ft_strdup("");
+		update_env(key, value, export_mode, context);
 		free(key);
 		free(value);
 		i++;

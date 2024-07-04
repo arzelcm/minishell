@@ -65,6 +65,7 @@ MSRCS = minishell.c \
 		echo.c \
 		exit.c \
 		export.c \
+		export_utils.c \
 		utils_builtins.c \
 		unset.c \
 		cd.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:56:42 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:56:43 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:58:38 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define EXPORT "export"
 # define UNSET "unset"
 # define CD "cd"
+# define EXPMODE_TRUNC 0
+# define EXPMODE_APPEND 1
 # define ABNORMAL_EXIT_STATUS 255
 
 # include "pdata_helpers.h"
@@ -42,5 +44,11 @@ int		ft_export(int argc, char **argv, t_context *context);
 int		ft_unset(int argc, char **argv, t_context *context);
 
 int		ft_cd(int argc, char **argv, t_context *context);
+
+int		check_invalid_chars(char *identifier);
+
+char	*get_key(char *str, int *export_mode);
+
+void	update_env(char *key, char *value, int export_mode, t_context *context);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:46 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:47 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:25:14 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,20 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 	context->err_code = execute_builtin(token->args[0], token, context);
 	redirect_fds(pdata->std_fds[READ_FD], pdata->std_fds[WRITE_FD]);
 	close_pdata_fds(pdata);
+}
+
+int	check_invalid_chars(char *identifier)
+{
+	int	i;
+
+	i = 0;
+	while (identifier[i] != '\0' && identifier[i] != '=')
+	{
+		if (ft_stroccurrences("-.{}*#@^~[]`´¨ç?¡¿,:·&/", identifier[i]))
+			return (0);
+		if (identifier[i] == '+' && identifier[i + 1] != '=')
+			return (0);
+		i++;
+	}
+	return (1);
 }
