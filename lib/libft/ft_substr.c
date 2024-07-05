@@ -6,11 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:00:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/01/18 19:05:49 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:55:54 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <errno.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -38,4 +39,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	result[i] = '\0';
 	return (result);
+}
+
+char	*safe_ft_substr(char const *s,
+		unsigned int start, size_t len, void (*f)(int))
+{
+	char	*res;
+
+	res = ft_substr(s, start, len);
+	if (!res)
+		f(ENOMEM);
+	return (res);
 }

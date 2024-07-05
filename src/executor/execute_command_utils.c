@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:49 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 20:18:07 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:04:38 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	*join_full_path(char *path, char *cmd)
 	char	*full_cmd_path;
 	char	*tmp;
 
-	tmp = safe_strjoin(path, "/", handle_syserror);
+	tmp = safe_ft_strjoin(path, "/", handle_syserror);
 	if (!tmp)
 		handle_syserror(ENOMEM);
-	full_cmd_path = safe_strjoin(tmp, cmd, handle_syserror);
+	full_cmd_path = safe_ft_strjoin(tmp, cmd, handle_syserror);
 	free(tmp);
 	if (!full_cmd_path)
 		handle_syserror(ENOMEM);

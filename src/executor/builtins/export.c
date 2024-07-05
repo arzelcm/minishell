@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 20:20:27 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:02:56 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	set_complete_definition(char *curr_def, char **key_value)
 	value = ft_substr(ft_strchr(curr_def, '='), 1, ft_strlen(curr_def));
 	if (value)
 	{
-		complete_val = safe_strjoin("=\"", value, handle_syserror);
+		complete_val = safe_ft_strjoin("=\"", value, handle_syserror);
 		free(value);
-		value = safe_strjoin(complete_val, "\"", handle_syserror);
+		value = safe_ft_strjoin(complete_val, "\"", handle_syserror);
 		free(complete_val);
 		complete_val = value;
 		value = NULL;
 	}
 	else
 		complete_val = safe_ft_strdup("=\"\"", handle_syserror);
-	*key_value = safe_strjoin(key, complete_val, handle_syserror);
+	*key_value = safe_ft_strjoin(key, complete_val, handle_syserror);
 	free(complete_val);
 	free(value);
 	free(key);
@@ -58,7 +58,7 @@ static void	fill_definitions(char **definitions, int *i, char **envp)
 		else
 			key_value = safe_ft_strdup(envp[j], handle_syserror);
 		j++;
-		definitions[(*i)++] = safe_strjoin("declare -x ", key_value,
+		definitions[(*i)++] = safe_ft_strjoin("declare -x ", key_value,
 				handle_syserror);
 		free(key_value);
 	}
@@ -113,9 +113,10 @@ int	ft_export(int argc, char **argv, t_context *context)
 		if (has_errors(argv[i], &i, context))
 			continue ;
 		key = get_key(argv[i], &export_mode);
-		value = ft_substr(ft_strchr(argv[i], '='), 1, ft_strlen(argv[i]));
+		value = safe_ft_substr(ft_strchr(argv[i], '='), 1,
+				ft_strlen(argv[i]), handle_syserror);
 		if (!value && argv[i][ft_strlen(argv[i]) - 1] == '=')
-			value = ft_strdup("");
+			value = safe_ft_strdup("", handle_syserror);
 		update_env(key, value, export_mode, context);
 		free(key);
 		free(value);

@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:18 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 21:36:40 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:02:56 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*set_vars(char *value, char *key, t_env **env, t_context *context)
 	{
 		ft_deleteenv(key, &context->local_env);
 		*env = &context->global_env;
-		complete_val = safe_strjoin("=", value, handle_syserror);
+		complete_val = safe_ft_strjoin("=", value, handle_syserror);
 	}
 	return (complete_val);
 }
@@ -100,13 +100,13 @@ void	ft_putenv(char *key, char *value, t_context *context)
 	if (line)
 	{
 		free(*line);
-		*line = safe_strjoin(key, complete_val, handle_syserror);
+		*line = safe_ft_strjoin(key, complete_val, handle_syserror);
 	}
 	else
 	{
 		curr_envp = safe_calloc(sizeof(char *) * ((env->size) + 2));
 		copy_envp(curr_envp, env->envp, 0);
-		curr_envp[env->size] = safe_strjoin(key, complete_val, handle_syserror);
+		curr_envp[env->size] = safe_ft_strjoin(key, complete_val, handle_syserror);
 		curr_envp[env->size + 1] = NULL;
 		env->size++;
 		free(env->envp);

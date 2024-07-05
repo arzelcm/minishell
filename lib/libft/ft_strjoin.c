@@ -6,14 +6,14 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:21:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:42:19 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:06:38 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <errno.h>
 
-char	*safe_strjoin(char const *s1, char const *s2, void (*f)(int))
+char	*safe_ft_strjoin(char const *s1, char const *s2, void (*f)(int))
 {
 	char	*res;
 

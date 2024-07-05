@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 23:23:39 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:56:44 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_environment(t_env *env)
 	free_matrix(env->envp);
 }
 
+// TODO: 12a is not a num!!!!! resets to 1
 void	increase_shlevel(char *key, t_context *context)
 {
 	char	*value;
