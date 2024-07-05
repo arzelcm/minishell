@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/30 00:36:44 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:23:43 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "expansor_vars.h"
 #include "quotes_flag.h"
 #include "quotes_utils.h"
+#include "utils.h"
 #include <stdlib.h>
 
 int	variable_finished(char c, int not_first)
@@ -52,7 +53,8 @@ void
 		{
 			while (!variable_finished(line[i], i > start))
 				i++;
-			var = get_var(ft_substr(line, start, i - start), vars, context);
+			var = get_var(safe_ft_substr(line, start, i - start,
+						handle_syserror), vars, context);
 			j += ft_strlcpy(&new_line[j], var->value, -1);
 		}
 		else

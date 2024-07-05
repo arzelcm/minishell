@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 12:02:56 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:21:40 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	set_complete_definition(char *curr_def, char **key_value)
 	char	*value;
 	char	*complete_val;
 
-	key = ft_substr(curr_def, 0, ft_strchr(curr_def, '=') - curr_def);
-	value = ft_substr(ft_strchr(curr_def, '='), 1, ft_strlen(curr_def));
+	key = safe_ft_substr(curr_def, 0, ft_strchr(curr_def, '=') - curr_def,
+			handle_syserror);
+	value = safe_ft_substr(ft_strchr(curr_def, '='), 1, ft_strlen(curr_def),
+			handle_syserror);
 	if (value)
 	{
 		complete_val = safe_ft_strjoin("=\"", value, handle_syserror);
