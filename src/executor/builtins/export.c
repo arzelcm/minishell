@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:35 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 12:02:56 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:10:01 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void	print_definitions(t_context *context)
 	free_matrix(definitions);
 }
 
-// TODO: Add += compatibility
 static int	has_errors(char *str, int *i, t_context *context)
 {
 	if ((!ft_isalpha(*str) && *str != '_')
