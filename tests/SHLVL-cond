@@ -1,0 +1,7 @@
+(shlvl_range) -> "NEW_SHLVL_VALUE", "Message"
+-¡
+(n == 999) -> "", NULL
+(n >= INT_MAX) -> "0", NULL
+(n > 999) -> "1", "bash: warning: shell level (10001) too high, resetting to 1\n"
+(n < -1) -> "1", NULL
+(n >= -1) -> "n + 1", NULL
