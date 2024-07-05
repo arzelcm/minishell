@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:18 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 12:02:56 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:37:54 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	*set_vars(char *value, char *key, t_env **env, t_context *context)
 void	ft_putenv(char *key, char *value, t_context *context)
 {
 	char	*complete_val;
-	char	**curr_envp;
+	char	**curr;
 	char	**line;
 	t_env	*env;
 
@@ -104,13 +104,13 @@ void	ft_putenv(char *key, char *value, t_context *context)
 	}
 	else
 	{
-		curr_envp = safe_calloc(sizeof(char *) * ((env->size) + 2));
-		copy_envp(curr_envp, env->envp, 0);
-		curr_envp[env->size] = safe_ft_strjoin(key, complete_val, handle_syserror);
-		curr_envp[env->size + 1] = NULL;
+		curr = safe_calloc(sizeof(char *) * ((env->size) + 2));
+		copy_envp(curr, env->envp, 0);
+		curr[env->size] = safe_ft_strjoin(key, complete_val, handle_syserror);
+		curr[env->size + 1] = NULL;
 		env->size++;
 		free(env->envp);
-		env->envp = curr_envp;
+		env->envp = curr;
 	}
 	free(complete_val);
 }
