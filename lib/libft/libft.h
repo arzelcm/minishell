@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 18:26:33 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:39:46 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,7 @@ char		*safe_ft_strjoin(char const *s1, char const *s2, void (*f)(int));
 
 char		*safe_ft_substr(char const *s, unsigned int start,
 				size_t len, void (*f)(int));
+
+char		*safe_ft_strtrim(char const *s1, char const *set, void (*f)(int));
 
 #endif
