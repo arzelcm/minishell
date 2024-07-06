@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:04 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:05 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 23:06:12 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ void	handle_syserror(int errnum);
 void	handle_error(char *file, char *message);
 
 char	*quote_str(char *str);
+
+void	push_str(char **s1, char *s2);
 
 #endif

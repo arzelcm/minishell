@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_vars.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:12 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 21:18:15 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/06 23:16:26 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context);
 void	free_expansor_vars(t_var *var);
 
 t_var	*get_var(char *key, t_vars *vars, t_context *context);
+
+char	*get_var_value(char *key, t_context *context);
 
 #endif

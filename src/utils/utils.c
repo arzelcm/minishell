@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:39 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 16:53:04 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/06 23:05:48 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ void	push_char(char	**str, char c)
 	new_word[len + 1] = '\0';
 	free(*str);
 	*str = new_word;
+}
+
+void	push_str(char **s1, char *s2)
+{
+	char	*new_word;
+	int		len1;
+	int		len2;
+
+	len1 = ft_strlen(*s1);
+	len2 = ft_strlen(s2);
+	new_word = safe_calloc(sizeof(char) * (len1 + len2 + 1));
+	ft_strlcpy(new_word, *s1, -1);
+	ft_strlcpy(new_word + len1, s2, -1);
+	free(*s1);
+	*s1 = new_word;
 }
 
 void	handle_syserror(int errnum)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 21:25:15 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/06 23:19:31 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,21 @@ void	init_vars(t_quotes_flag *quotes, int *i, int *j)
 {
 	ft_bzero(quotes, sizeof(t_quotes_flag));
 	*i = 0;
-	*j = 0;
+	if (j)
+		*j = 0;
 }
 
-void
-	expand_values(char *line, char *new_line, t_vars *vars, t_context *context)
+int
+	replace_values(char *line, char **new_line, t_context *context)
 {
 	int				i;
-	int				j;
 	int				start;
 	t_quotes_flag	quotes;
-	t_var			*var;
+	char			*value;
+	int				expanded;
+	char			*key;
 
-	init_vars(&quotes, &i, &j);
+	init_vars(&quotes, &i, &expanded);
 	while (line[i])
 	{
 		check_quotes(&quotes, line[i]);
@@ -54,34 +56,33 @@ void
 		{
 			while (!variable_finished(line[i], i > start, &line[i]))
 				i++;
-			var = get_var(safe_ft_substr(line, start, i - start,
-						handle_syserror), vars, context);
-			j += ft_strlcpy(&new_line[j], var->value, -1);
+			key = safe_ft_substr(line, start, i - start, handle_syserror);
+			value = get_var_value(key, context);
+			push_str(new_line, value);
+			expanded = 1;
+			free(value);
+			free(key);
 		}
 		else
-			new_line[j++] = line[i++];
+			push_char(new_line, line[i++]);
 	}
+	return (expanded);
 }
 
 int	expand(char **line, t_context *context, t_expansion *expansion)
 {
-	t_vars	vars;
 	char	*new_line;
-	int		new_len;
+	int		expanded;
 
-	ft_bzero(&vars, sizeof(t_vars));
 	if (expansion)
 		ft_bzero(expansion, sizeof(t_expansion));
 	if (expansion)
 		expansion->quoted = (**line) == '\"';
-	fill_needed_vars(&vars, *line, context);
-	new_len = ft_strlen(*line) - vars.keys_length + vars.values_length;
-	new_line = safe_calloc(sizeof(char) * (new_len + 1));
-	expand_values(*line, new_line, &vars, context);
+	new_line = safe_calloc(sizeof(char));
+	expanded = replace_values(*line, &new_line, context);
 	free(*line);
 	*line = new_line;
 	if (expansion)
-		expansion->expanded = vars.size;
-	free_expansor_vars(vars.list);
-	return (new_len);
+		expansion->expanded = expanded;
+	return (ft_strlen(new_line));
 }

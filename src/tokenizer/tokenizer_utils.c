@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 14:24:17 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 21:51:54 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,13 @@ char
 {
 	char	*word;
 	int		len;
-	int		word_len;
 
-	word = safe_calloc(sizeof(char));
+	word = safe_ft_strdup("", handle_syserror);
 	avoid_spaces(str, i);
-	word_len = get_word_len(str, *i);
-	len = word_len;
+	len = get_word_len(str, *i);
 	str = safe_ft_substr(str, *i, len, handle_syserror);
 	*i += len;
-	if (context)
-		len = expand(&str, context, expansion);
+	len = expand(&str, context, expansion);
 	fill_word(len, str, &word);
 	free(str);
 	return (word);
@@ -87,11 +84,9 @@ char	*get_raw_word(char	*str, int *i)
 {
 	char	*word;
 	int		len;
-	int		word_len;
 
 	avoid_spaces(str, i);
-	word_len = get_word_len(str, *i);
-	len = word_len;
+	len = get_word_len(str, *i);
 	word = safe_ft_substr(str, *i, len, handle_syserror);
 	*i += len;
 	return (word);
