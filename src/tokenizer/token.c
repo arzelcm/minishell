@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 12:44:20 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 19:10:08 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "tokenizer_redirections.h"
 #include "safe_utils.h"
 #include "tokenizer_utils.h"
+#include "utils.h"
 
 void	free_token(t_token *token)
 {
@@ -106,7 +107,7 @@ void	split_push(char ***new_args, char *word, int *argc)
 	char		**words;
 	int			j;
 
-	words = ft_split_set(word, " \t");
+	words = safe_ft_split_set(word, " \t", handle_syserror);
 	j = 0;
 	while (words[j])
 	{
