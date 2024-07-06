@@ -6,11 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:18:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/05/21 20:50:10 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 19:09:15 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <errno.h>
 
 void	free_matrix(char **space)
 {
@@ -104,4 +105,16 @@ char	**ft_split(char const *s, char c)
 	}
 	strings = store_string(s, start, i - start, strings);
 	return (strings);
+}
+
+char	**safe_ft_split(char const *s, char c, void (*f)(int))
+{
+	char	**res;
+
+	if (!s)
+		return (NULL);
+	res = ft_split(s, c);
+	if (!res)
+		f(ENOMEM);
+	return (res);
 }

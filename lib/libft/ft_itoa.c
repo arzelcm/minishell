@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 12:16:26 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 17:55:26 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:57:03 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static unsigned long	get_positive_lnum(long n)
 	return (n);
 }
 
-char	*safe_ltoa(long n)
+char	*safe_ft_ltoa(long n)
 {
 	char	*res;
 

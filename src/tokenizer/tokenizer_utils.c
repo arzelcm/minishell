@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:29 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:24:17 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char
 	avoid_spaces(str, i);
 	word_len = get_word_len(str, *i);
 	len = word_len;
-	str = ft_substr(str, *i, len);
+	str = safe_ft_substr(str, *i, len, handle_syserror);
 	*i += len;
 	if (context)
 		len = expand(&str, context, expansion);
@@ -92,7 +92,7 @@ char	*get_raw_word(char	*str, int *i)
 	avoid_spaces(str, i);
 	word_len = get_word_len(str, *i);
 	len = word_len;
-	word = ft_substr(str, *i, len);
+	word = safe_ft_substr(str, *i, len, handle_syserror);
 	*i += len;
 	return (word);
 }

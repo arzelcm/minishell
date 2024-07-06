@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 13:40:40 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 17:54:46 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:57:03 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	is_inside_limits(char *str, long long max, long long min)
 	char	*s_min;
 	int		result;
 
-	s_max = safe_ltoa(max);
-	s_min = safe_ltoa(min);
+	s_max = safe_ft_ltoa(max);
+	s_min = safe_ft_ltoa(min);
 	result = (*str != '-' && ft_strcmp(str, s_max) <= EQUAL_STRINGS)
 		|| (*str == '-' && ft_strcmp(str, s_min) <= EQUAL_STRINGS);
 	free(s_max);

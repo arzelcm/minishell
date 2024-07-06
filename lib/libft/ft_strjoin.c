@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:21:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 13:06:38 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:24:28 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*safe_ft_strjoin(char const *s1, char const *s2, void (*f)(int))
 {
 	char	*res;
 
+	if (!s1 || !s2)
+		return (NULL);
 	res = ft_strjoin(s1, s2);
 	if (!res)
 		f(ENOMEM);

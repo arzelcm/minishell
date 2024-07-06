@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 21:07:13 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/06 21:25:23 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	fill_needed_vars(t_vars *vars, char *line, t_context *context)
 			start = i;
 			while (!variable_finished(line[i], i > start, &line[i]))
 				i++;
-			var = get_var(ft_substr(line, start, i - start), vars, context);
+			var = get_var(safe_ft_substr(line, start, i - start,
+						handle_syserror), vars, context);
 			vars->keys_length += ft_strlen(var->key);
 			vars->values_length += ft_strlen(var->value);
 		}

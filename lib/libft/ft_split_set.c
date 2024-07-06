@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_set.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:18:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/15 18:03:07 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/06 19:03:15 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <errno.h>
 
 static char	**add_new_str(char **str, char *new_str)
 {
@@ -60,6 +61,18 @@ static char	**store_string(char const *s, size_t st, size_t ri, char **ss)
 		}
 	}
 	return (ss);
+}
+
+char	**safe_ft_split_set(char const *s, char const *set, void (*f)(int))
+{
+	char	**res;
+
+	if (!s || !set)
+		return (NULL);
+	res = ft_split_set(s, set);
+	if (!res)
+		f(ENOMEM);
+	return (res);
 }
 
 char	**ft_split_set(char const *s, char const *set)

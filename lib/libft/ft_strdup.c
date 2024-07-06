@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:48:12 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:33:11 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:23:58 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*safe_ft_strdup(const char *s1, void (*f)(int))
 {
 	char	*res;
 
+	if (!s1)
+		return (NULL);
 	res = ft_strdup(s1);
 	if (!res)
 		f(ENOMEM);

@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 12:56:44 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 20:23:38 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	increase_shlevel(char *key, t_context *context)
 	num = ft_atoi(value) + 1;
 	new_val = safe_itoa(num);
 	if (ft_strcmp(SHLVL_MAX, value) == EQUAL_STRINGS)
+	{
+		free(new_val);
 		new_val = safe_ft_strdup("", handle_syserror);
+	}
 	else if (ft_strlen(new_val) > ft_strlen(SHLVL_MAX))
 	{
 		if (num > 0)
