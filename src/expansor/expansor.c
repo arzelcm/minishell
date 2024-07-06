@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/30 00:36:44 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 20:30:41 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 int	variable_finished(char c, int not_first)
 {
-	return (c == '\0' || ft_stroccurrences(VAR_LIMIT, c)
-		|| (not_first && c == '$'));
+	return (c == '\0' || (not_first && c == '$')
+		|| (!ft_isalnum(c) && !ft_stroccurrences("_$ºª", c)));
 }
 
 void	init_vars(t_quotes_flag *quotes, int *i, int *j)

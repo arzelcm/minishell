@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:46 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 14:25:14 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/05 21:26:00 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ int	check_invalid_chars(char *identifier)
 	i = 0;
 	while (identifier[i] != '\0' && identifier[i] != '=')
 	{
-		if (ft_stroccurrences("-.{}*#@^~[]`´¨ç?¡¿,:·&/", identifier[i]))
-			return (0);
-		if (identifier[i] == '+' && identifier[i + 1] != '=')
+		if ((!ft_isalnum(identifier[i])
+			&& identifier[i] != '_' && identifier[i] != '+'
+			&& !ft_stroccurrences("ºª", identifier[i]))
+			|| (identifier[i] == '+' && identifier[i + 1] != '='))
 			return (0);
 		i++;
 	}
