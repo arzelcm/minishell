@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:44:47 by arcanava          #+#    #+#             */
-/*   Updated: 2024/01/16 19:14:04 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 20:39:44 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memset(void *b, int c, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		((char *) b)[i] = uc;
+		((unsigned char *) b)[i] = uc;
 		i++;
 	}
 	return (b);
