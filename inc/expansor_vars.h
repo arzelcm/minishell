@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_vars.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:12 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:57:13 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 21:18:15 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSOR_VARS_H
 # define EXPANSOR_VARS_H
-# define VAR_LIMIT "\"'|<><<>> \t=/."
 
 # include "context.h" 
 

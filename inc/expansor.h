@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:15 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 22:22:11 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/06 21:07:04 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_expansion
 
 int		expand(char **line, t_context *context, t_expansion *expansion);
 
-int		variable_finished(char c, int not_first);
+int		variable_finished(char c, int not_first, char *var);
 
 void	init_vars(t_quotes_flag *quotes, int *i, int *j);
 

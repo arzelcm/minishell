@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 20:30:41 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/06 21:21:20 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
 #include "quotes_utils.h"
 #include <stdlib.h>
 
-int	variable_finished(char c, int not_first)
+int	variable_finished(char c, int not_first, char *var)
 {
 	return (c == '\0' || (not_first && c == '$')
-		|| (!ft_isalnum(c) && !ft_stroccurrences("_$ºª", c)));
+		|| (!ft_isalnum(c) && !ft_stroccurrences("_?$ºª", c))
+		|| (var[0] == '?' && *(var - 1) != '$'));
 }
 
 void	init_vars(t_quotes_flag *quotes, int *i, int *j)
@@ -50,7 +51,7 @@ void
 		else if (line[i] == '$'
 			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
 		{
-			while (!variable_finished(line[i], i > start))
+			while (!variable_finished(line[i], i > start, &line[i]))
 				i++;
 			var = get_var(ft_substr(line, start, i - start), vars, context);
 			j += ft_strlcpy(&new_line[j], var->value, -1);
