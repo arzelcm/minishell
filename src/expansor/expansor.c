@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 23:19:31 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 00:34:50 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,16 @@ int
 {
 	int				i;
 	int				start;
-	t_quotes_flag	quotes;
 	char			*value;
 	int				expanded;
 	char			*key;
 
-	init_vars(&quotes, &i, &expanded);
+	i = 0;
+	expanded = 0;
 	while (line[i])
 	{
-		check_quotes(&quotes, line[i]);
 		start = i;
-		if (line[i] == '$' && is_starting_quote(line[i + 1], &quotes))
-			i++;
-		else if (line[i] == '$'
-			&& (line[i + 1] != '\"' || quotes.double_) && !quotes.simple)
+		if (line[i] == '$')
 		{
 			while (!variable_finished(line[i], i > start, &line[i]))
 				i++;
@@ -74,10 +70,6 @@ int	expand(char **line, t_context *context, t_expansion *expansion)
 	char	*new_line;
 	int		expanded;
 
-	if (expansion)
-		ft_bzero(expansion, sizeof(t_expansion));
-	if (expansion)
-		expansion->quoted = (**line) == '\"';
 	new_line = safe_calloc(sizeof(char));
 	expanded = replace_values(*line, &new_line, context);
 	free(*line);

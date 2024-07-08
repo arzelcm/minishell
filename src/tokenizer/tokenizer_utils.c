@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/08 22:48:57 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/09 00:25:58 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,29 @@ void	fill_word(int len, char *str, char **word)
 
 char	*get_word(char *str, int *i, t_context *context, t_expansion *expansion)
 {
-	char	*word;
-	int		len;
+	char			*word;
+	int				len;
+	t_quotes_flag	quotes;
 
-	word = safe_ft_strdup("", handle_syserror);
+	ft_bzero(&quotes, sizeof(t_quotes_flag));
+	if (expansion)
+		ft_bzero(expansion, sizeof(t_expansion));
 	avoid_spaces(str, i);
+	if (str[*i] == '$' && *i + 1 < (int) ft_strlen(str)
+		&& (str[*i + 1] == '\'' || str[*i + 1] == '"'))
+		(*i)++;
+	check_quotes(&quotes, str[*i]);
+	if (expansion)
+		expansion->quoted = quotes.double_;
 	len = get_word_len(str, *i);
-	str = safe_ft_substr(str, *i, len, handle_syserror);
+	word = safe_ft_substr(str, *i, len, handle_syserror);
 	*i += len;
-	len = expand(&str, context, expansion);
-	fill_word(len, str, &word);
-	free(str);
-	return (word);
+	str = safe_ft_strdup("", handle_syserror);
+	fill_word(len, word, &str);
+	free(word);
+	if (!quotes.simple)
+		expand(&str, context, expansion);
+	return (str);
 }
 
 char	*get_raw_word(char	*str, int *i)
