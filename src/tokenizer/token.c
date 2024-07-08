@@ -161,6 +161,7 @@ void	expand_args(t_token *token, t_context *context)
 				else
 					push_char(new_args + token->argc - 1, word[k++]);
 			}
+			free(word);
 		}
 		i++;
 	}
