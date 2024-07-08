@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 21:51:54 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/08 22:48:57 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	avoid_spaces(char *str, int *i)
 	return (1);
 }
 
-int	get_word_len(char *str, int i)
+int	get_raw_word_len(char *str, int i)
 {
 	int	start_i;
 
@@ -34,6 +34,31 @@ int	get_word_len(char *str, int i)
 	{
 		if (!avoid_quotes(str, &i))
 			i++;
+	}
+	return (i - start_i);
+}
+
+int	get_word_len(char *str, int i)
+{
+	int	start_i;
+	int	is_quoted;
+
+	start_i = i;
+	is_quoted = (str[i] == '\'' || str[i] == '"');
+	if (str[i] == '$')
+		i++;
+	if (i > 0 && str[i] == '$' && str[i - 1] == '$')
+		return (2);
+	while (str[i] != '\0' && str[i] != '$')
+	{
+		if (is_quoted)
+		{
+			avoid_quotes(str, &i);
+			break ;
+		}
+		else if (str[i] == '\'' || str[i] == '"')
+			break ;
+		i++;
 	}
 	return (i - start_i);
 }
@@ -63,8 +88,7 @@ void	fill_word(int len, char *str, char **word)
 	}
 }
 
-char
-	*get_word(char	*str, int *i, t_context *context, t_expansion *expansion)
+char	*get_word(char *str, int *i, t_context *context, t_expansion *expansion)
 {
 	char	*word;
 	int		len;
@@ -86,7 +110,7 @@ char	*get_raw_word(char	*str, int *i)
 	int		len;
 
 	avoid_spaces(str, i);
-	len = get_word_len(str, *i);
+	len = get_raw_word_len(str, *i);
 	word = safe_ft_substr(str, *i, len, handle_syserror);
 	*i += len;
 	return (word);
