@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:23 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 00:09:20 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:10:40 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,6 @@ static void	update_var(char *var, t_context *context)
 	free(cwd);
 }
 
-static void	update_var(char *var, t_context *context)
-{
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	ft_putenv(var, cwd, context);
-	free(cwd);
-}
-
 int	ft_cd(int argc, char **argv, t_context *context)
 {
 	char	*dir;
@@ -80,7 +71,8 @@ int	ft_cd(int argc, char **argv, t_context *context)
 		return (EXIT_FAILURE);
 	ft_putenv("OLDPWD", "", context);
 	if (ft_getenvline("PWD", context->global_env.envp))
-		ft_putenv("OLDPWD", ft_getenv("PWD", context->global_env.envp), context);
+		ft_putenv("OLDPWD",
+			ft_getenv("PWD", context->global_env.envp), context);
 	else if (ft_getenvline("PWD", context->local_env.envp))
 		update_var("OLDPWD", context);
 	if (chdir(dir) == -1)
