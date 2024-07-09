@@ -175,6 +175,7 @@ test_clean:
 	rm -rf mpanic-main
 
 test:
+	bash --version
 	$(MAKE) --no-print-directory test_clean
 	curl -sLO https://github.com/zstenger93/42_minishell_tester/archive/refs/heads/master.zip
 	unzip master.zip > /dev/null
