@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:39 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 23:05:48 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:40:12 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	push_str(char **s1, char *s2)
 	*s1 = new_word;
 }
 
-void	handle_syserror(int errnum)
+void	syserr(int errnum)
 {
 	perror(PROGRAM_NAME);
 	exit(errnum);

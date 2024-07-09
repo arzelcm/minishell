@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:57 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ static void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 	while (i < token->tokens.amount && cmd_token)
 	{
 		if (i < token->tokens.amount - 1 && pipe(pdata->pipe_fds) == -1)
-			handle_syserror(EMFILE);
+			syserr(EMFILE);
 		parse_fds(i, token->tokens.amount, pdata, cmd_token);
 		pdata->pids[i] = fork();
 		if (pdata->pids[i] == -1)
-			handle_syserror(EAGAIN);
+			syserr(EAGAIN);
 		else if (pdata->pids[i] == 0)
 			execute_command(pdata, cmd_token, context);
 		close_pipe(pdata->fds);

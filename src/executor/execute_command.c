@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 13:24:26 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 		if (tmp)
 			free(tmp);
 		if (!full_cmd_path)
-			handle_syserror(ENOMEM);
+			syserr(ENOMEM);
 		if (check_cmd(full_cmd_path))
 			return (full_cmd_path);
 		i++;
@@ -55,7 +55,7 @@ static void	execute_by_path(char **args, char **envp)
 	char	**paths;
 
 	path = ft_getenv("PATH", envp);
-	paths = safe_ft_split(path, ':', handle_syserror);
+	paths = safe_ft_split(path, ':', syserr);
 	bin = args[0];
 	if (ft_strchr(bin, '/'))
 		check_bin(bin);

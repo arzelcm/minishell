@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:59 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 17:19:21 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	wait_here_doc_process(int fds[2])
 		if (status == EXIT_FAILURE)
 			g_sigval = SIGINT;
 		if (status == EBADF)
-			handle_syserror(EBADF);
+			syserr(EBADF);
 	}
 }
 
@@ -47,10 +47,10 @@ int	fork_here_doc(t_redirection *here_doc)
 	int		fds[2];
 
 	if (pipe(fds) == -1)
-		handle_syserror(EXIT_FAILURE);
+		syserr(EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		handle_syserror(EAGAIN);
+		syserr(EAGAIN);
 	else if (pid == 0)
 		open_here_doc(fds, here_doc);
 	if (close(fds[WRITE_FD]) == -1)

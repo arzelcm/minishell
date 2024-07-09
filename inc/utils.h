@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:04 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 23:06:12 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	custom_exit(t_context *context, int print);
 
 void	push_char(char	**str, char c);
 
-void	handle_syserror(int errnum);
+void	syserr(int errnum);
 
 void	handle_error(char *file, char *message);
 

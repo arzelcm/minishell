@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:10 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 00:34:50 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ int
 {
 	int				i;
 	int				start;
-	char			*value;
+	char			*var[2];
 	int				expanded;
-	char			*key;
 
 	i = 0;
 	expanded = 0;
@@ -52,12 +51,12 @@ int
 		{
 			while (!variable_finished(line[i], i > start, &line[i]))
 				i++;
-			key = safe_ft_substr(line, start, i - start, handle_syserror);
-			value = get_var_value(key, context);
-			push_str(new_line, value);
+			var[0] = safe_ft_substr(line, start, i - start, syserr);
+			var[1] = get_var_value(var[0], context);
+			push_str(new_line, var[1]);
 			expanded = 1;
-			free(value);
-			free(key);
+			free(var[0]);
+			free(var[1]);
 		}
 		else
 			push_char(new_line, line[i++]);

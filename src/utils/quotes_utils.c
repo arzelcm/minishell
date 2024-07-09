@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:34 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/05 12:02:56 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ char	*quote_str(char *str)
 	char	*tmp;
 	char	*quoted_str;
 
-	tmp = safe_ft_strjoin("`", str, handle_syserror);
+	tmp = safe_ft_strjoin("`", str, syserr);
 	if (!tmp)
-		handle_syserror(ENOMEM);
-	quoted_str = safe_ft_strjoin(tmp, "'", handle_syserror);
+		syserr(ENOMEM);
+	quoted_str = safe_ft_strjoin(tmp, "'", syserr);
 	if (!quoted_str)
-		handle_syserror(ENOMEM);
+		syserr(ENOMEM);
 	free(tmp);
 	return (quoted_str);
 }

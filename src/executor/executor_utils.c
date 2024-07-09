@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:58:54 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	wait_child_processes(pid_t last_pid, int cmds_amount)
 	{
 		pid = waitpid(-1, &tmp, 0);
 		if (pid < 0)
-			handle_syserror(ECHILD);
+			syserr(ECHILD);
 		if (pid == last_pid && WIFEXITED(tmp))
 			status = WEXITSTATUS(tmp);
 		else if (pid == last_pid && WIFSIGNALED(tmp))
@@ -57,9 +57,9 @@ void	close_pipe(int fds[2])
 void	redirect_fds(int read_fd, int write_fd)
 {
 	if (read_fd != -1 && dup2(read_fd, STDIN_FILENO) == -1)
-		handle_syserror(EBUSY);
+		syserr(EBUSY);
 	if (write_fd != -1 && dup2(write_fd, STDOUT_FILENO) == -1)
-		handle_syserror(EBUSY);
+		syserr(EBUSY);
 }
 
 void	clean_exit(t_pdata *pdata)

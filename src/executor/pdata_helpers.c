@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:04 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:05 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	save_backup_stdfds(t_pdata *p_data)
 	{
 		p_data->std_fds[READ_FD] = dup(STDIN_FILENO);
 		if (p_data->std_fds[READ_FD] == -1)
-			handle_syserror(EBUSY);
+			syserr(EBUSY);
 	}
 	p_data->std_fds[WRITE_FD] = dup(STDOUT_FILENO);
 	if (p_data->std_fds[WRITE_FD] == -1)
-		handle_syserror(EBUSY);
+		syserr(EBUSY);
 }
 
 static void	initialize_heredocs(t_pdata *p_data, t_token *curr_token)

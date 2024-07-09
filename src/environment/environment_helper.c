@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 14:56:22 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	increase_shlevel(char *key, t_context *context)
 	new_val = safe_itoa(num);
 	is_num = ft_isnum(value);
 	if (value && ft_strcmp(SHLVL_MAX, new_val) == EQUAL_STRINGS)
-		new_val = safe_ft_strdup("", handle_syserror);
+		new_val = safe_ft_strdup("", syserr);
 	else if (*new_val == '-')
-		new_val = safe_ft_strdup("0", handle_syserror);
+		new_val = safe_ft_strdup("0", syserr);
 	else if (!value || !is_num || ft_strlen(new_val) > SHLVL_MAX_LEN)
 	{
 		if (value && is_num && num > 0)
 			ft_printff(STDERR_FILENO,
 				"%s: warning: shell level (%s) too high, resetting to 1\n",
 				PROGRAM_NAME, new_val);
-		new_val = safe_ft_strdup("1", handle_syserror);
+		new_val = safe_ft_strdup("1", syserr);
 	}
 	ft_putenv(key, new_val, context);
 	free(new_val);
@@ -68,7 +68,7 @@ void	copy_envp(char **dst, char **src, int duplicate)
 	while (src && src[i])
 	{
 		if (duplicate)
-			dst[i] = safe_ft_strdup(src[i], handle_syserror);
+			dst[i] = safe_ft_strdup(src[i], syserr);
 		else
 			dst[i] = src[i];
 		i++;

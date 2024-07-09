@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:37 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:37 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*safe_calloc(size_t size)
 
 	allocation = ft_calloc(1, size);
 	if (!allocation)
-		handle_syserror(ENOMEM);
+		syserr(ENOMEM);
 	return (allocation);
 }
 

@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:06:43 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 13:50:20 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*safe_itoa(int n)
 
 	result = ft_itoa(n);
 	if (!result)
-		handle_syserror(ENOMEM);
+		syserr(ENOMEM);
 	return (result);
 }
 
@@ -31,6 +31,6 @@ char	*safe_ltoa(long n)
 
 	result = ft_ltoa(n);
 	if (!result)
-		handle_syserror(ENOMEM);
+		syserr(ENOMEM);
 	return (result);
 }

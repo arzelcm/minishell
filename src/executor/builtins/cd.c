@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:23 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:35:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 				handle_error("cd", "OLDPWD not set");
 			*pwd = 1;
 		}
-		return (safe_ft_strdup(dir, handle_syserror));
+		return (safe_ft_strdup(dir, syserr));
 	}
 	dir = ft_getenv("HOME", context->global_env.envp);
 	if (!dir)
 		ft_printff(STDERR_FILENO, "%s: cd: HOME not set\n", PROGRAM_NAME);
-	return (safe_ft_strdup(dir, handle_syserror));
+	return (safe_ft_strdup(dir, syserr));
 }
 
 int	ft_cd(int argc, char **argv, t_context *context)

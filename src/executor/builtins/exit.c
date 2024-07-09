@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:31 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 14:55:54 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	ft_exit(int argc, char **argv, t_context *context)
 		ft_printff(STDERR_FILENO, "exit\n");
 	if (argc > 1)
 	{
-		trimed_arg = safe_ft_strtrim(argv[1], " \t", handle_syserror);
+		trimed_arg = safe_ft_strtrim(argv[1], " \t", syserr);
 		if (!trimed_arg)
-			handle_syserror(ENOMEM);
+			syserr(ENOMEM);
 		if (ft_isnum_lim(trimed_arg, LLONG_MAX, LLONG_MIN))
 			context->err_code = ft_atoi(argv[1]);
 		else

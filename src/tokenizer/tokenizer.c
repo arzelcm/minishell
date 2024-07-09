@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:31 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:03:35 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,13 @@ t_token	*tokenize(char *line)
 	if (!token)
 		token = curr_token;
 	return (token);
+}
+
+int	avoid_spaces(char *str, int *i)
+{
+	if (str[*i] != ' ' && str[*i] != '\t')
+		return (0);
+	while (str[*i] == ' ' || str[*i] == '\t')
+		(*i)++;
+	return (1);
 }

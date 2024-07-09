@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 00:25:58 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:03:55 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,7 @@
 #include "utils.h"
 #include "expansor.h"
 #include "quotes_utils.h"
-
-int	avoid_spaces(char *str, int *i)
-{
-	if (str[*i] != ' ' && str[*i] != '\t')
-		return (0);
-	while (str[*i] == ' ' || str[*i] == '\t')
-		(*i)++;
-	return (1);
-}
+#include "tokenizer.h"
 
 int	get_raw_word_len(char *str, int i)
 {
@@ -105,9 +97,9 @@ char	*get_word(char *str, int *i, t_context *context, t_expansion *expansion)
 	if (expansion)
 		expansion->quoted = quotes.double_;
 	len = get_word_len(str, *i);
-	word = safe_ft_substr(str, *i, len, handle_syserror);
+	word = safe_ft_substr(str, *i, len, syserr);
 	*i += len;
-	str = safe_ft_strdup("", handle_syserror);
+	str = safe_ft_strdup("", syserr);
 	fill_word(len, word, &str);
 	free(word);
 	if (!quotes.simple)
@@ -122,7 +114,7 @@ char	*get_raw_word(char	*str, int *i)
 
 	avoid_spaces(str, i);
 	len = get_raw_word_len(str, *i);
-	word = safe_ft_substr(str, *i, len, handle_syserror);
+	word = safe_ft_substr(str, *i, len, syserr);
 	*i += len;
 	return (word);
 }

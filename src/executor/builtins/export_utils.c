@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:31:56 by chris             #+#    #+#             */
-/*   Updated: 2024/07/05 13:07:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_key(char *str, int *export_mode)
 		*export_mode = EXPMODE_TRUNC;
 	}
 	key = safe_ft_substr(str, 0,
-			ft_strchr(str, delimiter) - str, handle_syserror);
+			ft_strchr(str, delimiter) - str, syserr);
 	return (key);
 }
 
@@ -43,7 +43,7 @@ void	update_env(char *key, char *value, int export_mode, t_context *context)
 	curr_value = ft_getenv(key, context->global_env.envp);
 	if (export_mode == EXPMODE_TRUNC || !curr_value || !curr_value[0])
 		return (ft_putenv(key, value, context));
-	new_value = safe_ft_strjoin(curr_value, value, handle_syserror);
+	new_value = safe_ft_strjoin(curr_value, value, syserr);
 	ft_putenv(key, new_value, context);
 	free(new_value);
 }
