@@ -32,6 +32,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: build
-      run: make
+      run: make FORCE_PROMPT=1
     - name: test
       run: make mpanic

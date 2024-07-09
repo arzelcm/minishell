@@ -180,7 +180,9 @@ test_clean:
 
 test:
 	bash --version
+ifdef FORCE_PROMPT
 	$(MAKE) --no-print-directory clean all
+endif
 	curl -sLO https://github.com/zstenger93/42_minishell_tester/archive/refs/heads/master.zip
 	unzip master.zip > /dev/null
 	rm -rf master.zip
@@ -193,6 +195,9 @@ test:
 	$(START_TEST)
 
 mpanic:
+ifndef FORCE_PROMPT
+	$(MAKE) --no-print-directory clean all
+endif
 	$(MAKE) --no-print-directory FORCE_PROMPT=1 clean all
 	curl -sLO https://github.com/ChewyToast/mpanic/archive/refs/heads/main.zip
 	unzip main.zip > /dev/null
