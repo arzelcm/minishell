@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:23 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 20:58:41 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/09 23:02:32 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 				handle_error("cd", "OLDPWD not set");
 			*pwd = 1;
 		}
-		else if (access(argv[1], F_OK) == -1)
+		else if (access(dir, F_OK) == -1)
 			return (handle_chdir_err(argv[1]), NULL);
 		return (safe_ft_strdup(dir, handle_syserror));
 	}
