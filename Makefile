@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -O3 -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -O3 #-g -fsanitize=address
 
 #----DIRS----#
 BIN_DIR = bin/
@@ -105,6 +105,10 @@ TEST_INSTALL_TMP = $(TESTDIR)/install_tmp.sh
 TESTER = $(TESTDIR)/tester.sh
 START_TEST = $(TESTER) m
 
+ifdef FORCE_PROMPT
+DEFINES += -DFORCE_PROMPT=1
+endif
+
 #----RULES----#
 all:
 	@$(MAKE) --no-print-directory make_libft
@@ -113,19 +117,19 @@ all:
 ifndef BONUS
 $(NAME): $(READLINE_LIB) $(LIBFT_LIB) $(OBJS) $(MOBJS)
 	@printf "$(BLUE)Linking objects and creating program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(OBJS) $(MOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
+	$(CC) $(CCFLAGS) $(DEFINES) $(OBJS) $(MOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME)$(GREEN) created!!!$(DEF_COLOR)"
 else
 $(NAME): $(LIBFT_LIB) $(OBJS) $(BOBJS)
 	@printf "$(BLUE)Linking objects and creating bonus program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(OBJS) $(BOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
+	$(CC) $(CCFLAGS) $(DEFINES) $(OBJS) $(BOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME) Bonus$(GREEN) created!!!$(DEF_COLOR)"
 endif
 
 $(BIN_DIR)%.o: %.c Makefile
 	@printf "$(CYAN)Compiling: $(PINK)$(notdir $<)...$(DEF_COLOR)\n"
 	@mkdir -p $(BIN_DIR)
-	@$(CC) $(CCFLAGS) $(INCLUDES) -MMD -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DEFINES) $(INCLUDES) -MMD -c $< -o $@
 
 clean: libft_clean test_clean
 	@rm -rf $(BIN_DIR)
@@ -176,7 +180,7 @@ test_clean:
 
 test:
 	bash --version
-	$(MAKE) --no-print-directory test_clean
+	$(MAKE) --no-print-directory clean all
 	curl -sLO https://github.com/zstenger93/42_minishell_tester/archive/refs/heads/master.zip
 	unzip master.zip > /dev/null
 	rm -rf master.zip
@@ -189,6 +193,7 @@ test:
 	$(START_TEST)
 
 mpanic:
+	$(MAKE) --no-print-directory FORCE_PROMPT=1 clean all
 	curl -sLO https://github.com/ChewyToast/mpanic/archive/refs/heads/main.zip
 	unzip main.zip > /dev/null
 	rm -rf main.zip

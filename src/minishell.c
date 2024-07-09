@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:41 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/04 21:33:09 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:43:38 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	infinite_prompt(char *line, t_token *token, t_context *context)
 	{
 		config_echoctl_terminal(OFF);
 		listen_signals(MAIN, MAIN);
-		if (isatty(STDIN_FILENO))
+		if (isatty(STDIN_FILENO) || FORCE_PROMPT)
 			line = readline(PROMPT);
 		else
 			line = get_next_line(STDIN_FILENO, 0);
@@ -56,7 +56,7 @@ void	infinite_prompt(char *line, t_token *token, t_context *context)
 			context->err_code = 1;
 			g_sigval = 0;
 		}
-		if (line == NULL)
+		if (!line)
 			custom_exit(context, 1);
 		else if (*line)
 			use_line(line, token, context);
