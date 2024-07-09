@@ -10,7 +10,7 @@ A shell is a program which executes commands from a string given by a prompt.
 ### The prompt
 A prompt is the concept where your program waits for an input, in this case your prompt will have to wait for `STDIN` to have some `char *` input from the user on the terminal (a `tty`).
 
-You can use your `get_next_line` and implement it to make it work as [The GNU Readline Library](https://tiswww.case.edu/php/chet/readline/rltop.html) or you can simply include this lib.
+You can use your `get_next_line` and implement it to make it work as [The GNU Readline Library](https://tiswww.case.edu/php/chet/readline/rltop.html) or you can simply include this lib for Mac or use it for Linux.
 
 #### How to include *The GNU Readline Library*
 You could simply [download the readline-master.tar.gz](http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz), compile it and link it to your binary. But this is not the correct way to do it. Your project should only contain code made by your self not third-party code. Given that principle, we'll make our project download it, descompress it, compile it and link it as following.
