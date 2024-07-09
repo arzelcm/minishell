@@ -11,8 +11,16 @@ jobs:
     - uses: alexandregv/norminette-action@v3
       with:
         flags: '.'
-  blank-tests:
+  blank-tests-1-2:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build
+      run: make
+    - name: test
+      run: make testç
+  blank-tests-2-2:
+    runs-on: mac-latest
     steps:
     - uses: actions/checkout@v4
     - name: build
