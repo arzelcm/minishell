@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 19:06:31 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 04:06:42 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static void	execute_by_path(char **args, char **envp)
 
 	path = ft_getenv("PATH", envp);
 	if (!path)
-		path = DEF_PATH;
+	{
+		handle_error(args[0], NOFILEDIR);
+		exit(NOFDIR_ERR);
+	}
 	paths = safe_ft_split(path, ':', handle_syserror);
 	bin = args[0];
 	if (ft_strchr(bin, '/'))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:00 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:57:01 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 04:03:02 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define EXECUTE_COMMAND_H
 
 # include "pdata_helpers.h"
-
-# define DEF_PATH "/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 void	execute_command(t_pdata *pdata, t_token *token, t_context *context);
 
