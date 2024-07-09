@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:49 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:36:51 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/10 00:01:22 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_directory(char *path)
 	struct stat	file_stats;
 
 	if (stat(path, &file_stats) != 0)
-		handle_syserror(EACCES);
+		return (0);
 	return (S_ISDIR(file_stats.st_mode));
 }
 
