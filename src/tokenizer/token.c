@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 01:40:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:05:33 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "safe_utils.h"
 #include "tokenizer_utils.h"
 #include "utils.h"
+#include "words.h"
 
 void	free_token(t_token *token)
 {
@@ -45,43 +46,43 @@ t_token	*new_token(t_token_type type)
 	return (token);
 }
 
-// void	print_token(t_token *token)
-// {
-// 	t_redirection	*aux;
-// 	int				i;
+void	print_token(t_token *token)
+{
+	t_redirection	*aux;
+	int				i;
 
-// 	ft_printf("token %p\n", token);
-// 	if (!token)
-// 		return ;
-// 	ft_printf("type: %i\n", token->type);
-// 	ft_printf("argc: %i\n", token->argc);
-// 	ft_printf("expanded: %i\n", token->expanded);
-// 	ft_printf("args: ");
-// 	i = 0;
-// 	while (token->args && token->args[i])
-// 	{
-// 		ft_printf("%s, ", token->args[i]);
-// 		i++;
-// 	}
-// 	ft_printf("\nredirections: ");
-// 	aux = token->redirections;
-// 	while (aux)
-// 	{
-// 		ft_printf("%s(%i), ", aux->path, aux->mode);
-// 		aux = aux->next;
-// 	}
-// 	ft_printf("\nhere_docs: %i\n", token->here_docs);
-// 	ft_printf("tokens: %i\n", token->tokens.amount);
-// 	t_token *aux_tok = token->tokens.token;
-// 	i = 0;
-// 	while (aux_tok)
-// 	{
-// 		ft_printf("\nChild %i\n", i);
-// 		print_token(aux_tok);
-// 		i++;
-// 		aux_tok = aux_tok->next;
-// 	}
-// }
+	ft_printf("token %p\n", token);
+	if (!token)
+		return ;
+	ft_printf("type: %i\n", token->type);
+	ft_printf("argc: %i\n", token->argc);
+	ft_printf("expanded: %i\n", token->expanded);
+	ft_printf("args: ");
+	i = 0;
+	while (token->args && token->args[i])
+	{
+		ft_printf("%s, ", token->args[i]);
+		i++;
+	}
+	ft_printf("\nredirections: ");
+	aux = token->redirections;
+	while (aux)
+	{
+		ft_printf("%s(%i), ", aux->path, aux->mode);
+		aux = aux->next;
+	}
+	ft_printf("\nhere_docs: %i\n", token->here_docs);
+	ft_printf("tokens: %i\n", token->tokens.amount);
+	t_token *aux_tok = token->tokens.token;
+	i = 0;
+	while (aux_tok)
+	{
+		ft_printf("\nChild %i\n", i);
+		print_token(aux_tok);
+		i++;
+		aux_tok = aux_tok->next;
+	}
+}
 
 void	push_token(t_tokens *tokens, t_token *token)
 {
@@ -120,55 +121,17 @@ void	split_push(char ***new_args, char *word, int *argc)
 
 void	expand_args(t_token *token, t_context *context)
 {
-	t_expansion	expansion;
-	char		**new_args;
-	char		*word;
-	int			i;
-	int			j;
-	int			k;
-	int			create_new_arg;
+	t_words		words;
 
 	if (token->expanded)
 		return ;
-	new_args = NULL;
+	// print_token(token);
+	words.body = NULL;
 	token->argc = 0;
-	i = 0;
-	while (token->args && token->args[i])
-	{
-		j = 0;
-		create_new_arg = 1;
-		while (token->args[i][j])
-		{
-			word = get_word(token->args[i], &j, context, &expansion);
-			if (expansion.expanded && !expansion.quoted && !*word)
-			{
-				free(word);
-				continue ;
-			}
-			k = 0;
-			while (k < (int) ft_strlen(word) || k == 0)
-			{
-				if (create_new_arg)
-				{
-					push_arg(&new_args,
-						safe_ft_strdup("", handle_syserror), &token->argc);
-					create_new_arg = 0;
-				}
-				if (expansion.expanded && !expansion.quoted
-					&& ft_stroccurrences(" \t", word[k]))
-				{
-					create_new_arg = !new_args
-						|| ft_strlen(new_args[token->argc - 1]) > 0;
-					avoid_spaces(word, &k);
-				}
-				else
-					push_char(new_args + token->argc - 1, word[k++]);
-			}
-			free(word);
-		}
-		i++;
-	}
+	words.count = &token->argc;
+	set_words(&words, token->args, context);
 	token->expanded = 1;
 	free_args(token->args);
-	token->args = new_args;
+	token->args = words.body;
+	// print_token(token);
 }

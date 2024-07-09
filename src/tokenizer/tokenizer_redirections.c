@@ -6,15 +6,17 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:27 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:58:37 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "utils.h"
 #include "token.h"
+#include "tokenizer.h"
 #include "tokenizer_utils.h"
 #include "safe_utils.h"
+#include "words.h"
 #include <stdlib.h>
 
 void	free_redirections(t_redirection *list)
@@ -88,25 +90,33 @@ int	set_redirection(char *line, int *i, t_token *token)
 
 char	*expand_redirect(t_redirection *redirection, t_context *context)
 {
-	t_expansion	expansion;
+	t_words		words;
+	char		**src;
 	char		*word;
 	int			i;
+	int			count;
 
 	i = 0;
+	src = ft_calloc(1, sizeof(char **));
+	push_arg(&src, redirection->path, &i);
+	i = 0;
+	words.body = NULL;
+	count = 0;
+	words.count = &count;
 	avoid_spaces(redirection->path, &i);
+	set_words(&words, src, context);
+	free(src);
 	if (redirection->mode == HERE_DOC)
 		word = get_raw_word(redirection->path, &i);
-	else
-		word = get_word(redirection->path, &i, context, &expansion);
-	if (expansion.expanded && !expansion.quoted
-		&& (ft_stroccurrences_set(word, " \t") || !*word))
+	else if (*words.count != 1)
 	{
 		handle_error(redirection->path, "ambiguous redirect");
 		context->err_code = EXIT_FAILURE;
-		free(word);
+		free_matrix(words.body);
 		return (NULL);
 	}
-	free(redirection->path);
+	else
+		word = words.body[0];
 	redirection->path = word;
 	return (redirection->path);
 }
