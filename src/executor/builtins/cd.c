@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:23 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/03 18:35:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:58:41 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minishell.h"
 #include "libft.h"
 #include "context.h"
+#include "environment_helper.h"
 #include "utils.h"
 
 static void	handle_chdir_err(char *value)
@@ -31,6 +32,8 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 	if (argc > 1)
 	{
 		dir = argv[1];
+		if (!dir[0])
+			dir = ".";
 		if (ft_strcmp(dir, "-") == EQUAL_STRINGS)
 		{
 			dir = ft_getenv("OLDPWD", context->global_env.envp);
@@ -38,6 +41,8 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 				handle_error("cd", "OLDPWD not set");
 			*pwd = 1;
 		}
+		else if (access(argv[1], F_OK) == -1)
+			return (handle_chdir_err(argv[1]), NULL);
 		return (safe_ft_strdup(dir, handle_syserror));
 	}
 	dir = ft_getenv("HOME", context->global_env.envp);
@@ -46,9 +51,17 @@ static char	*get_dir(int argc, char **argv, t_context *context, int *pwd)
 	return (safe_ft_strdup(dir, handle_syserror));
 }
 
-int	ft_cd(int argc, char **argv, t_context *context)
+static void	update_var(char *var, t_context *context)
 {
 	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	ft_putenv(var, cwd, context);
+	free(cwd);
+}
+
+int	ft_cd(int argc, char **argv, t_context *context)
+{
 	char	*dir;
 	int		pwd;
 
@@ -56,20 +69,19 @@ int	ft_cd(int argc, char **argv, t_context *context)
 	dir = get_dir(argc, argv, context, &pwd);
 	if (!dir)
 		return (EXIT_FAILURE);
-	cwd = getcwd(NULL, 0);
-	ft_putenv("OLDPWD", cwd, context);
-	free(cwd);
+	ft_putenv("OLDPWD", "", context);
+	if (ft_getenvline("PWD", context->global_env.envp))
+		ft_putenv("OLDPWD", ft_getenv("PWD", context->global_env.envp), context);
+	else if (ft_getenvline("PWD", context->local_env.envp))
+		update_var("OLDPWD", context);
 	if (chdir(dir) == -1)
-	{
-		handle_chdir_err(dir);
-		free(dir);
-		return (EXIT_FAILURE);
-	}
+		return (handle_chdir_err(dir), free(dir), EXIT_FAILURE);
 	free(dir);
-	cwd = getcwd(NULL, 0);
-	ft_putenv("PWD", cwd, context);
+	if (!ft_getenvline("PWD", context->global_env.envp)
+		&& !ft_getenvline("PWD", context->local_env.envp))
+		return (EXIT_SUCCESS);
+	update_var("PWD", context);
 	if (pwd)
 		ft_printf("%s\n", ft_getenv("PWD", context->global_env.envp));
-	free(cwd);
 	return (EXIT_SUCCESS);
 }
