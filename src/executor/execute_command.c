@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 04:06:42 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/09 13:24:26 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 	if (!cmd[0] || ft_strcmp(cmd, ".") == EQUAL_STRINGS
 		|| ft_strcmp(cmd, "..") == EQUAL_STRINGS)
 		return (NULL);
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		tmp = full_cmd_path;
 		full_cmd_path = join_full_path(paths[i], cmd);
@@ -43,7 +43,8 @@ static char	*get_full_cmd_path(char *cmd, char **paths)
 			return (full_cmd_path);
 		i++;
 	}
-	free(full_cmd_path);
+	if (full_cmd_path)
+		free(full_cmd_path);
 	return (NULL);
 }
 
@@ -54,20 +55,18 @@ static void	execute_by_path(char **args, char **envp)
 	char	**paths;
 
 	path = ft_getenv("PATH", envp);
-	if (!path)
-	{
-		handle_error(args[0], NOFILEDIR);
-		exit(NOFDIR_ERR);
-	}
 	paths = safe_ft_split(path, ':', handle_syserror);
 	bin = args[0];
 	if (ft_strchr(bin, '/'))
 		check_bin(bin);
-	else
+	else if (path)
 		bin = get_full_cmd_path(bin, paths);
-	if (!bin)
+	if (!bin || access(bin, F_OK) == -1)
 	{
-		handle_error(args[0], CMDNOTFND);
+		if (path)
+			handle_error(args[0], CMDNOTFND);
+		else
+			handle_error(args[0], NOFILEDIR);
 		exit(NOFDIR_ERR);
 	}
 	execve(bin, args, envp);
