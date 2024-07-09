@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 00:30:59 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/10 01:05:31 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	get_word_len(char *str, int i)
 	if (str[i] == '$')
 		i++;
 	if (i > 0 && ((str[i] == '$' && str[i - 1] == '$')
-		|| (str[i] == '?' && str[i - 1] == '$')))
+			|| (str[i] == '?' && str[i - 1] == '$')))
 		return (2);
 	while (str[i] != '\0' && str[i] != '$')
 	{
