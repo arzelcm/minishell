@@ -6,6 +6,7 @@ bin
 *.a
 log
 a.out
+out
 
 
 .vscode
@@ -18,6 +19,8 @@ test
 tmp*
 $HOME
 $USER*
+
+bash*
 
 # testers
 minishell_tester/
