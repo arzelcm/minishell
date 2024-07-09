@@ -196,9 +196,8 @@ endif
 
 mpanic:
 ifndef FORCE_PROMPT
-	$(MAKE) --no-print-directory clean all
-endif
 	$(MAKE) --no-print-directory FORCE_PROMPT=1 clean all
+endif
 	curl -sLO https://github.com/ChewyToast/mpanic/archive/refs/heads/main.zip
 	unzip main.zip > /dev/null
 	rm -rf main.zip
