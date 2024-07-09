@@ -20,7 +20,7 @@ jobs:
     - name: test
       run: make test
   blank-tests-2-2:
-    runs-on: mac-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - name: build
