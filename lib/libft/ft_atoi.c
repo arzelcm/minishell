@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 09:04:02 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 17:37:33 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:37:54 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ long	ft_atol(const char *str)
 	int		is_negative;
 	int		symbols_count;
 
+	if (!str || !*str)
+		return (0);
 	symbols_count = 0;
 	num = 0;
 	i = 0;

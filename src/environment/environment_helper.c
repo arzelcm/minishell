@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 20:23:38 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:56:22 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,36 @@
 #include "safe_libft.h"
 #include "utils.h"
 #include "environment_helper.h"
+#include <limits.h>
 
 void	free_environment(t_env *env)
 {
 	free_matrix(env->envp);
 }
 
-// TODO: 12a is not a num!!!!! resets to 1
 void	increase_shlevel(char *key, t_context *context)
 {
-	char	*value;
-	char	*new_val;
-	int		num;
+	char			*value;
+	char			*new_val;
+	int				num;
+	int				is_num;
 
 	value = ft_getenv(key, context->global_env.envp);
-	num = ft_atoi(value) + 1;
+	num = ((int) ft_atol(value)) + 1;
 	new_val = safe_itoa(num);
-	if (ft_strcmp(SHLVL_MAX, value) == EQUAL_STRINGS)
-	{
-		free(new_val);
+	is_num = ft_isnum(value);
+	if (value && ft_strcmp(SHLVL_MAX, new_val) == EQUAL_STRINGS)
 		new_val = safe_ft_strdup("", handle_syserror);
-	}
-	else if (ft_strlen(new_val) > ft_strlen(SHLVL_MAX))
+	else if (*new_val == '-')
+		new_val = safe_ft_strdup("0", handle_syserror);
+	else if (!value || !is_num || ft_strlen(new_val) > SHLVL_MAX_LEN)
 	{
-		if (num > 0)
+		if (value && is_num && num > 0)
 			ft_printff(STDERR_FILENO,
 				"%s: warning: shell level (%s) too high, resetting to 1\n",
 				PROGRAM_NAME, new_val);
 		new_val = safe_ft_strdup("1", handle_syserror);
 	}
-	else if (num < 0)
-		new_val = safe_ft_strdup("0", handle_syserror);
 	ft_putenv(key, new_val, context);
 	free(new_val);
 }
