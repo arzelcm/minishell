@@ -34,4 +34,4 @@ jobs:
     - name: build
       run: make FORCE_PROMPT=1
     - name: test
-      run: make mpanic
+      run: make FORCE_PROMPT=1 mpanic
