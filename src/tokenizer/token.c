@@ -141,7 +141,10 @@ void	expand_args(t_token *token, t_context *context)
 		{
 			word = get_word(token->args[i], &j, context, &expansion);
 			if (expansion.expanded && !expansion.quoted && !*word)
+			{
+				free(word);
 				continue ;
+			}
 			k = 0;
 			while (k < (int) ft_strlen(word) || k == 0)
 			{
