@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 00:03:55 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:30:59 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	get_word_len(char *str, int i)
 	is_quoted = (str[i] == '\'' || str[i] == '"');
 	if (str[i] == '$')
 		i++;
-	if (i > 0 && str[i] == '$' && str[i - 1] == '$')
+	if (i > 0 && ((str[i] == '$' && str[i - 1] == '$')
+		|| (str[i] == '?' && str[i - 1] == '$')))
 		return (2);
 	while (str[i] != '\0' && str[i] != '$')
 	{
