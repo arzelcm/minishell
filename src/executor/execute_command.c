@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 13:01:41 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/09 13:24:26 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	execute_by_path(char **args, char **envp)
 	bin = args[0];
 	if (ft_strchr(bin, '/'))
 		check_bin(bin);
-	else
+	else if (path)
 		bin = get_full_cmd_path(bin, paths);
-	if (!bin)
+	if (!bin || access(bin, F_OK) == -1)
 	{
 		if (path)
 			handle_error(args[0], CMDNOTFND);
