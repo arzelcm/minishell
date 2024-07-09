@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -O3 -g -fsanitize=address
 
 #----DIRS----#
 BIN_DIR = bin/
@@ -195,6 +195,12 @@ mpanic:
 	cd mpanic-main; bash mpanic.sh;
 	cd mpanic-main; bash mpanic.sh
 
+install_bash:
+	curl -LO https://ftp.gnu.org/gnu/bash/bash-3.2.57.tar.gz
+	tar -xpf bash-3.2.57.tar.gz;
+	cd bash-3.2.57; ./configure --build=aarch64-unknown-linux-gnu; make; make install;
+	rm -rf bash-3.2.57.tar.gz bash-3.2.57
+
 .PHONY: all \
 		clean \
 		fclean \
@@ -208,6 +214,7 @@ mpanic:
 		test \
 		panic \
 		test_clean
+		install_bash
 
 -include $(DEPS)
 -include $(MDEPS)
