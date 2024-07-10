@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:41 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 15:43:38 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:04:30 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "signals.h"
-#include "readline.h"
-#include "history.h"
+#ifndef LINUX
+# include "readline.h"
+# include "history.h"
+#else
+# include <readline/readline.h>
+# include <readline/history.h>
+#endif
 #include "expansor.h"
 #include "tokenizer.h"
 #include "environment.h"

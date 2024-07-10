@@ -15,6 +15,41 @@ CYAN = \033[1;36m
 CC = cc
 CCFLAGS = -Wall -Werror -Wextra -O3# -g -fsanitize=address
 
+#----OS COMPATIBILITY----#
+ifeq ($(OS),Windows_NT)
+    CCFLAGS += -D WIN32
+    ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
+        CCFLAGS += -D AMD64
+    else
+        ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+            CCFLAGS += -D AMD64
+        endif
+        ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+            CCFLAGS += -D IA32
+        endif
+    endif
+else
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Linux)
+        CCFLAGS += -D LINUX
+		export LINUX=1
+    endif
+    ifeq ($(UNAME_S),Darwin)
+        CCFLAGS += -D OSX
+		export DARWIN=1
+    endif
+    UNAME_P := $(shell uname -p)
+    ifeq ($(UNAME_P),x86_64)
+        CCFLAGS += -D AMD64
+    endif
+    ifneq ($(filter %86,$(UNAME_P)),)
+        CCFLAGS += -D IA32
+    endif
+    ifneq ($(filter arm%,$(UNAME_P)),)
+        CCFLAGS += -D ARM
+    endif
+endif
+
 #----DIRS----#
 BIN_DIR = bin/
 INC_DIR = inc/
@@ -28,8 +63,11 @@ INCLUDES += -I$(LIBFT_DIR)
 
 #----READLINE----#
 READLINE_DIR = lib/readline
+ifndef LINUX
 READLINE_LIB = $(READLINE_DIR)/libreadline.a
-LIBS += -L$(READLINE_DIR) -lreadline -lhistory -ltermcap
+LIBS += -L$(READLINE_DIR)
+endif
+LIBS += -lreadline -lhistory -ltermcap
 INCLUDES += -Ilib -I$(READLINE_DIR)
 
 #----SHARED----#
@@ -80,13 +118,6 @@ BDIR =	src/bonus
 BOBJS = $(BSRCS:%.c=$(BIN_DIR)%.o)
 BDEPS = $(BOBJS:%.o=%.d)
 
-#----OS COMPATIBILITY----#
-ifneq ($(OS),Windows_NT)
-	UNAME_S = $(shell uname -s)
-else
-	UNAME_S = Windows
-endif
-
 #----MACROS----#
 export GNL_BUFFER_SIZE := 50000
 
@@ -110,7 +141,13 @@ ifdef FORCE_PROMPT
 DEFINES += -DFORCE_PROMPT=1
 endif
 
-#----RULES----#
+
+
+
+#----- R U L E S -----#
+
+
+
 all:
 	@$(MAKE) --no-print-directory make_libft
 	@$(MAKE) --no-print-directory $(NAME)
@@ -135,9 +172,8 @@ $(BIN_DIR)%.o: %.c Makefile
 clean: libft_clean test_clean
 	@rm -rf $(BIN_DIR)
 	@echo "$(RED)bin/ deleted$(DEF_COLOR)"
-	-$(MAKE) --no-print-directory -C $(READLINE_DIR) clean >>$(LOG) 2>&1
 
-fclean: libft_fclean clean
+fclean: libft_fclean readline_clean clean
 	@rm -rf $(NAME) $(READLINE_DIR) log
 	@echo "$(RED)Executable deleted$(DEF_COLOR)\n"
 
@@ -160,12 +196,20 @@ libft_fclean:
 	@echo "$(RED)Cleaning $(PINK)Libft$(RED)...$(DEF_COLOR)"
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 
+readline_clean:
+	-$(MAKE) --no-print-directory -C $(READLINE_DIR) clean >>$(LOG) 2>&1
+
 $(READLINE_LIB): | $(READLINE_DIR)
+ifndef LINUX
 	printf "$(BLUE)Compiling and linking library...$(DEF_COLOR)\n"
 	$(MAKE) -s --no-print-directory -C $(READLINE_DIR) >>$(LOG) 2>&1
 	printf "$(GREEN)\r\033[2K[✓] $(PINK)readline$(GREEN) created!!!$(DEF_COLOR)\n\n"
+else
+	$(MAKE) --no-print-directory readline_clean
+endif
 
 $(READLINE_DIR):
+ifndef Linux
 	printf "$(CYAN)Downloading: $(PINK)readline...$(DEF_COLOR)\n"
 	cd lib; curl -s -O http://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz
 	rm -rf $(READLINE_DIR)
@@ -174,6 +218,7 @@ $(READLINE_DIR):
 	rm -rf lib/readline-master.tar.gz
 	printf "$(CYAN)Configuring: $(PINK)readline...$(DEF_COLOR)\n"
 	cd $(READLINE_DIR); bash ./configure >>$(LOG) 2>&1
+endif
 
 test_clean:
 	@rm -rf	$(TESTDIR) $(TESTREPO)

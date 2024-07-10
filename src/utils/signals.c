@@ -6,14 +6,19 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:21 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:59:22 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:08:56 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#ifndef LINUX
+# include "readline.h"
+#else
+# include <readline/readline.h>
+#endif
 #include "signals.h"
 #include "libft.h"
 #include "context.h"
-#include "readline.h"
 #include <unistd.h>
 #include <termios.h>
 #include <signal.h>

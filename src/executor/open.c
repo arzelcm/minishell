@@ -12,7 +12,11 @@
 
 #include <sys/wait.h>
 #include "libft.h"
-#include "readline.h"
+#ifndef LINUX
+# include "readline.h"
+#else
+# include <readline/readline.h>
+#endif
 #include "context.h"
 #include "signals.h"
 #include "open.h"
