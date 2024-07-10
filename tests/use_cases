@@ -1,107 +1,3 @@
-#!/bin/bash
-# MINISHELL-TESTER
-
-RESET="\033[0m"
-BLACK="\033[30m"
-RED="\033[31m"
-GREEN="\033[32m"
-YELLOW="\033[33m"
-BLUE="\033[34m"
-MAGENTA="\033[35m"
-CYAN="\033[36m"
-WHITE="\033[37m"
-YELLOW="\033[1;33m"
-
-BOLDBLACK="\033[1m\033[30m"
-BOLDRED="\033[1m\033[31m"
-BOLDGREEN="\033[1m\033[32m"
-BOLDYELLOW="\033[1m\033[33m"
-BOLDBLUE="\033[1m\033[34m"
-BOLDMAGENTA="\033[1m\033[35m"
-BOLDCYAN="\033[1m\033[36m"
-BOLDWHITE="\033[1m\033[37m"
-
-PASSED=0
-WRONG=0
-TOTAL=0
-IS_CORRECT=0
-
-function exec_test()
-{
-	IS_CORRECT=0
-	$(echo "$@" > testin)
-	TEST1=$(< testin ./minishell 2>1)
-	ES_1=$?
-	TEST2=$(< testin bash 2>1)
-	ES_2=$?
-	if [ "$TEST1" == "$TEST2" ] && [ "$ES_1" == "$ES_2" ]; then
-		((PASSED++))
-		IS_CORRECT=1
-	else
-		((WRONG++))
-		printf $CYAN"$@$RESET\n"
-	fi
-	if [ "$TEST1" != "$TEST2" ]; then
-		printf $BOLDRED"Your output : \n%.20s\n$BOLDRED$TEST1\n%.20s$RESET\n" "-----------------------------------------" "-----------------------------------------"
-		printf $BOLDGREEN"Expected output : \n%.20s\n$BOLDGREEN$TEST2\n%.20s$RESET\n\n" "-----------------------------------------" "-----------------------------------------"
-	fi
-	if [ "$ES_1" != "$ES_2" ]; then
-		printf $BOLDRED"Your exit status : $BOLDRED$ES_1$RESET\n"
-		printf $BOLDGREEN"Expected exit status : $BOLDGREEN$ES_2$RESET\n\n"
-	fi
-	if [ "$IS_CORRECT" == "0" ]; then
-		printf "\n\n"
-	fi
-	((TOTAL++))
-	sleep 0.1
-}
-
-function exec_test_mult()
-{
-	IS_CORRECT=0
-	$(echo "$ARG1" > testin)
-	TEST1=$(< testin ./minishell 2>1)
-	ES_1=$?
-	$(echo "$ARG2" > testin)
-	TEST2=$(< testin bash 2>1)
-	ES_2=$?
-	if [ "$TEST1" == "$TEST2" ] && [ "$ES_1" == "$ES_2" ]; then
-		((PASSED++))
-		IS_CORRECT=1
-	else
-		((WRONG++))
-		echo
-		printf $BOLDRED"$ARG1$RESET\n"
-		printf $BOLDGREEN"$ARG2$RESET\n"
-		echo
-	fi
-	if [ "$TEST1" != "$TEST2" ]; then
-		printf $BOLDRED"Your output : \n%.20s\n$BOLDRED$TEST1\n%.20s$RESET\n" "-----------------------------------------" "-----------------------------------------"
-		printf $BOLDGREEN"Expected output : \n%.20s\n$BOLDGREEN$TEST2\n%.20s$RESET\n\n" "-----------------------------------------" "-----------------------------------------"
-	fi
-	if [ "$ES_1" != "$ES_2" ]; then
-		printf $BOLDRED"Your exit status : $BOLDRED$ES_1$RESET\n"
-		printf $BOLDGREEN"Expected exit status : $BOLDGREEN$ES_2$RESET\n\n"
-	fi
-	if [ "$IS_CORRECT" == "0" ]; then
-		printf "\n\n"
-	fi
-	((TOTAL++))
-	sleep 0.1
-}
-
-echo
-bash --version
-echo
-printf "$BOLDMAGENTA __  __ _____ _   _ _____  _____ _    _ ______ _      _      \n"
-printf "|  \/  |_   _| \ | |_   _|/ ____| |  | |  ____| |    | |     \n"
-printf "| \  / | | | |  \| | | | | (___ | |__| | |__  | |    | |     \n"
-printf "| |\/| | | | | . \` | | |  \___ \|  __  |  __| | |    | |     \n"
-printf "| |  | |_| |_| |\  |_| |_ ____) | |  | | |____| |____| |____ \n"
-printf "|_|  |_|_____|_| \_|_____|_____/|_|  |_|______|______|______|\n$RESET"
-echo
-echo
-
 printf $YELLOW"ECHO\n\n$RESET"
 exec_test 'echo test tout'
 exec_test 'echo test      tout'
@@ -137,25 +33,96 @@ exec_test 'cd /Users
 pwd'
 exec_test 'cd 
 pwd'
-# exec_test 'mkdir test_dir
-# cd test_dir
-# rm -rf ../test_dir
-# cd .
-# pwd
-# cd .
-# pwd
-# cd ..
-# pwd'
+exec_test 'mkdir test_dir
+cd test_dir
+rm -rf ../test_dir
+cd .
+pwd
+cd .
+pwd
+cd ..
+pwd'
+exec_test 'pwd'
+exec_test 'cd
+pwd'
+exec_test 'pwd
+cd ""
+pwd'
+exec_test 'cd " "'
+exec_test "cd ' '"
+exec_test 'cd "" ""'
+exec_test 'cd / fndjanf'
+exec_test 'cd /.'
+exec_test 'cd //'
+exec_test "cd ' / '"
+exec_test 'pwd'
+exec_test 'pwd hola'
+exec_test 'pwd hola adios'
+exec_test 'touch testingfile
+cd testingfile
+chmod 000 testingfile
+cd testingfile
+cd testingfile/fadjkfjdakjfadkj
+chmod 777 testingfile
+rm -rf testingfile'
+exec_test 'cd $HOME
+cd fjakjfka'
+exec_test 'cd ..
+pwd'
+exec_test 'cd $HOME
+pwd'
+exec_test 'cd .
+env | grep PWD'
+exec_test 'cd
+env | grep PWD'
+exec_test 'mkdir -p testingdirtest
+chmod 000 testingdirtest
+cd testingdirtest
+chmod 777 testingdirtest
+rm -rf testingdirtest'
+exec_test 'cd 255chars255char255chars255char255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars'
+exec_test 'cd 255chars255chars255chars255char255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars'
 
 
-printf $YELLOW"PIPE\n\n$RESET"
-exec_test 'cat tests/lorem.txt | grep arcu | cat -e'
-exec_test 'echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e'
-exec_test 'cat /dev/random | head -c 100 | wc -c'
-exec_test 'ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls'
-exec_test 'ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls'
-
-printf $YELLOW"EXPANSIONS\n\n$RESET"
+printf $YELLOW"EXPORT | UNSET | VARS\n\n$RESET"
+exec_test 'echo hi
+echo $?'
+exec_test 'echo $'
+exec_test 'echo hi$'
+exec_test 'echo "$ '
+exec_test 'echo $/'
+exec_test 'echo $"HOME"'
+exec_test 'echo $"$HOME"'
+exec_test 'echo $USER'
+exec_test 'echo $fakdfkdj'
+exec_test 'echo $USER$PATH$PWD'
+exec_test 'echo "$USER$PATH$PWD"'
+exec_test 'echo $"$USER$PATH$PWD"'
+exec_test 'echo $USER"$PATH"$PWD$"$USER"'
+exec_test 'echo $NFKAKFj'
+exec_test 'export TMP
+echo $TMP
+$TMP'
+exec_test '$KFJKEDJ $KJDKFJ'
+exec_test '$JFDKJ'
+exec_test 'export ecc=echo
+$ecc'
+exec_test 'export TMPENVVAR="         echo"
+$TMPENVVAR'
+exec_test 'export TMPENVVAR="         EcHO      hi"
+$TMPENVVAR'
+exec_test 'export TMPENVVAR="-n"
+echo $TMPENVVAR hi'
+exec_test 'export TMPENVVAR="-n -n"
+echo $TMPENVVAR $TMPENVVAR hi'
+exec_test 'export A="foo " B="  bar" C="  baz   "
+echo $A"$B"$C"A"$B"$C"
+echo $A"$B"$C"A"$B"$C"
+echo $A"$B"$C"A"$B"$C"
+echo $A
+echo $A$B
+echo $A$B$C
+echo $A$B$C$AA'
 exec_test 'echo $TEST'
 exec_test 'echo "$TEST"'
 exec_test "echo '$TEST'"
@@ -298,6 +265,7 @@ exec_test 'export TEST="ls       -l     - a"
 echo $TEST 
 $LS
 ' $ENV_SHOW
+exec_test ''
 
 
 printf $YELLOW"PIPE\n\n$RESET"
@@ -348,46 +316,46 @@ exec_test 'export x="a b"
 echo "$x"$x"$x"
 cat "$x"$x"$x"'
 exec_test 'export x="a b"
-echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"
-cat echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"'
+echo ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"
+cat ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"'
 exec_test 'export x="  ab  "
 echo "$x"$x"$x"
 cat "$x"$x"$x"'
 exec_test 'export x="  ab  "
-echo echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"
-cat echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"'
+echo ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"
+cat ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"'
 exec_test 'export x="  a  b  "
 echo "$x"$x"$x"
 cat "$x"$x"$x"'
 exec_test 'export x="  a  b  "
-echo echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"
-cat echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"'
+echo ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"
+cat ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"'
 exec_test 'export x=" a    b"
 echo "$x"$x"$x"
 cat "$x"$x"$x"'
 exec_test 'export x=" a    b"
-echo echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"
-cat echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"'
+echo ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"
+cat ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"'
 exec_test 'export x="a  b   "
 echo "$x"$x"$x"
 cat "$x"$x"$x"'
 exec_test 'export x="a  b   "
-echo echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"
-cat echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"'
+echo ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"
+cat ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"'
 exec_test 'export x=" ab ab  a b  "
 echo "$x"$x"$x"
 cat "$x"$x"$x"'
 exec_test 'export x=" ab ab  a b  "
-echo echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"
-cat echo ""1"x"$x $x$x"$x$x" $x$x"$x" "$x"$x"$x"'
+echo ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"
+cat ""1"x"$x '' '$x$x'"$x''$x"'$$' $x$x"$x"$$ $$"$x"$x$$"$x"'
 exec_test 'export x="a b   c"
-export z=""
+export z="""
 echo "$z$x$z"$z$x$z"$z$x$z"$z
 cat "$z$x$z"$z$x$z"$z$x$z"$z'
 exec_test 'export x="a b   c"
-export y=""
-echo "$y"1"x"$x ""$y $y$y$y$y $y$y$y$y $y$y$y$y "$x$x""$x""$x""" $x$x"$x" $y"$x"$x"$x"$y
-cat "$y"1"x"$x ""$y $y$y$y$y $y$y$y$y $y$y$y$y "$x$x""$x""$x""" $x$x"$x" $y"$x"$x"$x"$y'
+export y="""
+echo "$y"1"x"$x ''$y $y$y$y$y $y$y$y$y $y$y$y$y '$x$x'"$x''$x"'$$' $x$x"$x"$$ $y$$"$x"$x$$"$x"$y
+cat "$y"1"x"$x ''$y $y$y$y$y $y$y$y$y $y$y$y$y '$x$x'"$x''$x"'$$' $x$x"$x"$$ $y$$"$x"$x$$"$x"$y'
 exec_test "echo \"\" ''
 cat \"\" ''"
 
@@ -419,41 +387,3 @@ export z="fi"
 export zz="le"
 echo "testing..." > "$x"$y "$z"
 rm -rf tesssssst'
-
-
-function testshlvl()
-{
-	echo 'echo $SHLVL' > tmptest
-	ARG1="export SHLVL=$@
-	./minishell < tmptest | tr -s '[:blank:]'"
-	ARG2="export SHLVL=$@
-	bash < tmptest | tr -s '[:blank:]'"
-	exec_test_mult $ARG1 $ARG2
-}
-testshlvl '-1'
-testshlvl '-999'
-testshlvl '-9'
-testshlvl ''
-testshlvl 'aaaa'
-testshlvl '-1asdasdads'
-testshlvl 'a-1'
-testshlvl "1000"
-testshlvl "123992138192381293819238129381293812391823192381923819238192381923819283192839123898"
-testshlvl "-123992138192381293819238129381293812391823192381923819238192381923819283192839123898"
-testshlvl "999"
-
-
-echo
-if [ "$PASSED" == "$TOTAL" ]; then
-	printf "🧊🐧🧊 Pingu is here !!!!!\n\n✅ YOU MADE IT! $BOLDGREEN($TOTAL / $TOTAL) $RESET\n"
-else
-	printf $BOLDRED"Wrong: $WRONG$RESET$BOLDGREEN  Passed: $PASSED$RESET  Total: $TOTAL"
-fi
-echo
-echo
-
-
-rm lol ls test tmptest 1
-
-
-exit $WRONG
