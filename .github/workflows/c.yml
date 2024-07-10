@@ -11,15 +11,17 @@ jobs:
     - uses: alexandregv/norminette-action@v3
       with:
         flags: '.'
-  ubuntu:
+  linux-tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: build
       run: make
-    - name: test
+    - name: amethyst-test
+      run: bash tests/test2.sh
+    - name: blank-test
       run: make test
-  macos:
+  macos-tests:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
@@ -29,7 +31,5 @@ jobs:
       run: bash tests/test2.sh
     - name: blank-test
       run: make test
-    - name: build FORCE_PROMPT
-      run: make FORCE_PROMPT=1
     - name: mpanic-test
-      run: make FORCE_PROMPT=1 mpanic
+      run: make clean mpanic
