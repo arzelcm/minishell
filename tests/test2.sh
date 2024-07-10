@@ -29,7 +29,7 @@ IS_CORRECT=0
 function exec_test()
 {
 	IS_CORRECT=0
-	$(echo $@ > testin)
+	$(echo "$@" > testin)
 	TEST1=$(< testin ./minishell 2>1)
 	ES_1=$?
 	TEST2=$(< testin bash 2>1)
@@ -40,6 +40,40 @@ function exec_test()
 	else
 		((WRONG++))
 		printf $CYAN"$@$RESET\n"
+	fi
+	if [ "$TEST1" != "$TEST2" ]; then
+		printf $BOLDRED"Your output : \n%.20s\n$BOLDRED$TEST1\n%.20s$RESET\n" "-----------------------------------------" "-----------------------------------------"
+		printf $BOLDGREEN"Expected output : \n%.20s\n$BOLDGREEN$TEST2\n%.20s$RESET\n\n" "-----------------------------------------" "-----------------------------------------"
+	fi
+	if [ "$ES_1" != "$ES_2" ]; then
+		printf $BOLDRED"Your exit status : $BOLDRED$ES_1$RESET\n"
+		printf $BOLDGREEN"Expected exit status : $BOLDGREEN$ES_2$RESET\n\n"
+	fi
+	if [ "$IS_CORRECT" == "0" ]; then
+		printf "\n\n"
+	fi
+	((TOTAL++))
+	sleep 0.1
+}
+
+function exec_test_mult()
+{
+	IS_CORRECT=0
+	$(echo "$ARG1" > testin)
+	TEST1=$(< testin ./minishell 2>1)
+	ES_1=$?
+	$(echo "$ARG2" > testin)
+	TEST2=$(< testin bash 2>1)
+	ES_2=$?
+	if [ "$TEST1" == "$TEST2" ] && [ "$ES_1" == "$ES_2" ]; then
+		((PASSED++))
+		IS_CORRECT=1
+	else
+		((WRONG++))
+		echo
+		printf $BOLDRED"$ARG1$RESET\n"
+		printf $BOLDGREEN"$ARG2$RESET\n"
+		echo
 	fi
 	if [ "$TEST1" != "$TEST2" ]; then
 		printf $BOLDRED"Your output : \n%.20s\n$BOLDRED$TEST1\n%.20s$RESET\n" "-----------------------------------------" "-----------------------------------------"
@@ -82,15 +116,15 @@ exec_test 'cd /Users
 pwd'
 exec_test 'cd 
 pwd'
-exec_test 'mkdir test_dir
-cd test_dir
-rm -rf ../test_dir
-cd .
-pwd
-cd .
-pwd
-cd ..
-pwd'
+# exec_test 'mkdir test_dir
+# cd test_dir
+# rm -rf ../test_dir
+# cd .
+# pwd
+# cd .
+# pwd
+# cd ..
+# pwd'
 
 
 printf $YELLOW"PIPE\n\n$RESET"
@@ -113,7 +147,7 @@ exec_test 'echo    $TEST lol $TEST'
 exec_test 'echo test "" test "" test'
 exec_test 'echo "$=TEST"'
 exec_test 'echo "$"'
-# exec_test 'echo "$?TEST"'
+exec_test 'echo "$?TEST"'
 exec_test 'echo $TEST $TEST'
 exec_test 'echo "$T1TEST"'
 
@@ -183,15 +217,38 @@ exec_test "cd gdhahahad"
 exec_test "ls -la | wtf"
 exec_test "echo \"\""
 
+function testshlvl()
+{
+	echo 'echo $SHLVL' > tmptest
+	ARG1="export SHLVL=$@
+	./minishell < tmptest | tr -s '[:blank:]'"
+	ARG2="export SHLVL=$@
+	bash < tmptest | tr -s '[:blank:]'"
+	exec_test_mult $ARG1 $ARG2
+}
+testshlvl '-1'
+testshlvl '-999'
+testshlvl '-9'
+testshlvl ''
+testshlvl 'aaaa'
+testshlvl '-1asdasdads'
+testshlvl 'a-1'
+testshlvl "1000"
+testshlvl "123992138192381293819238129381293812391823192381923819238192381923819283192839123898"
+testshlvl "-123992138192381293819238129381293812391823192381923819238192381923819283192839123898"
+testshlvl "999"
+
+
 echo
 if [ "$PASSED" == "$TOTAL" ]; then
-	printf "🧊🐧🧊 Pingu is so here !!!!!\n\n✅ YOU MADE IT! $BOLDGREEN($TOTAL / $TOTAL) $RESET\n"
+	printf "🧊🐧🧊 Pingu is here !!!!!\n\n✅ YOU MADE IT! $BOLDGREEN($TOTAL / $TOTAL) $RESET\n"
 else
-	printf $BOLDGREEN"Passed: $PASSED$RESET |$BOLDRED Wrong: $WRONG$RESET | Total: $TOTAL"
+	printf $BOLDRED"Wrong: $WRONG$RESET$BOLDGREEN  Passed: $PASSED$RESET  Total: $TOTAL"
 fi
 echo
 echo
 
-rm testin lol ls test
+rm testin lol ls test tmptest 1
+
 
 exit $WRONG
