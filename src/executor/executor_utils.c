@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 20:03:59 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:06:45 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "utils.h"
 #include "pdata_helpers.h"
 #include "executor.h"
+#include "builtins.h"
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
@@ -72,9 +73,9 @@ void	clean_exit(t_pdata *pdata)
 void	execute_token(t_pdata *p_data, t_token *token, t_context *context)
 {
 	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
-		execute_cmd_builtin(&p_data, token, context);
+		execute_cmd_builtin(p_data, token, context);
 	else if (token->type == CMD || token->type == PIPE)
-		execute_pipe(&p_data, token, context);
+		execute_pipe(p_data, token, context);
 	else if (token->type == AND || token->type == OR)
 		execute_and_or(p_data, token, context);
 }

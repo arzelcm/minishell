@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 20:04:38 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:07:11 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 
 void	execute_and_or(t_pdata *pdata, t_token *token, t_context *context)
 {
-	
+	(void) pdata;
+	(void) token;
+	(void) context;
 }
 
 void	execute(t_token *token, t_context *context)
