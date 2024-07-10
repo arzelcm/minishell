@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:47 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:57:48 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:04:17 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ typedef enum e_token_type
 {
 	CMD,
 	PIPE,
-	DEFINITION
+	DEFINITION,
+	AND,
+	OR,
+	SUBSHELL
 }	t_token_type;
 
 typedef enum e_redirection_mode

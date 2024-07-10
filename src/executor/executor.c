@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:04:38 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <signal.h>
 #include <errno.h>
 
-static void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
+void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
 {
 	int	tmp;
 
@@ -42,7 +42,7 @@ static void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
 	pdata->heredocs_fds[i] = -1;
 }
 
-static void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
+void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 {
 	t_token	*cmd_token;
 	int		i;
@@ -71,6 +71,11 @@ static void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 		wait_child_processes(pdata->pids[last_cmd_idx], token->tokens.amount);
 }
 
+void	execute_and_or(t_pdata *pdata, t_token *token, t_context *context)
+{
+	
+}
+
 void	execute(t_token *token, t_context *context)
 {
 	t_pdata	p_data;
@@ -88,9 +93,6 @@ void	execute(t_token *token, t_context *context)
 	}
 	config_echoctl_terminal(ON);
 	expand_args(token, context);
-	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
-		execute_cmd_builtin(&p_data, token, context);
-	else if (token->type == CMD || token->type == PIPE)
-		execute_pipe(&p_data, token, context);
+	execute_token(&p_data, token, context);
 	free_pdata(&p_data);
 }
