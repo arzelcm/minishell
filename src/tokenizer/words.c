@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:56:50 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:30:52 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 #include "tokenizer.h"
 #include "tokenizer_utils.h"
 
-/***
- * MALLOCED!
- */
 void	init_words(t_words	*words)
 {
 	words->body = ft_calloc(1, sizeof(char **));

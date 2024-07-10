@@ -1,5 +1,6 @@
 #!/bin/bash
 # MINISHELL-TESTER
+# Modified copy of https://github.com/solaldunckel/minishell-tester
 
 RESET="\033[0m"
 BLACK="\033[30m"
@@ -453,7 +454,7 @@ echo
 echo
 
 
-rm lol ls test tmptest 1
+rm testin lol ls test tmptest 1
 
 
 exit $WRONG
