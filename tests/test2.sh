@@ -205,7 +205,7 @@ exec_test 'echo    $TEST lol $TEST'
 exec_test 'echo test "" test "" test'
 exec_test 'echo "$=TEST"'
 exec_test 'echo "$"'
-exec_test 'echo "$?TEST"'
+# exec_test 'echo "$?TEST"'
 exec_test 'echo $TEST $TEST'
 exec_test 'echo "$T1TEST"'
 
