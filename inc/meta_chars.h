@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta_chars.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:23 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:57:24 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:05:12 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@
 # define OUTPUT_RD ">"
 # define HERE_DOC_RD "<<"
 # define APPEND_RD ">>"
+# define AND "&&"
+# define OR "||"
+# define AND_OR_LENGTH 2
 
 #endif
