@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:47 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:57:48 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:01:34 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ typedef enum e_token_type
 {
 	CMD,
 	PIPE,
-	DEFINITION
+	SUBSHELL,
+	LIST
 }	t_token_type;
 
 typedef enum e_redirection_mode
@@ -30,6 +31,12 @@ typedef enum e_redirection_mode
 	APPEND,
 	UNKNOWN_RED
 }	t_redirection_mode;
+
+typedef enum e_dependency
+{
+	AND,
+	OR
+}	t_dependency;
 
 typedef struct s_redirection
 {
@@ -61,6 +68,8 @@ typedef struct s_token
 	int				here_docs;
 	int				infiles;
 	int				outfiles;
+	t_dependency	dependency;
+	t_token			*parent;
 	t_token			*next;
 	t_tokens		tokens;
 }	t_token;
@@ -71,7 +80,7 @@ t_token	*new_token(t_token_type type);
 
 void	print_token(t_token *token);
 
-void	push_token(t_tokens *tokens, t_token *token);
+void	push_token(t_token *parent, t_token *token);
 
 void	expand_args(t_token *token, t_context *context);
 

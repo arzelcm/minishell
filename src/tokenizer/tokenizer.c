@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:31 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 00:03:35 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:05:56 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "tokenizer_redirections.h"
 #include "token.h"
 #include "builtins.h"
+#include "family_helper.h"
 
 void	free_args(char **args)
 {
@@ -46,45 +47,47 @@ void	push_arg(char ***args, char *new_arg, int *argc)
 	(*argc)++;
 }
 
-int	set_pipe(char *line, int *i, t_token **token, t_token **actual)
+int	set_pipe(char *line, int *i, t_token **parent, t_token **current)
 {
 	if (line[*i] != '|')
 		return (0);
-	(*i)++;
-	if (!*token)
+	if ((*current)->parent && (*current)->parent->type == PIPE)
 	{
-		*token = new_token(PIPE);
-		push_token(&(*token)->tokens, *actual);
+		push_token((*current)->parent, new_token(CMD));
+		*current = (*current)->next;
 	}
-	*actual = new_token(CMD);
-	push_token(&(*token)->tokens, *actual);
+	else
+		create_parent(current, new_token(PIPE), parent);
+	(*i)++;
 	return (1);
 }
 
 t_token	*tokenize(char *line)
 {
-	t_token			*token;
-	t_token			*curr_token;
+	t_token			*parent;
+	t_token			*current;
 	int				i;
 
-	token = NULL;
-	curr_token = NULL;
+	parent = NULL;
+	current = NULL;
 	i = 0;
 	while (line[i])
 	{
 		if (avoid_spaces(line, &i))
 			continue ;
-		if (!curr_token)
-			curr_token = new_token(CMD);
-		if (set_redirection(line, &i, curr_token))
+		if (!current)
+			current = new_token(CMD);
+		if (set_parent(line, &i, &parent, &current))
 			continue ;
-		if (set_pipe(line, &i, &token, &curr_token))
+		if (set_redirection(line, &i, current))
 			continue ;
-		push_arg(&curr_token->args, get_raw_word(line, &i), &curr_token->argc);
+		if (set_pipe(line, &i, &parent, &current))
+			continue ;
+		push_arg(&current->args, get_raw_word(line, &i), &current->argc);
 	}
-	if (!token)
-		token = curr_token;
-	return (token);
+	if (!parent)
+		parent = current;
+	return (parent);
 }
 
 int	avoid_spaces(char *str, int *i)

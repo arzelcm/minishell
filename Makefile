@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -O3# -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -O3 -g -fsanitize=address
 
 #----OS COMPATIBILITY----#
 ifeq ($(OS),Windows_NT)
@@ -108,7 +108,8 @@ MSRCS = minishell.c \
 		unset.c \
 		cd.c \
 		safe_libft.c \
-		words.c
+		words.c \
+		family_helper.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
