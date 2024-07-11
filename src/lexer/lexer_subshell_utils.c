@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:36:17 by cfidalgo          #+#    #+#             */
-/*   Updated: 2024/07/11 15:25:41 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:56:03 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	check_subsh(t_context *context, char *line, int index)
 	return (1);
 }
 
-int	check_subshell_conds(char *line, int i, int *subshells, t_context *context)
+int	check_subsh_conds(char *line, int i, int *subshells, t_context *context)
 {
 	if (line[i] == OPEN_SUBSHELL[0])
 		(*subshells)++;
