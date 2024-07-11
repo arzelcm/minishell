@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:10:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:02:27 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:23:28 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	replace_last_token(t_token *parent, t_token *token)
 		aux = aux->next;
 	aux->next = token;
 	token->parent = parent;
-	ft_printf("salgo\n");
 }
 
 void	create_parent(t_token **current, t_token *new_parent, t_token **parent)
