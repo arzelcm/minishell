@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:54:57 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:12:32 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ t_token	*new_token(t_token_type type)
 // 	t_redirection	*aux;
 // 	int				i;
 
-// 	ft_printf("token %p\n", token);
+// 	ft_printf("token \n", token);
 // 	if (!token)
 // 		return ;
 // 	ft_printf("type: %i\n", token->type);
 // 	ft_printf("argc: %i\n", token->argc);
-// 	ft_printf("expanded: %i\n", token->expanded);
+// 	// ft_printf("expanded: %i\n", token->expanded);
 // 	ft_printf("args: ");
 // 	i = 0;
 // 	while (token->args && token->args[i])
@@ -71,8 +71,8 @@ t_token	*new_token(t_token_type type)
 // 		ft_printf("%s(%i), ", aux->path, aux->mode);
 // 		aux = aux->next;
 // 	}
-// 	ft_printf("\nhere_docs: %i\n", token->here_docs);
-// 	ft_printf("tokens: %i\n", token->tokens.amount);
+// 	// ft_printf("\nhere_docs: %i\n", token->here_docs);
+// 	ft_printf("\ntokens: %i\n", token->tokens.amount);
 // 	t_token *aux_tok = token->tokens.token;
 // 	i = 0;
 // 	while (aux_tok)
@@ -84,22 +84,23 @@ t_token	*new_token(t_token_type type)
 // 	}
 // }
 
-void	push_token(t_tokens *tokens, t_token *token)
+void	push_token(t_token *parent, t_token *token)
 {
 	t_token	*aux;
 
-	aux = tokens->token;
+	token->parent = parent;
+	aux = parent->tokens.token;
 	if (!aux)
 	{
-		tokens->token = token;
-		tokens->amount = 1;
+		parent->tokens.token = token;
+		parent->tokens.amount = 1;
 	}
 	else
 	{
 		while (aux->next)
 			aux = aux->next;
 		aux->next = token;
-		tokens->amount++;
+		parent->tokens.amount++;
 	}
 }
 

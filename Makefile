@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -O3 #-g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -O3# -g -fsanitize=address
 
 #----OS COMPATIBILITY----#
 ifeq ($(OS),Windows_NT)
@@ -71,7 +71,7 @@ LIBS += -lreadline -lhistory -ltermcap
 INCLUDES += -Ilib -I$(READLINE_DIR)
 
 #----SHARED----#
-SRCS =	
+SRCS =
 OBJS = $(SRCS:%.c=$(BIN_DIR)%.o)
 DEPS = $(OBJS:%.o=%.d)
 
@@ -79,6 +79,7 @@ DEPS = $(OBJS:%.o=%.d)
 MSRCS = minishell.c \
 		lexer.c \
 		lexer_utils.c \
+		lexer_subshell_utils.c \
 		utils.c \
 		expansor.c \
 		executor.c \
@@ -108,12 +109,13 @@ MSRCS = minishell.c \
 		unset.c \
 		cd.c \
 		safe_libft.c \
-		words.c
+		words.c \
+		family_helper.c
 MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
 MDEPS = $(MOBJS:%.o=%.d)
 
 #----BONUS----#
-BSRCS = 
+BSRCS =
 BDIR =	src/bonus
 BOBJS = $(BSRCS:%.c=$(BIN_DIR)%.o)
 BDEPS = $(BOBJS:%.o=%.d)
@@ -179,7 +181,7 @@ fclean: libft_fclean readline_clean clean
 
 re: fclean all
 
-bonus: 
+bonus:
 	@$(MAKE) --no-print-directory BONUS=1
 
 b: bonus
@@ -234,7 +236,7 @@ endif
 	rm -rf master.zip
 	head -n 33 $(TEST_INSTALL) > $(TEST_INSTALL_TMP)
 	rm -rf $(TEST_INSTALL)
-	mv $(TESTDIR)/install_tmp.sh $(TEST_INSTALL) 
+	mv $(TESTDIR)/install_tmp.sh $(TEST_INSTALL)
 	chmod 744 $(TEST_INSTALL)
 	$(TEST_INSTALL)
 	echo "[[ \$$1 != \"-f\" ]] && rm -f \"\\\$$HOME\" \"\\\$$USER\" \"\\\$$USER'\\\$$USER'\"" >> $(TESTER)
@@ -259,7 +261,7 @@ install_bash:
 .PHONY: all \
 		clean \
 		fclean \
-		re \ 
+		re \
 		bonus \
 		bonusre \
 		make_libft \

@@ -1,0 +1,378 @@
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+salgo
+
+
+
+GRANDPARENT: 
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+type: 0
+argc: 1
+args: pwd, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+type: 0
+argc: 1
+args: pwd, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: pwd, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: pwd, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+salgo
+
+
+
+GRANDPARENT: 
+token 
+type: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+
+
+GRANDPARENT: 
+token 
+type: 1
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+type: 0
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+type: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+Makefile
+README.md
+bin
+command
+correct_result
+inc
+lalala
+lib
+minishell
+minishell_tester
+pwd
+src
+testlala
+tests
