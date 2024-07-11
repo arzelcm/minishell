@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:37:23 by cfidalgo          #+#    #+#             */
-/*   Updated: 2024/07/11 14:41:05 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:53:32 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 
 int	check_close_subsh(t_context *context, char *line, int index, int i);
 
-int	check_open_subsh(t_context *context, char *line, int index, int i)
+int	check_open_subsh(t_context *context, char *line, int index, int i);
 
 #endif
