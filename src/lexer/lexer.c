@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:17 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:23:56 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:54:31 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,10 @@ int	check_syntax(t_context *context, char *line)
 			return (0);
 		if (!avoided_quotes && !check_list(context, line, i))
 			return (0);
-		if (!avoided_quotes
-			&& !check_subshell_conds(line, i, &subshells, context))
+		if (!avoided_quotes && !check_subsh_conds(line, i, &subshells, context))
 			return (0);
-		i++;
+		if (avoided_quotes == 0)
+			i++;
 	}
 	if (subshells)
 		return (throw_syntax_error(context, "newline"), 0);
