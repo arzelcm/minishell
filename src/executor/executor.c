@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 21:07:11 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:42:10 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	execute_and_or(t_pdata *pdata, t_token *token, t_context *context)
 	(void) pdata;
 	(void) token;
 	(void) context;
+	ft_printf("Executing [AND/OR]LIST\n");
 }
 
 void	execute(t_token *token, t_context *context)
