@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:42:10 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:03:38 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,11 @@ void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 		wait_child_processes(pdata->pids[last_cmd_idx], token->tokens.amount);
 }
 
-void	execute_and_or(t_pdata *pdata, t_token *token, t_context *context)
+void	execute_list(t_pdata *pdata, t_token *token, t_context *context)
 {
 	(void) pdata;
 	(void) token;
 	(void) context;
-	ft_printf("Executing [AND/OR]LIST\n");
 }
 
 void	execute(t_token *token, t_context *context)

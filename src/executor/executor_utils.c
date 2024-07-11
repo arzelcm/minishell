@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:41:19 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:01:08 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	execute_token(t_pdata *p_data, t_token *token, t_context *context)
 	else if (token->type == CMD || token->type == PIPE)
 		execute_pipe(p_data, token, context);
 	else if (token->type == LIST)
-		execute_and_or(p_data, token, context);
+		execute_list(p_data, token, context);
 }
