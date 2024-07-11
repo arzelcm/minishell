@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -O3# -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -O3 #-g -fsanitize=address
 
 #----OS COMPATIBILITY----#
 ifeq ($(OS),Windows_NT)
