@@ -432,7 +432,11 @@ function testshlvl()
 	exec_test_mult $ARG1 $ARG2
 }
 testshlvl '-1'
-testshlvl '-999'
+testshlvl '-900'
+testshlvl '-992'
+testshlvl '-994'
+testshlvl '-996'
+testshlvl '-998'
 testshlvl '-9'
 testshlvl ''
 testshlvl 'aaaa'
