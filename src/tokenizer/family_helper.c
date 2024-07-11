@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:10:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:23:28 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:12:06 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	create_parent(t_token **current, t_token *new_parent, t_token **parent)
 	push_token(new_parent, *current);
 }
 
-int	set_parent(char *line, int *i, t_token **parent, t_token **current)
+int	set_list(char *line, int *i, t_token **parent, t_token **current)
 {
 	int		is_and;
 	int		is_or;
@@ -72,6 +72,33 @@ int	set_parent(char *line, int *i, t_token **parent, t_token **current)
 		(*i) += 2;
 		return (1);
 	}
+	else
+		return (0);
+}
+
+int	set_pipe(char *line, int *i, t_token **parent, t_token **current)
+{
+	if (line[*i] != '|')
+		return (0);
+	if ((*current)->parent && (*current)->parent->type == PIPE)
+	{
+		push_token((*current)->parent, new_token(CMD));
+		*current = (*current)->next;
+	}
+	else
+		create_parent(current, new_token(PIPE), parent);
+	(*i)++;
+	return (1);
+}
+
+int	set_parent(char *line, int *i, t_token **parent, t_token **current)
+{
+	if (set_list(line, i, parent, current))
+		return (1);
+	else if (set_list(line, i, parent, current))
+		return (1);
+	else if (set_pipe(line, i, parent, current))
+		return (1);
 	else
 		return (0);
 }
