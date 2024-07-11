@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   meta_chars.h                                       :+:      :+:    :+:   */
+/*   lexer_subshell_utils.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/29 21:57:23 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 13:00:29 by cfidalgo         ###   ########.fr       */
+/*   Created: 2024/07/11 14:37:23 by cfidalgo          #+#    #+#             */
+/*   Updated: 2024/07/11 14:41:05 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef META_CHARS_H
-# define META_CHARS_H
+#ifndef LEXER_SUBSHELL_UTILS_H
+# define LEXER_SUBSHELL_UTILS_H
 
-# define D_QUOTE "\""
-# define S_QUOTE "\'"
-# define PIPE "|"
-# define INPUT_RD "<"
-# define OUTPUT_RD ">"
-# define HERE_DOC_RD "<<"
-# define APPEND_RD ">>"
-# define AND "&&"
-# define OR "||"
-# define OPEN_SUBSHELL "("
-# define CLOSE_SUBSHELL ")"
-# define LIST_LENGTH 2
+# include "context.h"
+
+int	check_close_subsh(t_context *context, char *line, int index, int i);
+
+int	check_open_subsh(t_context *context, char *line, int index, int i)
 
 #endif
