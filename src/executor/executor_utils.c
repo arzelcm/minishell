@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 16:01:08 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:59:25 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,14 @@ void	clean_exit(t_pdata *pdata)
 	exit(EXIT_FAILURE);
 }
 
-void	execute_token(t_pdata *p_data, t_token *token, t_context *context)
+void
+	execute_token(t_pdata *p_data, t_token *token, t_context *context)
 {
 	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
 		execute_cmd_builtin(p_data, token, context);
-	else if (token->type == CMD || token->type == PIPE)
+	else if (token->type == CMD)
+		execute_cmd(p_data, token, context);
+	else if (token->type == PIPE)
 		execute_pipe(p_data, token, context);
 	else if (token->type == LIST)
 		execute_list(p_data, token, context);

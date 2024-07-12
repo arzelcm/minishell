@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 16:03:38 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:42:58 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,38 +44,87 @@ void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token)
 
 void	execute_pipe(t_pdata *pdata, t_token *token, t_context *context)
 {
-	t_token	*cmd_token;
+	t_token	*curr_token;
 	int		i;
-	int		last_cmd_idx;
+	int		last_idx;
 
 	i = 0;
-	cmd_token = token;
-	last_cmd_idx = token->tokens.amount - 1;
-	if (token->type != CMD)
-		cmd_token = token->tokens.token;
-	while (i < token->tokens.amount && cmd_token)
+	last_idx = token->tokens.amount - 1;
+	curr_token = token->tokens.token;
+	while (i < token->tokens.amount && curr_token)
 	{
 		if (i < token->tokens.amount - 1 && pipe(pdata->pipe_fds) == -1)
 			syserr(EMFILE);
-		parse_fds(i, token->tokens.amount, pdata, cmd_token);
+		parse_fds(i, token->tokens.amount, pdata, curr_token);
 		pdata->pids[i] = fork();
 		if (pdata->pids[i] == -1)
 			syserr(EAGAIN);
 		else if (pdata->pids[i] == 0)
-			execute_command(pdata, cmd_token, context);
+		{
+			if (curr_token->type == CMD)
+				execute_command(pdata, curr_token, context);
+			else if (curr_token->type == SUBSHELL)
+			{
+				execute_subshell(pdata, token, context);
+				exit(context->err_code);
+			}
+		}
 		close_pipe(pdata->fds);
-		cmd_token = cmd_token->next;
+		curr_token = curr_token->next;
 		i++;
 	}
 	context->err_code = \
-		wait_child_processes(pdata->pids[last_cmd_idx], token->tokens.amount);
+		wait_child_processes(pdata->pids[last_idx], token->tokens.amount);
+}
+
+void	execute_cmd(t_pdata *pdata, t_token *token, t_context *context)
+{
+	pdata->pids[0] = fork();
+	if (pdata->pids[0] == -1)
+		syserr(EAGAIN);
+	else if (pdata->pids[0] == 0)
+		execute_command(pdata, token, context);
+	context->err_code = wait_child_processes(pdata->pids[0], 1);
 }
 
 void	execute_list(t_pdata *pdata, t_token *token, t_context *context)
 {
-	(void) pdata;
-	(void) token;
-	(void) context;
+	t_token	*curr_token;
+
+	curr_token = token->tokens.token;
+	expand_args(curr_token, context);
+	execute_token(pdata, curr_token, context);
+	if ((token->dependency == AND && context->err_code != 0)
+		|| (token->dependency == OR && context->err_code == 0))
+		return ;
+	curr_token = curr_token->next;
+	expand_args(curr_token, context);
+	execute_token(pdata, curr_token, context);
+}
+
+void	execute_subshell(t_pdata *pdata, t_token *token, t_context *context)
+{
+	t_token	*curr_token;
+
+	save_backup_stdfds(pdata);
+	if (!open_files(pdata, token->redirections, token->here_docs, context))
+	{
+		context->err_code = EXIT_FAILURE;
+		return (close_pdata_fds(pdata));
+	}
+	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
+	close_pdata_fds(pdata);
+	curr_token = token->tokens.token;
+	pdata->pids[0] = fork();
+	if (pdata->pids[0] == 0)
+	{
+		expand_args(curr_token, context);
+		execute_token(pdata, curr_token, context);
+		exit(context->err_code);
+	}
+	context->err_code = wait_child_processes(pdata->pids[0], 1);
+	redirect_fds(pdata->std_fds[READ_FD], pdata->std_fds[WRITE_FD]);
+	close_pdata_fds(pdata);
 }
 
 void	execute(t_token *token, t_context *context)
