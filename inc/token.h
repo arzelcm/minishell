@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:47 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 11:55:16 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:56:04 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 typedef enum e_token_type
 {
 	CMD,
-	PIPE,
 	SUBSHELL,
 	PIPE,
 	LIST
