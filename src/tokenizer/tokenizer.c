@@ -47,21 +47,6 @@ void	push_arg(char ***args, char *new_arg, int *argc)
 	(*argc)++;
 }
 
-int	set_pipe(char *line, int *i, t_token **parent, t_token **current)
-{
-	if (line[*i] != '|')
-		return (0);
-	if ((*current)->parent && (*current)->parent->type == PIPE)
-	{
-		push_token((*current)->parent, new_token(CMD));
-		*current = (*current)->next;
-	}
-	else
-		create_parent(current, new_token(PIPE), parent);
-	(*i)++;
-	return (1);
-}
-
 t_token	*tokenize(char *line)
 {
 	t_token			*parent;
@@ -77,11 +62,9 @@ t_token	*tokenize(char *line)
 			continue ;
 		if (!current)
 			current = new_token(CMD);
-		if (set_parent(line, &i, &parent, &current))
-			continue ;
 		if (set_redirection(line, &i, current))
 			continue ;
-		if (set_pipe(line, &i, &parent, &current))
+		if (set_parent(line, &i, &parent, &current))
 			continue ;
 		push_arg(&current->args, get_raw_word(line, &i), &current->argc);
 	}

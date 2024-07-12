@@ -118,3 +118,19 @@ void	expand_args(t_token *token, t_context *context)
 	token->argc = words.count;
 	token->args = words.body;
 }
+
+void	replace_last_token(t_token *parent, t_token *token)
+{
+	t_token	*aux;
+
+	if (!parent)
+		return ;
+	aux = parent->tokens.token;
+	while (aux && aux->next && aux->next->next)
+		aux = aux->next;
+	if (!parent->tokens.token || !parent->tokens.token->next)
+		parent->tokens.token = token;
+	else
+		aux->next = token;
+	token->parent = parent;
+}

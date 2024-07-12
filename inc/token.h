@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:47 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 14:14:26 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:54:06 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 typedef enum e_token_type
 {
 	CMD,
-	PIPE,
 	SUBSHELL,
+	PIPE,
 	LIST
 }	t_token_type;
 
@@ -84,5 +84,7 @@ void	print_token(t_token *token);
 void	push_token(t_token *parent, t_token *token);
 
 void	expand_args(t_token *token, t_context *context);
+
+void	replace_last_token(t_token *parent, t_token *token);
 
 #endif

@@ -1,0 +1,2750 @@
+GRANDPARENT:
+token 
+TYPE: 0
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+Fri Jul 12 18:48:55 CEST 2024
+GRANDPARENT:
+token 
+TYPE: 0
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+Makefile
+README.md
+bin
+cmd
+correct_result
+correct_test
+inc
+lib
+log
+minishell
+minishell_tester
+pwd
+src
+testlala
+tests
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+Makefile
+README.md
+bin
+cmd
+correct_result
+correct_test
+inc
+lib
+log
+minishell
+minishell_tester
+pwd
+src
+testlala
+tests
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+Makefile
+README.md
+bin
+cmd
+correct_result
+correct_test
+inc
+lib
+log
+minishell
+minishell_tester
+pwd
+src
+testlala
+tests
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 3(2), 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 2(2), 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 1(2), 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+1
+2
+3
+Makefile
+README.md
+bin
+cmd
+correct_result
+correct_test
+inc
+lib
+log
+minishell
+minishell_tester
+pwd
+src
+testlala
+tests
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+1
+2
+3
+Makefile
+README.md
+bin
+cmd
+correct_result
+correct_test
+inc
+lib
+log
+minishell
+minishell_tester
+pwd
+src
+testlala
+tests
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 25(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 24(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 23(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 22(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 21(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 20(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 19(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 18(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 17(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 16(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 15(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 14(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 13(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 12(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 11(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 10(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 9(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 8(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 7(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 6(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 5(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 4(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 3(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 2(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 1(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: cmdout(2), cmdin(1), 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 1
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: echo, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: file(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 17
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 4
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: echo, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: echo, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: echo, 
+redirections: 
+tokens: 1
+
+Child 4
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 5
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 6
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 7
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 8
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 9
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 10
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 11
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 12
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 13
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 14
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 15
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 16
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 5
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 4
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 0
+args: 
+redirections: file(2), 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: file(1), file2(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: heredoc(0), append(3), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
