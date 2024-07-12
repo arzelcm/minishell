@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:47 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:31:13 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:14:26 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_token
 	int				argc;
 	t_redirection	*redirections;
 	int				here_docs;
+	int				here_doc_fd;
 	int				infiles;
 	int				outfiles;
 	t_dependency	dependency;

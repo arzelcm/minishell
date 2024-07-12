@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:37:37 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	execute_by_path(char **args, char **envp)
 	execve(bin, args, envp);
 	exit(EXIT_FAILURE);
 }
-
+// TODO: CHANGE INITIALIZE_PDATA ITSELF AND CLOSE_HERE_DOCS
 void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 {
 	listen_signals(SUBPROCESS, SUBPROCESS);
@@ -80,6 +80,7 @@ void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 		clean_exit(pdata);
 	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
 	close_pdata_fds(pdata);
+	// close_here_docs(token);
 	expand_args(token, context);
 	if (!token->argc)
 		exit(EXIT_SUCCESS);

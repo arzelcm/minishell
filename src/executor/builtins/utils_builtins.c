@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:46 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/06 20:40:10 by chris            ###   ########.fr       */
+/*   Updated: 2024/07/12 17:38:02 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int	execute_builtin(char *command, t_token *token, t_context *context)
 
 void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 {
+	t_pdata	new_pdata;
+
+	ft_bzero(&new_pdata, sizeof(t_pdata*));
+	if (!pdata)
+	{
+		initialize_pdata(&new_pdata, token);
+		pdata = &new_pdata;
+	}
 	listen_signals(SUBPROCESS, SUBPROCESS);
 	save_backup_stdfds(pdata);
 	if (!open_files(pdata, token->redirections, token->here_docs, context))
@@ -63,6 +71,8 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 	context->err_code = execute_builtin(token->args[0], token, context);
 	redirect_fds(pdata->std_fds[READ_FD], pdata->std_fds[WRITE_FD]);
 	close_pdata_fds(pdata);
+	if (new_pdata.pids)
+		free(pdata->pids);
 }
 
 int	check_invalid_chars(char *identifier)

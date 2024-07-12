@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pdata_helpers.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:34 by arcanava          #+#    #+#             */
-/*   Updated: 2024/06/29 21:57:34 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:27:27 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ typedef struct s_pdata
 	int		fds[2];
 	int		pipe_fds[2];
 	int		last_pipe;
-	int		*heredocs_fds;
 }	t_pdata;
 
-void	free_pdata(t_pdata *p_data);
+void	parse_fds(int i, int cmd_amount, t_pdata *pdata, t_token *token);
 
 void	close_pdata_fds(t_pdata *pdata);
 
 void	save_backup_stdfds(t_pdata *p_data);
 
-void	initialize_pdata(t_pdata *p_data, t_token *token, t_context *context);
+void	initialize_pdata(t_pdata *p_data, t_token *token);
 
 #endif

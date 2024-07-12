@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 11:59:25 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:42:50 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	redirect_fds(int read_fd, int write_fd)
 
 void	clean_exit(t_pdata *pdata)
 {
+	//close_here_docs();
 	close_pdata_fds(pdata);
 	exit(EXIT_FAILURE);
 }
@@ -76,9 +77,11 @@ void
 	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
 		execute_cmd_builtin(p_data, token, context);
 	else if (token->type == CMD)
-		execute_cmd(p_data, token, context);
+		execute_cmd(token, context);
 	else if (token->type == PIPE)
-		execute_pipe(p_data, token, context);
+		execute_pipe(token, context);
 	else if (token->type == LIST)
-		execute_list(p_data, token, context);
+		execute_list(token, context);
+	else if (token->type == SUBSHELL)
+		execute_subshell(p_data, token, context);
 }
