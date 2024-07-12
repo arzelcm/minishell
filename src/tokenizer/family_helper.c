@@ -6,28 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:10:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 19:38:02 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:43:56 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "family_helper.h"
 #include "libft.h"
-
-void	replace_last_token(t_token *parent, t_token *token)
-{
-	t_token	*aux;
-
-	if (!parent)
-		return ;
-	aux = parent->tokens.token;
-	while (aux && aux->next && aux->next->next)
-		aux = aux->next;
-	if (!parent->tokens.token || !parent->tokens.token->next)
-		parent->tokens.token = token;
-	else
-		aux->next = token;
-	token->parent = parent;
-}
 
 void
 	push_first_child(t_token **current, t_token **parent, t_token *new_parent)
