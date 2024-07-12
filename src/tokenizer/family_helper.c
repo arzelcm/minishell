@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   family_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:10:20 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:23:28 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:32:23 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	set_parent(char *line, int *i, t_token **parent, t_token **current)
 		list->dependency = AND;
 		if (is_or)
 			list->dependency = OR;
-		create_parent(current, new_token(LIST), parent);
+		create_parent(current, list, parent);
 		(*i) += 2;
 		return (1);
 	}
