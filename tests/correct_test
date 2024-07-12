@@ -1,27 +1,27 @@
 GRANDPARENT:
 token 
-type: 0
+TYPE: 0
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+Fri Jul 12 18:48:55 CEST 2024
+GRANDPARENT:
+token 
+TYPE: 0
 argc: 1
 args: ls, 
 redirections: 
 tokens: 1
-1
-2
-3
 Makefile
 README.md
 bin
 cmd
-command
 correct_result
 correct_test
-file
 inc
 lib
-lim1
 log
-logaasdasdasd
-loglog
 minishell
 minishell_tester
 pwd
@@ -30,7 +30,7 @@ testlala
 tests
 GRANDPARENT:
 token 
-type: 2
+TYPE: 2
 argc: 0
 args: 
 redirections: 
@@ -38,7 +38,7 @@ tokens: 2
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -47,29 +47,21 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
 redirections: 
 tokens: 1
-1
-2
-3
 Makefile
 README.md
 bin
 cmd
-command
 correct_result
 correct_test
-file
 inc
 lib
-lim1
 log
-logaasdasdasd
-loglog
 minishell
 minishell_tester
 pwd
@@ -78,7 +70,7 @@ testlala
 tests
 GRANDPARENT:
 token 
-type: 2
+TYPE: 2
 argc: 0
 args: 
 redirections: 
@@ -86,7 +78,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -95,7 +87,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -104,29 +96,21 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
 redirections: 
 tokens: 1
-1
-2
-3
 Makefile
 README.md
 bin
 cmd
-command
 correct_result
 correct_test
-file
 inc
 lib
-lim1
 log
-logaasdasdasd
-loglog
 minishell
 minishell_tester
 pwd
@@ -135,7 +119,7 @@ testlala
 tests
 GRANDPARENT:
 token 
-type: 2
+TYPE: 2
 argc: 0
 args: 
 redirections: 
@@ -143,7 +127,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -152,7 +136,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -161,7 +145,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -169,7 +153,7 @@ redirections: 1(2),
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 
@@ -177,7 +161,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -186,23 +170,7 @@ tokens: 1
 
 Child 0
 token 
-type: 0
-parent: (1)
-argc: 1
-args: ls, 
-redirections: 
-tokens: 1
-GRANDPARENT:
-token 
-type: 1
-argc: 0
-args: 
-redirections: 
-tokens: 1
-
-Child 0
-token 
-type: 0
+TYPE: 0
 parent: (1)
 argc: 1
 args: ls, 
@@ -210,7 +178,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 
@@ -218,7 +186,23 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -227,7 +211,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -236,7 +220,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -245,7 +229,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -253,7 +237,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 2
+TYPE: 2
 argc: 0
 args: 
 redirections: 
@@ -261,7 +245,7 @@ tokens: 2
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -270,7 +254,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -279,7 +263,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -288,7 +272,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -297,7 +281,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -306,7 +290,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -319,16 +303,11 @@ Makefile
 README.md
 bin
 cmd
-command
 correct_result
 correct_test
-file
 inc
 lib
-lim1
 log
-logaasdasdasd
-loglog
 minishell
 minishell_tester
 pwd
@@ -337,7 +316,7 @@ testlala
 tests
 GRANDPARENT:
 token 
-type: 2
+TYPE: 2
 argc: 0
 args: 
 redirections: 
@@ -345,7 +324,7 @@ tokens: 2
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -354,7 +333,7 @@ tokens: 1
 
 Child 1
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -363,7 +342,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -372,7 +351,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -381,7 +360,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -390,7 +369,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -398,7 +377,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 2
+TYPE: 2
 argc: 0
 args: 
 redirections: 
@@ -406,7 +385,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -415,7 +394,7 @@ tokens: 1
 
 Child 1
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -424,7 +403,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -433,7 +412,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -442,7 +421,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -451,7 +430,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -460,7 +439,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -473,16 +452,11 @@ Makefile
 README.md
 bin
 cmd
-command
 correct_result
 correct_test
-file
 inc
 lib
-lim1
 log
-logaasdasdasd
-loglog
 minishell
 minishell_tester
 pwd
@@ -491,7 +465,7 @@ testlala
 tests
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 
@@ -499,7 +473,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -508,7 +482,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -517,7 +491,7 @@ tokens: 1
 
 Child 1
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -526,7 +500,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -535,7 +509,7 @@ tokens: 2
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -544,7 +518,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -553,7 +527,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -561,7 +535,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 
@@ -569,7 +543,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -578,7 +552,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -587,7 +561,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -596,7 +570,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -605,7 +579,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -614,7 +588,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -623,7 +597,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -632,7 +606,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -641,7 +615,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -650,7 +624,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -659,7 +633,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -668,7 +642,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -677,7 +651,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -686,7 +660,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -695,7 +669,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -704,7 +678,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -713,7 +687,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -722,7 +696,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -731,7 +705,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -740,7 +714,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -749,7 +723,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -758,7 +732,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -767,7 +741,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -776,7 +750,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -785,7 +759,7 @@ tokens: 1
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (1)
 argc: 1
 args: ls, 
@@ -793,7 +767,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 25(2), 
@@ -801,7 +775,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -810,7 +784,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -819,7 +793,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -828,7 +802,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -837,7 +811,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -846,7 +820,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -855,7 +829,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -864,7 +838,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -873,7 +847,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -882,7 +856,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -891,7 +865,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -900,7 +874,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -909,7 +883,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -918,7 +892,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -927,7 +901,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -936,7 +910,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -945,7 +919,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -954,7 +928,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -963,7 +937,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -972,7 +946,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -981,7 +955,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -990,7 +964,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -999,7 +973,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1008,7 +982,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1017,7 +991,7 @@ tokens: 1
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (1)
 argc: 1
 args: ls, 
@@ -1025,7 +999,7 @@ redirections: cmdout(2), cmdin(1),
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 
@@ -1033,7 +1007,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1042,7 +1016,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1051,7 +1025,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1060,7 +1034,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1069,7 +1043,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1078,7 +1052,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1087,7 +1061,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1096,7 +1070,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1105,7 +1079,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1114,7 +1088,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1123,7 +1097,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1132,7 +1106,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1141,7 +1115,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1150,7 +1124,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1159,7 +1133,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1168,7 +1142,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1177,7 +1151,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1186,7 +1160,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1195,7 +1169,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1204,7 +1178,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1213,7 +1187,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1222,7 +1196,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1231,7 +1205,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1240,7 +1214,7 @@ tokens: 4
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1249,7 +1223,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1258,7 +1232,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1267,7 +1241,7 @@ tokens: 2
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1276,7 +1250,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1285,7 +1259,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1294,7 +1268,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1303,7 +1277,7 @@ tokens: 1
 
 Child 3
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1312,7 +1286,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1321,7 +1295,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1330,7 +1304,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1339,7 +1313,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1347,7 +1321,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: 
@@ -1355,7 +1329,7 @@ tokens: 1
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (1)
 argc: 0
 args: 
@@ -1364,7 +1338,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1373,7 +1347,7 @@ tokens: 4
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1382,7 +1356,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1391,7 +1365,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1400,7 +1374,7 @@ tokens: 1
 
 Child 3
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1409,7 +1383,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1418,7 +1392,7 @@ tokens: 4
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1427,7 +1401,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1436,7 +1410,7 @@ tokens: 1
 
 Child 2
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1445,7 +1419,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1454,7 +1428,7 @@ tokens: 4
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1463,7 +1437,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1472,7 +1446,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1481,7 +1455,7 @@ tokens: 1
 
 Child 3
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: echo, 
@@ -1490,7 +1464,7 @@ tokens: 1
 
 Child 3
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1498,7 +1472,7 @@ redirections:
 tokens: 1
 GRANDPARENT:
 token 
-type: 1
+TYPE: 1
 argc: 0
 args: 
 redirections: file(2), 
@@ -1506,7 +1480,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1515,7 +1489,7 @@ tokens: 2
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1524,7 +1498,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1533,7 +1507,7 @@ tokens: 4
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1542,7 +1516,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1551,7 +1525,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1560,7 +1534,7 @@ tokens: 1
 
 Child 3
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1569,7 +1543,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1578,7 +1552,7 @@ tokens: 17
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1587,7 +1561,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1596,7 +1570,7 @@ tokens: 1
 
 Child 2
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1605,7 +1579,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1614,7 +1588,7 @@ tokens: 4
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1623,7 +1597,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1632,7 +1606,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1641,7 +1615,7 @@ tokens: 1
 
 Child 3
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: echo, 
@@ -1650,7 +1624,7 @@ tokens: 1
 
 Child 3
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1659,7 +1633,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1668,7 +1642,7 @@ tokens: 3
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: echo, 
@@ -1677,7 +1651,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1686,7 +1660,7 @@ tokens: 1
 
 Child 2
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: echo, 
@@ -1695,7 +1669,7 @@ tokens: 1
 
 Child 4
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1704,7 +1678,7 @@ tokens: 1
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (1)
 argc: 1
 args: ls, 
@@ -1713,7 +1687,7 @@ tokens: 1
 
 Child 5
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1722,7 +1696,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1731,7 +1705,7 @@ tokens: 2
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1740,7 +1714,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1749,7 +1723,7 @@ tokens: 2
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1758,7 +1732,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1767,7 +1741,7 @@ tokens: 2
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1776,7 +1750,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1785,7 +1759,7 @@ tokens: 2
 
 Child 0
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1794,7 +1768,7 @@ tokens: 1
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (1)
 argc: 1
 args: ls, 
@@ -1803,7 +1777,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1812,7 +1786,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1821,7 +1795,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1830,7 +1804,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1839,7 +1813,7 @@ tokens: 1
 
 Child 6
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1848,7 +1822,7 @@ tokens: 1
 
 Child 7
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1857,7 +1831,7 @@ tokens: 1
 
 Child 8
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1866,7 +1840,7 @@ tokens: 1
 
 Child 9
 token 
-type: 1
+TYPE: 1
 parent: (2)
 argc: 0
 args: 
@@ -1875,7 +1849,7 @@ tokens: 1
 
 Child 0
 token 
-type: 2
+TYPE: 2
 parent: (1)
 argc: 0
 args: 
@@ -1884,7 +1858,7 @@ tokens: 2
 
 Child 0
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1893,7 +1867,7 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1902,7 +1876,7 @@ tokens: 1
 
 Child 10
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1911,7 +1885,7 @@ tokens: 1
 
 Child 11
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1920,7 +1894,7 @@ tokens: 1
 
 Child 12
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1929,7 +1903,7 @@ tokens: 1
 
 Child 13
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1938,7 +1912,7 @@ tokens: 1
 
 Child 14
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1947,7 +1921,7 @@ tokens: 1
 
 Child 15
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: cat, 
@@ -1956,7 +1930,7 @@ tokens: 1
 
 Child 16
 token 
-type: 0
+TYPE: 0
 parent: (2)
 argc: 1
 args: ls, 
@@ -1965,8 +1939,811 @@ tokens: 1
 
 Child 1
 token 
-type: 0
+TYPE: 0
 parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 5
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 3
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 4
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: date, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 3
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 1
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 2
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+GRANDPARENT:
+token 
+TYPE: 2
+argc: 0
+args: 
+redirections: 
+tokens: 3
+
+Child 0
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 0
+parent: (1)
+argc: 0
+args: 
+redirections: file(2), 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: file(1), file2(2), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 3
+parent: (3)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 2
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: heredoc(0), append(3), 
+tokens: 1
+
+Child 0
+token 
+TYPE: 2
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (2)
+argc: 1
+args: ls, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 1
+parent: (2)
+argc: 0
+args: 
+redirections: 
+tokens: 1
+
+Child 0
+token 
+TYPE: 3
+parent: (1)
+argc: 0
+args: 
+redirections: 
+tokens: 2
+
+Child 0
+token 
+TYPE: 0
+parent: (3)
+argc: 1
+args: cat, 
+redirections: 
+tokens: 1
+
+Child 1
+token 
+TYPE: 0
+parent: (3)
 argc: 1
 args: ls, 
 redirections: 
