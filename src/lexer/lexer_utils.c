@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 21:05:39 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:00:59 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ void	throw_syntax_error(t_context *context, char *metachars)
 
 int	check_pipe_error(t_context *context, char *line, int i)
 {
-	if (ft_strncmp(&line[i], AND, AND_OR_LENGTH) == EQUAL_STRINGS)
+	if (ft_strncmp(&line[i], AND, LIST_LENGTH) == EQUAL_STRINGS)
 		return (throw_syntax_error(context, AND), 0);
-	else if (ft_strncmp(&line[i], OR, AND_OR_LENGTH) == EQUAL_STRINGS)
+	else if (ft_strncmp(&line[i], OR, LIST_LENGTH) == EQUAL_STRINGS)
 		return (throw_syntax_error(context, OR), 0);
 	else if (line[i] == PIPE[0])
 		return (throw_syntax_error(context, PIPE), 0);
+	else if (line[i] == CLOSE_SUBSHELL[0])
+		return (throw_syntax_error(context, CLOSE_SUBSHELL), 0);
 	return (1);
 }
 
@@ -44,6 +46,8 @@ int	check_metachar(t_context *context, char *line, int i)
 {
 	if (!check_pipe_error(context, line, i))
 		return (0);
+	else if (line[i] == OPEN_SUBSHELL[0])
+		return (throw_syntax_error(context, OPEN_SUBSHELL), 0);
 	else if (line[i] == INPUT_RD[0] && line[i + 1] == INPUT_RD[0])
 		return (throw_syntax_error(context, HERE_DOC_RD), 0);
 	else if (line[i] == OUTPUT_RD[0] && line[i + 1] == OUTPUT_RD[0])

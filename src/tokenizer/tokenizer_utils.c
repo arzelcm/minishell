@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:29 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 01:05:31 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:13:47 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_raw_word_len(char *str, int i)
 	int	start_i;
 
 	start_i = i;
-	while (str[i] != '\0' && !ft_stroccurrences("| \t<>", str[i]))
+	while (str[i] != '\0' && !ft_stroccurrences("| \t<>()&", str[i]))
 	{
 		if (!avoid_quotes(str, &i))
 			i++;

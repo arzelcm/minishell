@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:09:15 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 12:54:41 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:30:06 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int		set_parent(char *line, int *i, t_token **parent, t_token **current);
 
-void	create_parent(t_token **current, t_token *new_parent, t_token **parent);
+void	create_parent(t_token **current, t_token *new_parent,
+			t_token **parent, int new_cmd);
 
 #endif
