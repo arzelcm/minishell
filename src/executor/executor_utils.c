@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:17:57 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "safe_utils.h"
 #include "utils.h"
 #include "pdata_helpers.h"
+#include "executor.h"
+#include "builtins.h"
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
@@ -66,4 +68,14 @@ void	clean_exit(t_pdata *pdata)
 {
 	close_pdata_fds(pdata);
 	exit(EXIT_FAILURE);
+}
+
+void	execute_token(t_pdata *p_data, t_token *token, t_context *context)
+{
+	if (token->type == CMD && token->argc && is_builtin(token->args[0]))
+		execute_cmd_builtin(p_data, token, context);
+	else if (token->type == CMD || token->type == PIPE)
+		execute_pipe(p_data, token, context);
+	else if (token->type == LIST)
+		execute_and_or(p_data, token, context);
 }
