@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_utils.h                                   :+:      :+:    :+:   */
+/*   here_docs_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/29 21:57:03 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/14 20:17:22 by cfidalgo         ###   ########.fr       */
+/*   Created: 2024/07/12 18:31:55 by cfidalgo          #+#    #+#             */
+/*   Updated: 2024/07/14 20:14:22 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_UTILS_H
-# define EXECUTOR_UTILS_H
+#ifndef HERE_DOCS_UTILS_H
+# define HERE_DOCS_UTILS_H
 
-# include "pdata_helpers.h"
-# include <stdlib.h>
+# include "token.h"
 
-int		wait_child_processes(pid_t last_pid, int cmds_amount);
+void	initialize_heredocs(t_token *token);
 
-void	close_pipe(int fds[2]);
-
-void	redirect_fds(int read_fd, int write_fd);
-
-void	clean_exit(t_token *token, t_pdata *pdata);
-
-void	execute_token(t_pdata *p_data, t_token *token, t_context *context);
+void	close_here_docs(t_token *token);
 
 #endif

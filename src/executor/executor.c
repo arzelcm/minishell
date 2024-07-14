@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 17:28:01 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/14 20:48:09 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "builtins.h"
 #include "signals.h"
 #include "token.h"
+#include "here_docs_utils.h"
 #include <signal.h>
 #include <errno.h>
 
@@ -49,7 +50,7 @@ void	execute_subshell(t_pdata *pdata, t_token *token, t_context *context)
 		expand_args(curr_token, context);
 		execute_token(NULL, curr_token, context);
 		close_pdata_fds(pdata);
-		// close_here_docs();
+		close_here_docs(token);
 		exit(context->err_code);
 	}
 	context->err_code = wait_child_processes(pid, 1);
@@ -66,7 +67,7 @@ void	execute_pipe_temp(t_pdata *pdata, t_token *token, t_context *context)
 	else if (token->type == SUBSHELL)
 	{
 		execute_subshell(pdata, token, context);
-		// close_here_docs();
+		close_here_docs(token);
 		exit(context->err_code);
 	}
 }
@@ -131,21 +132,21 @@ void	execute_list(t_token *token, t_context *context)
 	expand_args(curr_token, context);
 	execute_token(NULL, curr_token, context);
 }
-// TODO: close_here_docs(token) in all FORKED executes
+
 void	execute(t_token *token, t_context *context)
 {
 	listen_signals(MAIN, EXECUTOR);
 	if (!token)
 		return ;
-	if (token->tokens.amount == 0)
-		token->tokens.amount++;
+	initialize_heredocs(token);
 	if (g_sigval == SIGINT)
 	{
 		g_sigval = 0;
+		context->err_code = 1;
 		return ;
 	}
 	config_echoctl_terminal(ON);
 	expand_args(token, context);
 	execute_token(NULL, token, context);
-	//close_here_docs(token)
+	close_here_docs(token);
 }

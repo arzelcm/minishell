@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 16:37:37 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/14 20:19:07 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "signals.h"
 #include "builtins.h"
 #include "utils.h"
+#include "here_docs_utils.h"
 #include <errno.h>
 
 static char	*get_full_cmd_path(char *cmd, char **paths)
@@ -77,10 +78,10 @@ void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 {
 	listen_signals(SUBPROCESS, SUBPROCESS);
 	if (!open_files(pdata, token->redirections, token->here_docs, context))
-		clean_exit(pdata);
+		clean_exit(token, pdata);
 	redirect_fds(pdata->fds[READ_FD], pdata->fds[WRITE_FD]);
 	close_pdata_fds(pdata);
-	// close_here_docs(token);
+	close_here_docs(token);
 	expand_args(token, context);
 	if (!token->argc)
 		exit(EXIT_SUCCESS);

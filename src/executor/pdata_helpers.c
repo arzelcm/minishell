@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:04 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 17:39:12 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/14 20:15:06 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,8 @@ void	save_backup_stdfds(t_pdata *p_data)
 		syserr(EBUSY);
 }
 
-// static void	initialize_heredocs(t_pdata *p_data, t_token *curr_token)
-// {
-// 	int				i;
-// 	int				here_docs;
-// 	t_redirection	*redirections;
-
-// 	i = 0;
-// 	while (curr_token)
-// 	{
-// 		p_data->heredocs_fds[i] = -1;
-// 		redirections = curr_token->redirections;
-// 		here_docs = curr_token->here_docs;
-// 		if (here_docs)
-// 			p_data->heredocs_fds[i] = open_here_docs(redirections, here_docs);
-// 		if (g_sigval == SIGINT)
-// 			return (close_pdata_fds(p_data));
-// 		curr_token = curr_token->next;
-// 		i++;
-// 	}
-// }
 // TODO: Dont initialize the pids here and do it in the needed function
-// TODO: Safe initialization
+// TODO: Safe initialization (if p_data is null, create one, or some approach like that, to prevent doing null checks)
 void	initialize_pdata(t_pdata *p_data, t_token *token)
 {
 	ft_bzero(p_data, sizeof(t_pdata));
@@ -92,9 +72,4 @@ void	initialize_pdata(t_pdata *p_data, t_token *token)
 	p_data->std_fds[READ_FD] = -1;
 	p_data->std_fds[WRITE_FD] = -1;
 	p_data->pids = safe_calloc((token->tokens.amount + 1) * sizeof(pid_t));
-	// if (token->tokens.amount > 1)
-	// 	curr_token = token->tokens.token;
-	// initialize_heredocs(p_data, curr_token);
-	// if (g_sigval == SIGINT)
-	// 	context->err_code = 1;
 }

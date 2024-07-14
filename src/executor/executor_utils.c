@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:54 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 19:54:15 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/14 20:20:03 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "pdata_helpers.h"
 #include "executor.h"
 #include "builtins.h"
+#include "here_docs_utils.h"
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
@@ -64,9 +65,9 @@ void	redirect_fds(int read_fd, int write_fd)
 		syserr(EBUSY);
 }
 
-void	clean_exit(t_pdata *pdata)
+void	clean_exit(t_token *token, t_pdata *pdata)
 {
-	//close_here_docs();
+	close_here_docs(token);
 	close_pdata_fds(pdata);
 	exit(EXIT_FAILURE);
 }
