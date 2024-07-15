@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 21:06:05 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:03:35 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
 int			ft_toupper(int c);
 
 int			ft_tolower(int c);
+
+char		*ft_strtolower(char *c);
 
 char		*ft_strchr(const char *s, int c);
 
@@ -145,6 +147,8 @@ int			ft_normalize(int value, int min, int max);
 long		ft_closest_multiple(long n, long x);
 
 void		ft_matrix_sort(char **matrix);
+
+void		ft_matrix_sort_lc(char **matrix);
 
 char		*safe_ft_ltoa(long n);
 

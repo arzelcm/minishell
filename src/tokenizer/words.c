@@ -6,11 +6,12 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 16:30:52 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:04:00 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minishell.h"
 #include "words.h"
 #include "context.h"
 #include "expansor.h"
@@ -19,6 +20,9 @@
 #include "errno.h"
 #include "tokenizer.h"
 #include "tokenizer_utils.h"
+#include "wildcards_utils.h"
+#include <sys/types.h>
+#include <dirent.h>
 
 void	init_words(t_words	*words)
 {
@@ -26,6 +30,58 @@ void	init_words(t_words	*words)
 	if (!words->body)
 		syserr(ENOMEM);
 	words->count = 0;
+}
+
+int	matches_pattern(char *pattern, char *str)
+{
+	if (*str && *pattern && *pattern != '*')
+		if (compare_pattern_str(str, pattern) != EQUAL_STRINGS)
+			return (0);
+	pattern = ft_strchr(pattern, '*');
+	while (*pattern)
+	{
+		while (*pattern == '*')
+			pattern++;
+		if (!*pattern)
+			return (1);
+		while (*str && compare_pattern_str(str, pattern) != EQUAL_STRINGS)
+			str++;
+		if (!*str)
+			return (0);
+		if (*str && compare_pattern_str(str, pattern) == EQUAL_STRINGS)
+			str += ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*'));
+		pattern = ft_strchr(pattern, '*');
+		if (!pattern && *str)
+			return (0);
+		else if (!pattern && !*str)
+			return (1);
+	}
+	return (*pattern == '\0');
+}
+
+void	push_wildcard_results(char *word, t_words *words)
+{
+	DIR				*dir_stream;
+	struct dirent	*dir_results;
+	int				old_word_count;
+
+	old_word_count = words->count;
+	dir_stream = opendir(".");
+	if (!dir_stream)
+		syserr(EBADF);
+	dir_results = readdir(dir_stream);
+	while (dir_results != NULL)
+	{
+		if (*dir_results->d_name != '.'
+			&& matches_pattern(word, dir_results->d_name))
+			push_arg(&words->body, ft_strdup(dir_results->d_name),
+				&words->count);
+		dir_results = readdir(dir_stream);
+	}
+	if (old_word_count == words->count)
+		push_arg(&words->body, ft_strdup(word), &words->count);
+	ft_matrix_sort_lc(words->body + old_word_count);
+	closedir(dir_stream);
 }
 
 void	push_word(int *new_word, char *word,
@@ -70,12 +126,15 @@ void	set_words(t_words *words, char **src, t_context *context)
 		while (src[i][j])
 		{
 			word = get_word(src[i], &j, context, &expansion);
-			if (expansion.expanded && !expansion.quoted && !*word)
+			if (!*word && expansion.expanded && !expansion.quoted)
 			{
 				free(word);
 				continue ;
 			}
-			push_word(&new_word, word, &expansion, words);
+			else if (!expansion.quoted && ft_stroccurrences(word, '*'))
+				push_wildcard_results(word, words);
+			else
+				push_word(&new_word, word, &expansion, words);
 			free(word);
 		}
 		i++;
