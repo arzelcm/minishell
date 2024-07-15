@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:00:08 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 14:57:06 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:06:05 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,7 @@ char		*safe_ft_strtrim(char const *s1, char const *set, void (*f)(int));
 char		**safe_ft_split_set(char const *s, char const *set, void (*f)(int));
 
 char		**safe_ft_split(char const *s, char c, void (*f)(int));
+
+char		*ft_override_val(char *old, char *new);
 
 #endif
