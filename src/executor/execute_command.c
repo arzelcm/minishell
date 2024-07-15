@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:52 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/14 20:19:07 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:44:20 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	execute_by_path(char **args, char **envp)
 	execve(bin, args, envp);
 	exit(EXIT_FAILURE);
 }
-// TODO: CHANGE INITIALIZE_PDATA ITSELF AND CLOSE_HERE_DOCS
+
 void	execute_command(t_pdata *pdata, t_token *token, t_context *context)
 {
 	listen_signals(SUBPROCESS, SUBPROCESS);

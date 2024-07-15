@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:57:34 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 15:59:56 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:52:15 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void	close_pdata_fds(t_pdata *pdata);
 void	save_backup_stdfds(t_pdata *p_data);
 
 void	initialize_pdata(t_pdata *p_data);
+
+void	set_pdata(t_pdata *new_pdata, t_pdata **pdata);
 
 #endif

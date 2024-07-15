@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 16:05:26 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:13:23 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "signals.h"
 #include "token.h"
 #include "here_docs_utils.h"
+#include "execute_forked.h"
 #include <signal.h>
 #include <errno.h>
 
@@ -30,11 +31,7 @@ void	execute_subshell(t_pdata *pdata, t_token *token, t_context *context)
 	pid_t	pid;
 
 	ft_bzero(&new_pdata, sizeof(t_pdata*));
-	if (!pdata)
-	{
-		initialize_pdata(&new_pdata);
-		pdata = &new_pdata;
-	}
+	set_pdata(&new_pdata, &pdata);
 	save_backup_stdfds(pdata);
 	if (!open_files(pdata, token->redirections, token->here_docs, context))
 	{
@@ -46,28 +43,10 @@ void	execute_subshell(t_pdata *pdata, t_token *token, t_context *context)
 	curr_token = token->tokens.token;
 	pid = fork();
 	if (pid == 0)
-	{
-		expand_args(curr_token, context);
-		execute_token(NULL, curr_token, context);
-		close_pdata_fds(pdata);
-		close_here_docs(token);
-		exit(context->err_code);
-	}
+		execute_forked_subshell(curr_token, token, pdata, context);
 	context->err_code = wait_child_processes(pid, 1);
 	redirect_fds(pdata->std_fds[READ_FD], pdata->std_fds[WRITE_FD]);
 	close_pdata_fds(pdata);
-}
-
-void	execute_pipe_temp(t_pdata *pdata, t_token *token, t_context *context)
-{
-	if (token->type == CMD)
-		execute_command(pdata, token, context);
-	else if (token->type == SUBSHELL)
-	{
-		execute_subshell(pdata, token, context);
-		close_here_docs(token);
-		exit(context->err_code);
-	}
 }
 
 void	execute_pipe(t_token *token, t_context *context)
@@ -76,10 +55,8 @@ void	execute_pipe(t_token *token, t_context *context)
 	t_pdata	pdata;
 	pid_t	*pids;
 	int		i;
-	int		last;
 
 	i = 0;
-	last = token->tokens.amount - 1;
 	curr_token = token->tokens.token;
 	pids = safe_calloc((token->tokens.amount + 1) * sizeof(pid_t));
 	initialize_pdata(&pdata);
@@ -92,13 +69,12 @@ void	execute_pipe(t_token *token, t_context *context)
 		if (pids[i] == -1)
 			syserr(EAGAIN);
 		else if (pids[i] == 0)
-			execute_pipe_temp(&pdata, curr_token, context);
+			execute_forked_pipe(pids, &pdata, curr_token, context);
 		close_pipe(pdata.fds);
 		curr_token = curr_token->next;
 		i++;
 	}
-	context->err_code = wait_child_processes(pids[last], token->tokens.amount);
-	free(pids);
+	clean_pipe(pids, token, context);
 }
 
 void	execute_cmd(t_token *token, t_context *context)

@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:04 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 15:59:43 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:16:26 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	save_backup_stdfds(t_pdata *p_data)
 		syserr(EBUSY);
 }
 
-// TODO: Safe initialization (if p_data is null, create one, or some approach like that, to prevent doing null checks)
 void	initialize_pdata(t_pdata *p_data)
 {
 	ft_bzero(p_data, sizeof(t_pdata));
@@ -70,4 +69,13 @@ void	initialize_pdata(t_pdata *p_data)
 	p_data->pipe_fds[WRITE_FD] = -1;
 	p_data->std_fds[READ_FD] = -1;
 	p_data->std_fds[WRITE_FD] = -1;
+}
+
+void	set_pdata(t_pdata *new_pdata, t_pdata **pdata)
+{
+	if (!*pdata)
+	{
+		initialize_pdata(new_pdata);
+		*pdata = new_pdata;
+	}
 }

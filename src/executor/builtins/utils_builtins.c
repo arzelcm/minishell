@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:46 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 16:00:51 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:04:53 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,7 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 	t_pdata	new_pdata;
 
 	ft_bzero(&new_pdata, sizeof(t_pdata*));
-	if (!pdata)
-	{
-		initialize_pdata(&new_pdata);
-		pdata = &new_pdata;
-	}
+	set_pdata(&new_pdata, &pdata);
 	listen_signals(SUBPROCESS, SUBPROCESS);
 	save_backup_stdfds(pdata);
 	if (!open_files(pdata, token->redirections, token->here_docs, context))
