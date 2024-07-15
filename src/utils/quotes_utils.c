@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:34 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:04:32 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:31:47 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int	avoid_quotes(char *str, int *i)
 	else
 		return (0);
 	(*i)++;
-	while (str[*i] != quote)
+	while (str[*i] && str[*i] != quote)
 		(*i)++;
-	(*i)++;
+	if (str[*i])
+		(*i)++;
 	return (1);
 }
 
