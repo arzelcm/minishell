@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:24 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/11 15:12:32 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:52:58 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_token	*new_token(t_token_type type)
 	token = safe_calloc(sizeof(t_token));
 	token->type = type;
 	token->tokens.amount = 1;
+	token->here_doc_fd = -1;
 	return (token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:01:40 by cfidalgo          #+#    #+#             */
-/*   Updated: 2024/07/14 20:51:14 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:35:22 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,6 @@ void	close_here_docs(t_token *token)
 	recursive_close(absolute_parent);
 }
 
-static void	set_fd_default_value(t_token *token)
-{
-	t_token	*curr_token;
-
-	if (token->tokens.token && token->tokens.token)
-		set_fd_default_value(token->tokens.token);
-	if (token->tokens.token)
-		curr_token = token->tokens.token->next;
-	while (token->tokens.token && curr_token)
-	{
-		set_fd_default_value(curr_token);
-		curr_token = curr_token->next;
-	}
-	token->here_doc_fd = -1;
-}
-
 static void	recursive_open(t_token *token)
 {
 	t_token	*curr_token;
@@ -79,7 +63,6 @@ static void	recursive_open(t_token *token)
 
 void	initialize_heredocs(t_token *token)
 {
-	set_fd_default_value(token);
 	recursive_open(token);
 	if (g_sigval == SIGINT)
 		close_here_docs(token);
