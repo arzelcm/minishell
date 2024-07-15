@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:46 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/12 17:38:02 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:00:51 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 	ft_bzero(&new_pdata, sizeof(t_pdata*));
 	if (!pdata)
 	{
-		initialize_pdata(&new_pdata, token);
+		initialize_pdata(&new_pdata);
 		pdata = &new_pdata;
 	}
 	listen_signals(SUBPROCESS, SUBPROCESS);
@@ -71,8 +71,6 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 	context->err_code = execute_builtin(token->args[0], token, context);
 	redirect_fds(pdata->std_fds[READ_FD], pdata->std_fds[WRITE_FD]);
 	close_pdata_fds(pdata);
-	if (new_pdata.pids)
-		free(pdata->pids);
 }
 
 int	check_invalid_chars(char *identifier)

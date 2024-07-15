@@ -6,7 +6,7 @@
 /*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:04 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/14 20:15:06 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:59:43 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ void	save_backup_stdfds(t_pdata *p_data)
 		syserr(EBUSY);
 }
 
-// TODO: Dont initialize the pids here and do it in the needed function
 // TODO: Safe initialization (if p_data is null, create one, or some approach like that, to prevent doing null checks)
-void	initialize_pdata(t_pdata *p_data, t_token *token)
+void	initialize_pdata(t_pdata *p_data)
 {
 	ft_bzero(p_data, sizeof(t_pdata));
 	p_data->last_pipe = -1;
@@ -71,5 +70,4 @@ void	initialize_pdata(t_pdata *p_data, t_token *token)
 	p_data->pipe_fds[WRITE_FD] = -1;
 	p_data->std_fds[READ_FD] = -1;
 	p_data->std_fds[WRITE_FD] = -1;
-	p_data->pids = safe_calloc((token->tokens.amount + 1) * sizeof(pid_t));
 }
