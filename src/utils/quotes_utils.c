@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:34 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/09 23:26:16 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:31:30 by cfidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ int	avoid_quotes(char *str, int *i)
 	else
 		return (0);
 	(*i)++;
-	while (str[*i] != quote)
+	while (str[*i] && str[*i] != quote)
 		(*i)++;
-	(*i)++;
+	if (str[*i])
+		(*i)++;
 	return (1);
 }
 
