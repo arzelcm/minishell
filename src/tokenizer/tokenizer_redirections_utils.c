@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:09:14 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/16 19:18:42 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:21:57 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	set_redirection_path(t_redirection *red, t_words *words,
 	}
 	else
 	{
-		word = ft_strdup(words->body[0]);
+		word = safe_ft_strdup(words->body[0], syserr);
 		free_matrix(words->body);
 	}
 	free(red->path);

@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/16 19:07:31 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:22:25 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void	push_wildcard_results(char *word, t_words *words)
 	{
 		if (*dir_results->d_name != '.'
 			&& matches_pattern(word, dir_results->d_name))
-			push_arg(&words->body, ft_strdup(dir_results->d_name),
+			push_arg(&words->body, safe_ft_strdup(dir_results->d_name, syserr),
 				&words->count);
 		dir_results = readdir(dir_stream);
 	}
 	if (old_word_count == words->count)
-		push_arg(&words->body, ft_strdup(word), &words->count);
+		push_arg(&words->body, safe_ft_strdup(word, syserr), &words->count);
 	ft_matrix_sort_lc(words->body + old_word_count);
 	closedir(dir_stream);
 }
