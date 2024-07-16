@@ -13,7 +13,7 @@ CYAN = \033[1;36m
 
 #----COMPILER----#
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -O3 -g -fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -O3 #-g -fsanitize=address
 
 #----OS COMPATIBILITY----#
 ifeq ($(OS),Windows_NT)
@@ -71,12 +71,7 @@ LIBS += -lreadline -lhistory -ltermcap
 INCLUDES += -Ilib -I$(READLINE_DIR)
 
 #----SHARED----#
-SRCS =
-OBJS = $(SRCS:%.c=$(BIN_DIR)%.o)
-DEPS = $(OBJS:%.o=%.d)
-
-#----MANDATORY----#
-MSRCS = minishell.c \
+SRCS =minishell.c \
 		lexer.c \
 		lexer_utils.c \
 		lexer_subshell_utils.c \
@@ -114,20 +109,14 @@ MSRCS = minishell.c \
 		here_docs_utils.c \
 		execute_forked.c \
 		wildcards_utils.c
-MOBJS = $(MSRCS:%.c=$(BIN_DIR)%.o)
-MDEPS = $(MOBJS:%.o=%.d)
-
-#----BONUS----#
-BSRCS =
-BDIR =	src/bonus
-BOBJS = $(BSRCS:%.c=$(BIN_DIR)%.o)
-BDEPS = $(BOBJS:%.o=%.d)
+OBJS = $(SRCS:%.c=$(BIN_DIR)%.o)
+DEPS = $(OBJS:%.o=%.d)
 
 #----MACROS----#
 export GNL_BUFFER_SIZE := 50000
 
 #----VPATH----#
-vpath %.c $(SRCS_DIR):$(MDIR):$(BDIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor:src/executor/builtins:src/environment
+vpath %.c $(SRCS_DIR):src/utils:src/expansor:src/lexer:src/tokenizer:src/executor:src/executor/builtins:src/environment
 
 #----LOG----#
 LOG = log
@@ -157,17 +146,11 @@ all:
 	@$(MAKE) --no-print-directory make_libft
 	@$(MAKE) --no-print-directory $(NAME)
 
-ifndef BONUS
-$(NAME): $(READLINE_LIB) $(LIBFT_LIB) $(OBJS) $(MOBJS)
+
+$(NAME): $(READLINE_LIB) $(LIBFT_LIB) $(OBJS)
 	@printf "$(BLUE)Linking objects and creating program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(DEFINES) $(OBJS) $(MOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
+	$(CC) $(CCFLAGS) $(DEFINES) $(OBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)[✓] $(PINK)$(NAME)$(GREEN) created!!!$(DEF_COLOR)"
-else
-$(NAME): $(LIBFT_LIB) $(OBJS) $(BOBJS)
-	@printf "$(BLUE)Linking objects and creating bonus program...$(DEF_COLOR)\n"
-	$(CC) $(CCFLAGS) $(DEFINES) $(OBJS) $(BOBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
-	@echo "$(GREEN)[✓] $(PINK)$(NAME) Bonus$(GREEN) created!!!$(DEF_COLOR)"
-endif
 
 $(BIN_DIR)%.o: %.c Makefile
 	@printf "$(CYAN)Compiling: $(PINK)$(notdir $<)...$(DEF_COLOR)\n"
@@ -185,7 +168,7 @@ fclean: libft_fclean readline_clean clean
 re: fclean all
 
 bonus:
-	@$(MAKE) --no-print-directory BONUS=1
+	$(MAKE) --no-print-directory all
 
 b: bonus
 

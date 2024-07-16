@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/16 14:00:24 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:51:15 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	matches_pattern(char *pattern, char *str)
 	c = *(ft_strrchr(pattern, '*') + 1);
 	if (*str && *pattern && c != '\0')
 		if (!ft_strrchr(str, c)
-			|| ft_strcmp(ft_strrchr(str, c), 
+			|| ft_strcmp(ft_strrchr(str, c),
 				ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)
 			return (0);
 	if (*pattern != '*' && (compare_pattern_str(str, pattern) == EQUAL_STRINGS
-		&& (!ft_strrchr(str + 1, c) || ft_strcmp(ft_strrchr(str + 1, c), 
-				ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)))
+			&& (!ft_strrchr(str + 1, c) || ft_strcmp(ft_strrchr(str + 1, c),
+					ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)))
 		return (0);
 	pattern = ft_strchr(pattern, '*');
 	while (pattern && *pattern && (pattern != ft_strrchr(pattern, '*')))
