@@ -112,7 +112,11 @@ char	*expand_redirect(t_redirection *red, t_context *context)
 		return (NULL);
 	}
 	else
-		word = words.body[0];
+	{
+		word = ft_strdup(words.body[0]);
+		free_matrix(words.body);
+	}
+	free(red->path);
 	red->path = word;
 	return (red->path);
 }
