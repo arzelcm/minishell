@@ -40,32 +40,27 @@ int	matches_pattern(char *pattern, char *str)
 		if (compare_pattern_str(str, pattern) != EQUAL_STRINGS)
 			return (0);
 	c = *(ft_strrchr(pattern, '*') + 1);
-	ft_printf("%c, %s, %s\n", c, ft_strrchr(pattern, '*') + 1);
 	if (*str && *pattern && c != '\0')
 		if (!ft_strrchr(str, c)
-			|| compare_pattern_str(ft_strrchr(str, c), ft_strrchr(pattern, '*') + 1))
+			|| ft_strcmp(ft_strrchr(str, c), 
+				ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)
 			return (0);
+	if (*pattern != '*' && (compare_pattern_str(str, pattern) == EQUAL_STRINGS
+		&& (!ft_strrchr(str + 1, c) || ft_strcmp(ft_strrchr(str + 1, c), 
+				ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)))
+		return (0);
 	pattern = ft_strchr(pattern, '*');
-	while (pattern && *pattern)
+	while (pattern && *pattern && (pattern != ft_strrchr(pattern, '*')))
 	{
 		while (*pattern == '*')
 			pattern++;
-		if (!*pattern)
-			return (1);
 		while (*str && compare_pattern_str(str, pattern) != EQUAL_STRINGS)
 			str++;
 		if (!*str)
 			return (0);
-		if (*str && compare_pattern_str(str, pattern) == EQUAL_STRINGS)
-			str += ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*'));
-		if (!ft_strchr(pattern, '*') && *str && !ft_strchr(str, *pattern))
-			return (0);
-		else if (!pattern && !*str)
-			return (1);
-		if (*(str - (ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*')))) && compare_pattern_str((str - (ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*')))), pattern) == EQUAL_STRINGS)
-			pattern = ft_strchr(pattern, '*');
+		pattern = ft_strchr(pattern, '*');
 	}
-	return (!pattern || *pattern == '\0');
+	return (1);
 }
 
 void	push_wildcard_results(char *word, t_words *words)
