@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 16:58:09 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 23:22:11 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:12:05 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,11 @@ void	ft_matrix_sort_lc(char **matrix)
 	while (matrix[i])
 	{
 		compare[0] = ft_strtolower(matrix[i]);
-		ft_printf("compare0: %s\n", compare[0]);
-		j = i + 1;
+		j = 0;
 		while (matrix[j])
 		{
 			compare[1] = ft_strtolower(matrix[j]);
-			ft_printf("compare1: %s\n\n", compare[1]);
-			if (ft_strcmp(compare[0], compare[1]) > 0)
+			if (ft_strcmp(compare[0], compare[1]) < 0)
 			{
 				aux = matrix[j];
 				matrix[j] = matrix[i];
