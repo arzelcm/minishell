@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_forked.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:53:54 by cfidalgo          #+#    #+#             */
-/*   Updated: 2024/07/15 18:16:46 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:29:53 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	clean_pipe(pid_t *pids, t_token *token, t_context *context)
 	int	last_cmd_idx;
 
 	last_cmd_idx = token->tokens.amount - 1;
-	context->err_code = wait_child_processes(pids[last_cmd_idx], token->tokens.amount);
+	context->err_code = wait_child_processes(pids[last_cmd_idx],
+			token->tokens.amount);
 	free(pids);
 }

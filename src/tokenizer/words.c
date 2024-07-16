@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 23:04:00 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:28:42 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,9 @@ void	set_words(t_words *words, char **src, t_context *context)
 		while (src[i][j])
 		{
 			word = get_word(src[i], &j, context, &expansion);
-			if (!*word && expansion.expanded && !expansion.quoted)
-			{
-				free(word);
-				continue ;
-			}
-			else if (!expansion.quoted && ft_stroccurrences(word, '*'))
+			if (*word && !expansion.quoted && ft_stroccurrences(word, '*'))
 				push_wildcard_results(word, words);
-			else
+			else if (*word || !expansion.expanded || expansion.quoted)
 				push_word(&new_word, word, &expansion, words);
 			free(word);
 		}

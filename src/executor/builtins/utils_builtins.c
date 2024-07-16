@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:46 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 18:04:53 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:29:04 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	execute_cmd_builtin(t_pdata *pdata, t_token *token, t_context *context)
 {
 	t_pdata	new_pdata;
 
-	ft_bzero(&new_pdata, sizeof(t_pdata*));
+	ft_bzero(&new_pdata, sizeof(t_pdata *));
 	set_pdata(&new_pdata, &pdata);
 	listen_signals(SUBPROCESS, SUBPROCESS);
 	save_backup_stdfds(pdata);

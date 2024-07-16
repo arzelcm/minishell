@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfidalgo <cfidalgo@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:58:56 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/15 18:13:23 by cfidalgo         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:29:15 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_subshell(t_pdata *pdata, t_token *token, t_context *context)
 	t_pdata	new_pdata;
 	pid_t	pid;
 
-	ft_bzero(&new_pdata, sizeof(t_pdata*));
+	ft_bzero(&new_pdata, sizeof(t_pdata *));
 	set_pdata(&new_pdata, &pdata);
 	save_backup_stdfds(pdata);
 	if (!open_files(pdata, token->redirections, token->here_docs, context))
