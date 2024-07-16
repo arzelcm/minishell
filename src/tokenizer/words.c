@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/16 12:28:42 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:00:24 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,19 @@ void	init_words(t_words	*words)
 
 int	matches_pattern(char *pattern, char *str)
 {
+	char	c;
+
 	if (*str && *pattern && *pattern != '*')
 		if (compare_pattern_str(str, pattern) != EQUAL_STRINGS)
 			return (0);
+	c = *(ft_strrchr(pattern, '*') + 1);
+	ft_printf("%c, %s, %s\n", c, ft_strrchr(pattern, '*') + 1);
+	if (*str && *pattern && c != '\0')
+		if (!ft_strrchr(str, c)
+			|| compare_pattern_str(ft_strrchr(str, c), ft_strrchr(pattern, '*') + 1))
+			return (0);
 	pattern = ft_strchr(pattern, '*');
-	while (*pattern)
+	while (pattern && *pattern)
 	{
 		while (*pattern == '*')
 			pattern++;
@@ -50,13 +58,14 @@ int	matches_pattern(char *pattern, char *str)
 			return (0);
 		if (*str && compare_pattern_str(str, pattern) == EQUAL_STRINGS)
 			str += ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*'));
-		pattern = ft_strchr(pattern, '*');
-		if (!pattern && *str)
+		if (!ft_strchr(pattern, '*') && *str && !ft_strchr(str, *pattern))
 			return (0);
 		else if (!pattern && !*str)
 			return (1);
+		if (*(str - (ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*')))) && compare_pattern_str((str - (ft_strlen(pattern) - ft_strlen(ft_strchr(pattern, '*')))), pattern) == EQUAL_STRINGS)
+			pattern = ft_strchr(pattern, '*');
 	}
-	return (*pattern == '\0');
+	return (!pattern || *pattern == '\0');
 }
 
 void	push_wildcard_results(char *word, t_words *words)
