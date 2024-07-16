@@ -108,7 +108,8 @@ SRCS =minishell.c \
 		family_helper.c \
 		here_docs_utils.c \
 		execute_forked.c \
-		wildcards_utils.c
+		wildcards_utils.c \
+		tokenizer_redirections_utils.c
 OBJS = $(SRCS:%.c=$(BIN_DIR)%.o)
 DEPS = $(OBJS:%.o=%.d)
 

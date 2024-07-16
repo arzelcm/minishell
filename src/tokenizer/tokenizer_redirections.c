@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 21:59:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/10 00:09:25 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:18:21 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "token.h"
 #include "tokenizer.h"
 #include "tokenizer_utils.h"
+#include "tokenizer_redirections.h"
 #include "safe_utils.h"
 #include "words.h"
 #include <stdlib.h>
@@ -92,7 +93,6 @@ char	*expand_redirect(t_redirection *red, t_context *context)
 {
 	t_words		words;
 	t_words		src;
-	char		*word;
 	int			i;
 
 	init_words(&words);
@@ -102,21 +102,7 @@ char	*expand_redirect(t_redirection *red, t_context *context)
 	push_arg(&src.body, safe_ft_strdup(red->path + i, syserr), &src.count);
 	set_words(&words, src.body, context);
 	free_matrix(src.body);
-	if (red->mode == HERE_DOC)
-		word = get_raw_word(red->path, &i);
-	else if (words.count != 1)
-	{
-		handle_error(red->path, "ambiguous redirect");
-		context->err_code = EXIT_FAILURE;
-		free_matrix(words.body);
+	if (!set_redirection_path(red, &words, context, &i))
 		return (NULL);
-	}
-	else
-	{
-		word = ft_strdup(words.body[0]);
-		free_matrix(words.body);
-	}
-	free(red->path);
-	red->path = word;
 	return (red->path);
 }

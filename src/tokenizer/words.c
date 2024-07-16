@@ -6,7 +6,7 @@
 /*   By: arcanava <arcanava@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:50:27 by arcanava          #+#    #+#             */
-/*   Updated: 2024/07/16 16:51:15 by arcanava         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:07:31 by arcanava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,7 @@ void	init_words(t_words	*words)
 
 int	matches_pattern(char *pattern, char *str)
 {
-	char	c;
-
-	if (*str && *pattern && *pattern != '*')
-		if (compare_pattern_str(str, pattern) != EQUAL_STRINGS)
-			return (0);
-	c = *(ft_strrchr(pattern, '*') + 1);
-	if (*str && *pattern && c != '\0')
-		if (!ft_strrchr(str, c)
-			|| ft_strcmp(ft_strrchr(str, c),
-				ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)
-			return (0);
-	if (*pattern != '*' && (compare_pattern_str(str, pattern) == EQUAL_STRINGS
-			&& (!ft_strrchr(str + 1, c) || ft_strcmp(ft_strrchr(str + 1, c),
-					ft_strrchr(pattern, '*') + 1) != EQUAL_STRINGS)))
+	if (!check_corner_cases(pattern, str))
 		return (0);
 	pattern = ft_strchr(pattern, '*');
 	while (pattern && *pattern && (pattern != ft_strrchr(pattern, '*')))
